@@ -33,6 +33,7 @@ namespace SMOSK_2._0
             // Global Database variables
             public static XmlDocument ClassicDB = new XmlDocument();
             public static XmlDocument RetailDB = new XmlDocument();
+            public static XmlDocument Settings = new XmlDocument();
 
         }
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -75,14 +76,28 @@ namespace SMOSK_2._0
                 ClassicItem.SubItems.Add(Node["LatestVersion"].InnerText);
                 ClassicItem.SubItems.Add(Node["Description"].InnerText);
 
-                ClassicListView.Items.Add(ClassicItem);
+                if (Node["CurrentVersion"].InnerText == Node["LatestVersion"].InnerText)
+                {
+                    ClassicListView.Items.Add(ClassicItem);
+                }
+                else
+                {
+                    ClassicListView.Items.Insert(0,ClassicItem);
+                    ClassicItem.BackColor = System.Drawing.Color.Orange;
+                }
+
+                
             }
 
             ClassicListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
+
+            
+
+
+    }
         private void RefreshRetail(object sender, EventArgs e)
         {
             DetailsBox.Clear();
@@ -90,6 +105,8 @@ namespace SMOSK_2._0
             
 
             XmlNodeList RetailAddons = Globals.RetailDB.GetElementsByTagName("Addon");
+
+            
 
             RetailListView.Clear();
 
@@ -112,7 +129,15 @@ namespace SMOSK_2._0
                 RetailItem.SubItems.Add(Node["LatestVersion"].InnerText);
                 RetailItem.SubItems.Add(Node["Description"].InnerText);
 
-                RetailListView.Items.Add(RetailItem);
+                if (Node["CurrentVersion"].InnerText == Node["LatestVersion"].InnerText)
+                {
+                    RetailListView.Items.Add(RetailItem);
+                }
+                else
+                {
+                    RetailListView.Items.Insert(0, RetailItem);
+                    RetailItem.BackColor = System.Drawing.Color.Orange;
+                }
             }
 
             RetailListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -124,9 +149,16 @@ namespace SMOSK_2._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Globals.ClassicDB.Load(@"..\..\Data\Save.xml");
-            Globals.RetailDB.Load(@"..\..\Data\Save_Retail.xml");
+            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
+            Globals.Settings.Load(@"..\..\Data\Settings.xml");
+
+            Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
+            Label_GamePath.Width = 150;
+
             RefreshClassic(null, null);
+
+
         }
 
 
@@ -231,12 +263,12 @@ namespace SMOSK_2._0
             }
             if (isClassic)
             {
-                Globals.ClassicDB.Save(@"..\..\Data\Save.xml");
+                Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
                 RefreshClassic(null, null);
             }
             else
             {
-                Globals.RetailDB.Save(@"..\..\Data\Save_Retail.xml");
+                Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
                 RefreshRetail(null, null);
             }
                 
@@ -281,6 +313,22 @@ namespace SMOSK_2._0
                 throw ex;
             }
 
+        }
+
+        private void Button_BrowsPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            folderDlg.ShowNewFolderButton = true;
+            // Show the FolderBrowserDialog.  
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Label_GamePath.Text = folderDlg.SelectedPath;
+                Environment.SpecialFolder root = folderDlg.RootFolder;
+
+                Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText = folderDlg.SelectedPath;
+                Globals.Settings.Save(@"..\..\Data\Settings.xml");
+            }
         }
     }
 }

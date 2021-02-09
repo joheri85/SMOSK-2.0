@@ -1,19 +1,5 @@
 <?xml version="1.0"?>
 <config>
-  <Version>2.8.0</Version>
-  <IfaceAddonsFolder>D:\World of Warcraft\_retail_\Interface\AddOns</IfaceAddonsFolder>
-  <Splash>.\Resources\Splash.png</Splash>
-  <Wallpaper>.\Resources\Wallpaper.png</Wallpaper>
-  <TitleIcon>.\Resources\Title_Icon.ico</TitleIcon>
-  <ElvUI>
-    <CurrentVersion>v12.20</CurrentVersion>
-    <DateUpdated>2021-02-04</DateUpdated>
-    <LatestVersion>v12.20</LatestVersion>
-  </ElvUI>
-  <BuffplanningDefault>MirageRaceway</BuffplanningDefault>
-  <HighlightFont>Georgia</HighlightFont>
-  <DetailFont>Arial</DetailFont>
-  <BuffsMaximized>+</BuffsMaximized>
   <Addon>
     <ID>2134</ID>
     <Name>AtlasLoot Enhanced</Name>
@@ -296,7 +282,7 @@
     <DownloadLink>https://edge.forgecdn.net/files/3194/422/RaiderIO-v202102060600.zip</DownloadLink>
     <Description>This companion addon for Raider.IO shows Mythic Plus scores and Raid Progress when hovering over players.</Description>
     <CurrentVersion>v202102060600</CurrentVersion>
-    <LatestVersion>v202102082225</LatestVersion>
+    <LatestVersion>v202102090600</LatestVersion>
     <Modules>RaiderIO_DB_EU_A,RaiderIO_DB_EU_A_R,RaiderIO_DB_EU_H,RaiderIO_DB_EU_H_R,RaiderIO_DB_KR_A,RaiderIO_DB_KR_A_R,RaiderIO_DB_KR_H,RaiderIO_DB_KR_H_R,RaiderIO_DB_TW_A,RaiderIO_DB_TW_A_R,RaiderIO_DB_TW_H,RaiderIO_DB_TW_H_R,RaiderIO_DB_US_A,RaiderIO_DB_US_A_R,RaiderIO_DB_US_H,RaiderIO_DB_US_H_R,RaiderIO</Modules>
     <DateUpdated>2021-02-06 18:42</DateUpdated>
     <Website>https://www.curseforge.com/wow/addons/raiderio</Website>
