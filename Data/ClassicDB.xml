@@ -260,7 +260,7 @@
     <DownloadLink>https://edge.forgecdn.net/files/3152/533/ClassicCastbars-v1.3.16-classic.zip</DownloadLink>
     <Description>Enemy castbar for Classic WoW.</Description>
     <CurrentVersion>v1.3.16-classic</CurrentVersion>
-    <LatestVersion>v1.3.19-classic</LatestVersion>
+    <LatestVersion>v1.3.20-classic</LatestVersion>
     <Modules>ClassicCastbars_Options,ClassicCastbars</Modules>
     <DateUpdated>2020-12-30 16:16</DateUpdated>
     <Website>https://www.curseforge.com/wow/addons/classiccastbars</Website>
@@ -304,7 +304,7 @@
     <DownloadLink>https://edge.forgecdn.net/files/3160/27/Leatrix_Maps-1.13.90.zip</DownloadLink>
     <Description>Enhancements for your maps.</Description>
     <CurrentVersion>1.13.90</CurrentVersion>
-    <LatestVersion>1.13.91</LatestVersion>
+    <LatestVersion>1.13.92</LatestVersion>
     <Modules>Leatrix_Maps</Modules>
     <DateUpdated>2021-01-06 13:22</DateUpdated>
     <Website>https://www.curseforge.com/wow/addons/leatrix-maps-classic</Website>

@@ -19,11 +19,11 @@ using System.Xml.XPath;
 namespace SMOSK_2._0
 {
     
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private object jsonconvert;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -34,6 +34,7 @@ namespace SMOSK_2._0
             public static XmlDocument ClassicDB = new XmlDocument();
             public static XmlDocument RetailDB = new XmlDocument();
             public static XmlDocument Settings = new XmlDocument();
+            
 
         }
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -48,11 +49,26 @@ namespace SMOSK_2._0
             }
         }
 
-       
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
+            Globals.Settings.Load(@"..\..\Data\Settings.xml");
+
+
+
+            Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
+            Label_GamePath.Width = 150;
+
+            RefreshClassic(null, null);
+
+
+        }
+
 
         private void RefreshClassic(object sender, EventArgs e)
         {
-            DetailsBox.Clear();
+            
 
             XmlNodeList ClassicAddons = Globals.ClassicDB.GetElementsByTagName("Addon");
             ClassicListView.Clear();
@@ -64,7 +80,8 @@ namespace SMOSK_2._0
             ClassicListView.Columns.Add("Latest version");
             ClassicListView.Columns.Add("Description");
 
-
+            int i = 0;
+            int ii = 0;
             foreach (XmlNode Node in ClassicAddons)
             {
                 
@@ -79,13 +96,35 @@ namespace SMOSK_2._0
                 if (Node["CurrentVersion"].InnerText == Node["LatestVersion"].InnerText)
                 {
                     ClassicListView.Items.Add(ClassicItem);
+                    if (i % 2 == 0)
+                    {
+                        ClassicItem.BackColor = System.Drawing.Color.Black;
+                        ClassicItem.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        ClassicItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        ClassicItem.ForeColor = System.Drawing.Color.Snow;
+                    }
+                    i++;
                 }
                 else
                 {
                     ClassicListView.Items.Insert(0,ClassicItem);
-                    ClassicItem.BackColor = System.Drawing.Color.Orange;
+                    if (ii % 2 == 0)
+                    {
+                        ClassicItem.BackColor = System.Drawing.Color.Orange;
+                        ClassicItem.ForeColor = System.Drawing.Color.Black;
+                    }
+                    else
+                    {
+                        ClassicItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                        ClassicItem.ForeColor = System.Drawing.Color.Black;
+                    }
+                    ii++;
                 }
-
+                
+                
                 
             }
 
@@ -100,7 +139,7 @@ namespace SMOSK_2._0
     }
         private void RefreshRetail(object sender, EventArgs e)
         {
-            DetailsBox.Clear();
+            
             
             
 
@@ -117,7 +156,8 @@ namespace SMOSK_2._0
             RetailListView.Columns.Add("Latest version");
             RetailListView.Columns.Add("Description");
 
-
+            int i = 0;
+            int ii = 0;
             foreach (XmlNode Node in RetailAddons)
             {
 
@@ -129,14 +169,36 @@ namespace SMOSK_2._0
                 RetailItem.SubItems.Add(Node["LatestVersion"].InnerText);
                 RetailItem.SubItems.Add(Node["Description"].InnerText);
 
+                
                 if (Node["CurrentVersion"].InnerText == Node["LatestVersion"].InnerText)
                 {
                     RetailListView.Items.Add(RetailItem);
+                    if (i % 2 == 0)
+                    {
+                        RetailItem.BackColor = System.Drawing.Color.Black;
+                        RetailItem.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        RetailItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        RetailItem.ForeColor = System.Drawing.Color.Snow;
+                    }
+                    i++;
                 }
                 else
                 {
                     RetailListView.Items.Insert(0, RetailItem);
-                    RetailItem.BackColor = System.Drawing.Color.Orange;
+                    if (ii % 2 == 0)
+                    {
+                        RetailItem.BackColor = System.Drawing.Color.Orange;
+                        RetailItem.ForeColor = System.Drawing.Color.Black;
+                    }
+                    else
+                    {
+                        RetailItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                        RetailItem.ForeColor = System.Drawing.Color.Black;
+                    }
+                    ii++;
                 }
             }
 
@@ -147,42 +209,10 @@ namespace SMOSK_2._0
         }
         
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
-            Globals.Settings.Load(@"..\..\Data\Settings.xml");
-
-            Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
-            Label_GamePath.Width = 150;
-
-            RefreshClassic(null, null);
 
 
-        }
 
-
-        private void ClassicListView_Click(object sender, EventArgs e)
-        {
-            String ClassicDetails = ClassicListView.SelectedItems[0].Text + @"
-" + ClassicListView.SelectedItems[0].SubItems[1].Text + @"
-" + ClassicListView.SelectedItems[0].SubItems[2].Text + @"
-" + ClassicListView.SelectedItems[0].SubItems[3].Text + @"
-" + ClassicListView.SelectedItems[0].SubItems[4].Text;
-
-            DetailsBox.Text = ClassicDetails;
-        }
-
-        private void RetailListView_Click(object sender, EventArgs e)
-        {
-            String RetailDetails = RetailListView.SelectedItems[0].Text + @"
-" + RetailListView.SelectedItems[0].SubItems[1].Text + @"
-" + RetailListView.SelectedItems[0].SubItems[2].Text + @"
-" + RetailListView.SelectedItems[0].SubItems[3].Text + @"
-" + RetailListView.SelectedItems[0].SubItems[4].Text;
-
-            DetailsBox.Text = RetailDetails;
-        }
+       
 
         private void GetAddonManifest(object sender, EventArgs e)
         {
@@ -289,11 +319,14 @@ namespace SMOSK_2._0
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 httpWebRequest.Method = "POST";
   
+               
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     streamWriter.Write(jsonArray);
                     streamWriter.Flush();
                 }
+                
+                
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
 
@@ -330,5 +363,27 @@ namespace SMOSK_2._0
                 Globals.Settings.Save(@"..\..\Data\Settings.xml");
             }
         }
+
+        private void Label_GamePath_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, Label_GamePath.DisplayRectangle, Color.White, ButtonBorderStyle.Solid);
+        }
+
+        private void Button_OpenSearch_Click(object sender, EventArgs e)
+        {
+            SearchForm AddonSearch = new SearchForm();
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                AddonSearch.Name = "Classic";
+            }
+            else
+            {
+                AddonSearch.Name = "Retail";
+            }
+            
+            AddonSearch.Show();
+        }
+
+        
     }
 }
