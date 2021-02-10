@@ -29,6 +29,7 @@ namespace SMOSK_2._0
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabClassic = new System.Windows.Forms.TabPage();
             this.ClassicListView = new System.Windows.Forms.ListView();
@@ -181,8 +182,9 @@ namespace SMOSK_2._0
             this.Controls.Add(this.Label_GamePath);
             this.Controls.Add(this.DetailsBox);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "SMOSK-C#";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabClassic.ResumeLayout(false);
