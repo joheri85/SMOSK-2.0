@@ -29,7 +29,7 @@ namespace SMOSK_2._0
             public static XmlDocument ClassicDB = new XmlDocument();
             public static XmlDocument RetailDB = new XmlDocument();
             public static XmlDocument Settings = new XmlDocument();
-            public static String GameVersion;
+            public static dynamic SearchRespons;
             
         }
 
@@ -93,7 +93,9 @@ namespace SMOSK_2._0
                             //Console.WriteLine("Headers " + responseHeaders);
                             //Console.WriteLine(responseData);
 
-                            PopulateSearchResults(responseData);
+
+                            Globals.SearchRespons = JsonConvert.DeserializeObject(responseData);
+                            PopulateSearchResults();
                         }
                     }
                 }
@@ -105,8 +107,9 @@ namespace SMOSK_2._0
 
         }
 
-        private void PopulateSearchResults(string result)
+        private void PopulateSearchResults()
         {
+            //Console.Out.WriteLine(Globals.SearchRespons);
             try
             {
                 SearchFormListView.Clear();
@@ -129,11 +132,11 @@ namespace SMOSK_2._0
 
 
 
-                dynamic json = JsonConvert.DeserializeObject(result);
+                
                 
 
                 int i = 0;
-                foreach (dynamic item in json)
+                foreach (dynamic item in Globals.SearchRespons)
                 {
 
                     dynamic correctRelease = null;
