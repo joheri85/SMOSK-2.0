@@ -32,6 +32,7 @@ namespace SMOSK_2._0
             this.SearchFormListView = new System.Windows.Forms.ListView();
             this.Search_Input = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.GameVersionSelector = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // SearchFormListView
@@ -76,12 +77,29 @@ namespace SMOSK_2._0
             this.label1.TabIndex = 2;
             this.label1.Text = "Search CuresForge for addons";
             // 
+            // GameVersionSelector
+            // 
+            this.GameVersionSelector.BackColor = System.Drawing.Color.Black;
+            this.GameVersionSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GameVersionSelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GameVersionSelector.ForeColor = System.Drawing.Color.White;
+            this.GameVersionSelector.FormattingEnabled = true;
+            this.GameVersionSelector.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.GameVersionSelector.Items.AddRange(new object[] {
+            "Classic",
+            "Retail"});
+            this.GameVersionSelector.Location = new System.Drawing.Point(667, 8);
+            this.GameVersionSelector.Name = "GameVersionSelector";
+            this.GameVersionSelector.Size = new System.Drawing.Size(121, 21);
+            this.GameVersionSelector.TabIndex = 3;
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.GameVersionSelector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Search_Input);
             this.Controls.Add(this.SearchFormListView);
@@ -98,5 +116,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.ListView SearchFormListView;
         private System.Windows.Forms.TextBox Search_Input;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox GameVersionSelector;
     }
 }

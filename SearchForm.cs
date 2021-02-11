@@ -40,7 +40,18 @@ namespace SMOSK_2._0
             Globals.Settings.Load(@"..\..\Data\Settings.xml");
 
 
+            
+            if (this.Name == "Classic")
+            {
+                this.GameVersionSelector.SelectedItem = this.GameVersionSelector.Items.IndexOf(1);
+            }
+            else
+            {
+                this.GameVersionSelector.SelectedItem = this.GameVersionSelector.Items.IndexOf(2);
+            }
+            this.GameVersionSelector.Update();
         }
+        
 
         private void Search_Input_KeyDown(object sender, KeyEventArgs e)
         {

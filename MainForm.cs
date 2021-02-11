@@ -71,6 +71,7 @@ namespace SMOSK_2._0
             
 
             XmlNodeList ClassicAddons = Globals.ClassicDB.GetElementsByTagName("Addon");
+            
             ClassicListView.Clear();
             
 
