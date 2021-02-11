@@ -33,6 +33,7 @@ namespace SMOSK_2._0
             this.Search_Input = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.GameVersionSelector = new System.Windows.Forms.ComboBox();
+            this.ButtonInstallSelected = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SearchFormListView
@@ -94,12 +95,23 @@ namespace SMOSK_2._0
             this.GameVersionSelector.TabIndex = 3;
             this.GameVersionSelector.SelectedIndexChanged += new System.EventHandler(this.GameVersionSelector_SelectedIndexChanged);
             // 
+            // ButtonInstallSelected
+            // 
+            this.ButtonInstallSelected.Location = new System.Drawing.Point(713, 420);
+            this.ButtonInstallSelected.Name = "ButtonInstallSelected";
+            this.ButtonInstallSelected.Size = new System.Drawing.Size(75, 23);
+            this.ButtonInstallSelected.TabIndex = 4;
+            this.ButtonInstallSelected.Text = "button1";
+            this.ButtonInstallSelected.UseVisualStyleBackColor = true;
+            this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ButtonInstallSelected);
             this.Controls.Add(this.GameVersionSelector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Search_Input);
@@ -118,5 +130,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.TextBox Search_Input;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GameVersionSelector;
+        private System.Windows.Forms.Button ButtonInstallSelected;
     }
 }

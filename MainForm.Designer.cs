@@ -40,6 +40,7 @@ namespace SMOSK_2._0
             this.label1 = new System.Windows.Forms.Label();
             this.RefreshButton = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
+            this.ButtonDelete = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -196,6 +197,21 @@ namespace SMOSK_2._0
             this.Button_OpenSearch.UseVisualStyleBackColor = false;
             this.Button_OpenSearch.Click += new System.EventHandler(this.Button_OpenSearch_Click);
             // 
+            // ButtonDelete
+            // 
+            this.ButtonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonDelete.BackColor = System.Drawing.Color.Black;
+            this.ButtonDelete.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_trash;
+            this.ButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonDelete.ForeColor = System.Drawing.Color.White;
+            this.ButtonDelete.Location = new System.Drawing.Point(672, 504);
+            this.ButtonDelete.Name = "ButtonDelete";
+            this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
+            this.ButtonDelete.TabIndex = 7;
+            this.ButtonDelete.UseVisualStyleBackColor = false;
+            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +219,7 @@ namespace SMOSK_2._0
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.Button_OpenSearch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.RefreshButton);
@@ -234,6 +251,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Button Button_BrowsPath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Button_OpenSearch;
+        private System.Windows.Forms.Button ButtonDelete;
     }
 }
 

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,7 +31,8 @@ namespace SMOSK_2._0
             public static XmlDocument RetailDB = new XmlDocument();
             public static XmlDocument Settings = new XmlDocument();
             public static dynamic SearchRespons;
-            
+            public static string gameFlavor;
+
         }
 
         private void SearchForm_Load(object sender, EventArgs e)
@@ -40,7 +42,16 @@ namespace SMOSK_2._0
             Globals.Settings.Load(@"..\..\Data\Settings.xml");
 
             
-            
+
+            if (this.Name == "Classic")
+            {
+                Globals.gameFlavor = "wow_classic";
+            }
+            else
+            {
+                Globals.gameFlavor = "wow_retail";
+            }
+
             if (this.Name == "Classic")
             {
                 GameVersionSelector.SelectedItem = GameVersionSelector.Items[0];
@@ -57,7 +68,7 @@ namespace SMOSK_2._0
         {
             if (e.KeyValue == 13) //if keypressed = Enter
             {
-                
+              
                 if (this.Name == "Classic")
                 {
                     string query = "api/v2/addon/search?&gameId=1&sort=downloadCount&gameVersionFlavor=wow_classic&searchFilter=" + Search_Input.Text;
@@ -68,7 +79,7 @@ namespace SMOSK_2._0
                     string query = "/api/v2/addon/search?&gameId=1&sort=downloadCount&gameVersionFlavor=wow_retail&searchFilter=" + Search_Input.Text;
                     _ = APISearchAsync(query);
                 }
-
+               
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
@@ -120,14 +131,14 @@ namespace SMOSK_2._0
                 SearchFormListView.Columns.Add("Version");
                 SearchFormListView.Columns.Add("Description");
 
-                string gameFlavor;
+                
                 if (this.Name == "Classic")
                 {
-                    gameFlavor = "wow_classic";
+                    Globals.gameFlavor = "wow_classic";
                 }
                 else
                 {
-                    gameFlavor = "wow_retail";
+                    Globals.gameFlavor = "wow_retail";
                 }
 
 
@@ -142,7 +153,7 @@ namespace SMOSK_2._0
                     dynamic correctRelease = null;
                     foreach (dynamic subItem in item.latestFiles)
                     {
-                        if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
+                        if (subItem.gameVersionFlavor == Globals.gameFlavor && subItem.releaseType == "1")
                         {
                             correctRelease = subItem;
                             break;
@@ -159,7 +170,7 @@ namespace SMOSK_2._0
                     }
                     else
                     {
-                        ResultItem.SubItems.Add("***** This addon has no version marked as 'Realease' for " + gameFlavor + " *****");
+                        ResultItem.SubItems.Add("***** This addon has no version marked as 'Realease' for " + Globals.gameFlavor + " *****");
                     }
                     
                     ResultItem.SubItems.Add((string)item.summary);
@@ -201,6 +212,180 @@ namespace SMOSK_2._0
                 this.Name = "Retail";
             }
             
+        }
+
+        private void ButtonInstallSelected_Click(object sender, EventArgs e)
+        {
+            if (SearchFormListView.SelectedItems.Count > 0)
+            {
+                List<string> IDs = new List<string>();
+
+                foreach (ListViewItem item in SearchFormListView.SelectedItems)
+                {
+                    IDs.Add(item.SubItems[0].Text);
+                }
+
+                //String[] IDArray = IDs.ToArray();
+
+                foreach (String item in IDs)
+                {
+                    
+                    XmlNode root;
+                    XmlNode SubNodeAddon;
+                    XmlNode SubChildID;
+                    XmlNode SubChildName;
+                    XmlNode SubChildDL;
+                    XmlNode SubChildDesc;
+                    XmlNode SubChildCV;
+                    XmlNode SubChildLV;
+                    XmlNode SubChildMod;
+                    XmlNode SubChildWeb;
+
+                    if (this.Name == "Classic")
+                    {
+                        bool AddonExcists = false;
+                        
+                        foreach (XmlNode node in Globals.ClassicDB.SelectNodes("config/Addon/ID"))
+                        {
+                            if (node.InnerText == item)
+                            {
+                                AddonExcists = true;
+                                break;
+                            }
+                        }
+
+                        if (AddonExcists)
+                        {
+                            Console.Out.WriteLine("Addon already installed");
+                            continue;
+                        }
+
+                        root = Globals.ClassicDB.SelectSingleNode("config");
+                            SubNodeAddon    = Globals.ClassicDB.CreateNode(XmlNodeType.Element,"Addon",null);
+                                SubChildID      = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "ID", null);
+                                SubChildName    = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "Name", null);
+                                SubChildDL      = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "DownloadLink", null);
+                                SubChildDesc    = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "Description", null);
+                                SubChildCV      = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "CurrentVersion", null);
+                                SubChildLV      = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "LatestVersion", null);
+                                SubChildMod     = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "Modules", null);
+                                SubChildWeb     = Globals.ClassicDB.CreateNode(XmlNodeType.Element, "Website", null);
+                    }
+                    else
+                    {
+                        bool AddonExcists = false;
+
+                        foreach (XmlNode node in Globals.RetailDB.SelectNodes("config/Addon/ID"))
+                        {
+                            if (node.InnerText == item)
+                            {
+                                AddonExcists = true;
+                                break;
+                            }
+                        }
+
+                        if (AddonExcists)
+                        {
+                            Console.Out.WriteLine("Addon already installed");
+                            continue;
+                        }
+
+
+                        root = Globals.RetailDB.SelectSingleNode("config");
+                            SubNodeAddon    = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Addon", null);
+                                SubChildID      = Globals.RetailDB.CreateNode(XmlNodeType.Element, "ID", null);
+                                SubChildName    = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Name", null);
+                                SubChildDL      = Globals.RetailDB.CreateNode(XmlNodeType.Element, "DownloadLink", null);
+                                SubChildDesc    = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Description", null);
+                                SubChildCV      = Globals.RetailDB.CreateNode(XmlNodeType.Element, "CurrentVersion", null);
+                                SubChildLV      = Globals.RetailDB.CreateNode(XmlNodeType.Element, "LatestVersion", null);
+                                SubChildMod     = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Modules", null);
+                                SubChildWeb     = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Website", null);
+                    }
+
+                    
+
+
+
+                    foreach (dynamic addon in Globals.SearchRespons)
+                    {
+                        if (item == (string)addon.id)
+                        {
+                            SubChildID.InnerText    = (string)addon.id;
+                            SubChildName.InnerText  = (string)addon.name;
+                            SubChildDesc.InnerText  = (string)addon.summary;
+                            SubChildWeb.InnerText   = (string)addon.websiteUrl;
+
+                            foreach (dynamic release in addon.latestFiles)
+                            {
+                                
+                                if (release.releaseType == "1" && release.gameVersionFlavor == Globals.gameFlavor)
+                                {
+                                    SubChildDL.InnerText    = (string)release.downloadUrl;
+                                    newAddon((string)release.downloadUrl);
+                                    SubChildCV.InnerText    = (string)release.displayName;
+                                    SubChildLV.InnerText    = (string)release.displayName;
+
+                                    string moduleString     = "";
+                                    foreach (dynamic module in release.modules)
+                                    {
+                                        moduleString += (module.foldername + ",");
+                                    }
+                                    SubChildMod.InnerText = moduleString.Trim(new Char[] { ',' });
+                                    break;
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+
+                    SubNodeAddon.AppendChild(SubChildID);
+                    SubNodeAddon.AppendChild(SubChildName);
+                    SubNodeAddon.AppendChild(SubChildDL);
+                    SubNodeAddon.AppendChild(SubChildDesc);
+                    SubNodeAddon.AppendChild(SubChildCV);
+                    SubNodeAddon.AppendChild(SubChildLV);
+                    SubNodeAddon.AppendChild(SubChildMod);
+                    SubNodeAddon.AppendChild(SubChildWeb);
+
+                    root.AppendChild(SubNodeAddon);
+
+                    if (this.Name == "Classic")
+                    {
+                        Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                    }
+                    else
+                    {
+                        Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+                    }
+
+
+                }
+                
+            }
+        }
+
+        private void newAddon(string url)
+        {
+
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(new System.Uri(url), "..\\..\\Downloads\\dl.zip");
+            }
+            String ExtractPath;
+            if (this.Name == "Classic")
+            {
+                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_classic_\\Interface\\Addons\\";
+            }
+            else
+            {
+                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\";
+            }
+
+            ZipFile.ExtractToDirectory("..\\..\\Downloads\\dl.zip", ExtractPath);
+
+            File.Delete("..\\..\\Downloads\\dl.zip");
         }
     }
 }

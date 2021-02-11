@@ -253,9 +253,6 @@ namespace SMOSK_2._0
             String[] IDArray = IDs.ToArray();
            
             var JsonIDArray = JsonConvert.SerializeObject(IDArray);
-           
-
-            var body = new StringContent(JsonIDArray, Encoding.UTF8, "application/json");
             
 
             var response = APIPOST("https://addons-ecs.forgesvc.net/api/v2/addon/", JsonIDArray);
@@ -382,9 +379,101 @@ namespace SMOSK_2._0
                 AddonSearch.Name = "Retail";
             }
             
-            AddonSearch.Show();
+            AddonSearch.ShowDialog();
+            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                RefreshClassic(null, null);
+            }
+            else
+            {
+                RefreshRetail(null, null);
+            }
+           
         }
 
-        
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            List<string> IDs = new List<string>();
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                if (ClassicListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in ClassicListView.SelectedItems)
+                    {
+                        IDs.Add(item.SubItems[0].Text);
+                    }
+
+                    foreach (string ID in IDs)
+                    {
+                        foreach (XmlNode IDNode in Globals.ClassicDB.SelectNodes("config/Addon/ID"))
+                        {
+                            if (IDNode.InnerText == ID)
+                            {
+                                XmlNode addon = IDNode.ParentNode;
+                                deleteModules(addon.ChildNodes[6]);
+                                addon.ParentNode.RemoveChild(addon);
+                                continue;
+                            }
+                        }
+                    }
+                    Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                    RefreshClassic(null, null);
+                }
+            }
+            else
+            {
+                if (RetailListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in RetailListView.SelectedItems)
+                    {
+                        IDs.Add(item.SubItems[0].Text);
+                    }
+
+                    foreach (string ID in IDs) 
+                    {
+                        foreach (XmlNode IDNode in Globals.RetailDB.SelectNodes("config/Addon/ID"))
+                        {
+                            if (IDNode.InnerText == ID)
+                            {
+                               
+                                XmlNode addon = IDNode.ParentNode;
+                                deleteModules(addon.ChildNodes[6]);
+                                addon.ParentNode.RemoveChild(addon);
+                                continue;
+                            }
+                        }
+                    }
+
+                    Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+                    RefreshRetail(null, null);
+                }
+            }
+        }
+
+        private void deleteModules(XmlNode ID)
+        {
+            string[] Modules = ID.InnerText.Split(',');
+            string ModulePath;
+            foreach (string Module in Modules) {
+                if (tabControl1.SelectedTab.Text == "Classic")
+                {
+                    ModulePath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_classic_\\Interface\\Addons\\" + Module;
+                }
+                else
+                {
+                    ModulePath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\" + Module;
+                }
+
+                if (Directory.Exists(ModulePath))
+                {
+                    Directory.Delete(ModulePath, true);
+                }
+            }
+            
+        }
+
+       
     }
 }
