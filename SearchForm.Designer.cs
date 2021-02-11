@@ -92,6 +92,7 @@ namespace SMOSK_2._0
             this.GameVersionSelector.Name = "GameVersionSelector";
             this.GameVersionSelector.Size = new System.Drawing.Size(121, 21);
             this.GameVersionSelector.TabIndex = 3;
+            this.GameVersionSelector.SelectedIndexChanged += new System.EventHandler(this.GameVersionSelector_SelectedIndexChanged);
             // 
             // SearchForm
             // 
@@ -105,7 +106,7 @@ namespace SMOSK_2._0
             this.Controls.Add(this.SearchFormListView);
             this.Name = "SearchForm";
             this.Text = "SearchForm";
-            this.Load += new System.EventHandler(this.SearchForm_Load_1);
+            this.Load += new System.EventHandler(this.SearchForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

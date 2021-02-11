@@ -29,7 +29,7 @@ namespace SMOSK_2._0
             public static XmlDocument ClassicDB = new XmlDocument();
             public static XmlDocument RetailDB = new XmlDocument();
             public static XmlDocument Settings = new XmlDocument();
-
+            public static String GameVersion;
             
         }
 
@@ -39,17 +39,17 @@ namespace SMOSK_2._0
             Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
             Globals.Settings.Load(@"..\..\Data\Settings.xml");
 
-
+            
             
             if (this.Name == "Classic")
             {
-                this.GameVersionSelector.SelectedItem = this.GameVersionSelector.Items.IndexOf(1);
+                GameVersionSelector.SelectedItem = GameVersionSelector.Items[0];
             }
             else
             {
-                this.GameVersionSelector.SelectedItem = this.GameVersionSelector.Items.IndexOf(2);
+                GameVersionSelector.SelectedItem = GameVersionSelector.Items[1];
             }
-            this.GameVersionSelector.Update();
+            
         }
         
 
@@ -187,8 +187,16 @@ namespace SMOSK_2._0
             }
         }
 
-        private void SearchForm_Load_1(object sender, EventArgs e)
+        private void GameVersionSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (GameVersionSelector.SelectedItem == GameVersionSelector.Items[0])
+            {
+                this.Name = "Classic";
+            }
+            else
+            {
+                this.Name = "Retail";
+            }
             
         }
     }
