@@ -218,6 +218,10 @@ namespace SMOSK_2._0
         {
             if (SearchFormListView.SelectedItems.Count > 0)
             {
+                ButtonInstallSelected.Enabled = false;
+                ButtonInstallSelected.Text = "Installing...";
+                
+
                 List<string> IDs = new List<string>();
 
                 foreach (ListViewItem item in SearchFormListView.SelectedItems)
@@ -225,7 +229,7 @@ namespace SMOSK_2._0
                     IDs.Add(item.SubItems[0].Text);
                 }
 
-                //String[] IDArray = IDs.ToArray();
+                int i = 0;
 
                 foreach (String item in IDs)
                 {
@@ -303,8 +307,8 @@ namespace SMOSK_2._0
                                 SubChildWeb     = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Website", null);
                     }
 
-                    
-
+                    SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.LightGreen;
+                    i++;
 
 
                     foreach (dynamic addon in Globals.SearchRespons)
