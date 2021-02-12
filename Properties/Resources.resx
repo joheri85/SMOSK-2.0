@@ -121,6 +121,15 @@
   <data name="search_context" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search_context.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Context_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Context_update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Context_trash2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Context_trash2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Context_trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Context_trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -130,13 +139,13 @@
   <data name="Refresh_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Wall_color" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Wall_color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="wallpaper_seamless" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wallpaper_seamless.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Data\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Wall_color" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Wall_color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Context_update2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Context_update2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

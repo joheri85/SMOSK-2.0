@@ -81,14 +81,4 @@
     <Modules>AtlasLoot_BattleforAzeroth,AtlasLoot_BurningCrusade,AtlasLoot_Cataclysm,AtlasLoot_Classic,AtlasLoot_Collections,AtlasLoot_Crafting,AtlasLoot_Factions,AtlasLoot_Legion,AtlasLoot_MistsofPandaria,AtlasLoot_Options,AtlasLoot_PvP,AtlasLoot_WarlordsofDraenor,AtlasLoot_WorldEvents,AtlasLoot_WrathoftheLichKing,AtlasLoot</Modules>
     <Website>https://www.curseforge.com/wow/addons/atlasloot-enhanced</Website>
   </Addon>
-  <Addon>
-    <ID>32832</ID>
-    <Name>Atlas Transportation</Name>
-    <DownloadLink>https://edge.forgecdn.net/files/3085/489/Atlas_Transportation-v1.48.00.zip</DownloadLink>
-    <Description>Transportation Maps</Description>
-    <CurrentVersion>v1.48.00</CurrentVersion>
-    <LatestVersion>v1.48.00</LatestVersion>
-    <Modules>Atlas_Transportation</Modules>
-    <Website>https://www.curseforge.com/wow/addons/atlas-transportation</Website>
-  </Addon>
 </config>

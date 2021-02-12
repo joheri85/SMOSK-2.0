@@ -42,6 +42,7 @@ namespace SMOSK_2._0
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ButtonUpdate = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -203,11 +204,11 @@ namespace SMOSK_2._0
             // 
             this.ButtonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonDelete.BackColor = System.Drawing.Color.Black;
-            this.ButtonDelete.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_trash;
+            this.ButtonDelete.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_trash2;
             this.ButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonDelete.ForeColor = System.Drawing.Color.White;
-            this.ButtonDelete.Location = new System.Drawing.Point(672, 504);
+            this.ButtonDelete.Location = new System.Drawing.Point(620, 504);
             this.ButtonDelete.Name = "ButtonDelete";
             this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
             this.ButtonDelete.TabIndex = 7;
@@ -224,6 +225,22 @@ namespace SMOSK_2._0
             this.panel1.Size = new System.Drawing.Size(776, 482);
             this.panel1.TabIndex = 8;
             // 
+            // ButtonUpdate
+            // 
+            this.ButtonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonUpdate.BackColor = System.Drawing.Color.Black;
+            this.ButtonUpdate.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_update2;
+            this.ButtonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonUpdate.ForeColor = System.Drawing.Color.White;
+            this.ButtonUpdate.Location = new System.Drawing.Point(702, 504);
+            this.ButtonUpdate.Name = "ButtonUpdate";
+            this.ButtonUpdate.Size = new System.Drawing.Size(40, 40);
+            this.ButtonUpdate.TabIndex = 9;
+            this.ButtonUpdate.UseVisualStyleBackColor = false;
+            this.ButtonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,6 +248,7 @@ namespace SMOSK_2._0
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.ButtonUpdate);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.Button_OpenSearch);
@@ -265,6 +283,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Button Button_OpenSearch;
         private System.Windows.Forms.Button ButtonDelete;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button ButtonUpdate;
     }
 }
 

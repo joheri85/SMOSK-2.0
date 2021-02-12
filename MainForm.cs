@@ -413,7 +413,7 @@ namespace SMOSK_2._0
                             if (IDNode.InnerText == ID)
                             {
                                 XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.ChildNodes[6]);
+                                deleteModules(addon.ChildNodes[6].InnerXml.Split(','));
                                 addon.ParentNode.RemoveChild(addon);
                                 continue;
                             }
@@ -438,9 +438,9 @@ namespace SMOSK_2._0
                         {
                             if (IDNode.InnerText == ID)
                             {
-                               
+                                
                                 XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.ChildNodes[6]);
+                                deleteModules(addon.ChildNodes[6].InnerXml.Split(','));
                                 addon.ParentNode.RemoveChild(addon);
                                 continue;
                             }
@@ -453,9 +453,9 @@ namespace SMOSK_2._0
             }
         }
 
-        private void deleteModules(XmlNode ID)
+        private void deleteModules(string[] Modules)
         {
-            string[] Modules = ID.InnerText.Split(',');
+            
             string ModulePath;
             foreach (string Module in Modules) {
                 if (tabControl1.SelectedTab.Text == "Classic")
@@ -475,6 +475,113 @@ namespace SMOSK_2._0
             
         }
 
-       
+        private void DownloadNewAddonFiles(string url)
+        {
+
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(new System.Uri(url), "..\\..\\Downloads\\dl.zip");
+            }
+            String ExtractPath;
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_classic_\\Interface\\Addons\\";
+            }
+            else
+            {
+                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\";
+            }
+
+            System.IO.Compression.ZipFile.ExtractToDirectory("..\\..\\Downloads\\dl.zip", ExtractPath);
+
+            File.Delete("..\\..\\Downloads\\dl.zip");
+        }
+
+        private void ButtonUpdate_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Text == "Classic") { 
+                
+                
+                if (ClassicListView.SelectedItems.Count > 0)
+                {
+                    this.SuspendLayout();
+
+                    List<ListViewItem> UpdateList = new List<ListViewItem>();
+
+                    foreach (ListViewItem ID in ClassicListView.SelectedItems)
+                    {
+                        UpdateList.Add(ID);
+                    }
+
+                    GetAddonManifest(null, null);
+
+                    System.Xml.XPath.XPathNavigator nodeNav;
+                    nodeNav = Globals.ClassicDB.CreateNavigator();
+
+                    foreach (ListViewItem item in UpdateList)
+                    {
+
+
+                        string XPathStringClassic = "config/Addon[ID='" + item.SubItems[0].Text + "']";
+                        var MatchedNodeClassic = nodeNav.SelectSingleNode(XPathStringClassic);
+
+                        MatchedNodeClassic.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeClassic.SelectSingleNode("LatestVersion").InnerXml;
+
+                        string[] Modules = MatchedNodeClassic.SelectSingleNode("Modules").InnerXml.Split(',');
+                        deleteModules(Modules);
+                        DownloadNewAddonFiles(MatchedNodeClassic.SelectSingleNode("DownloadLink").InnerXml);
+                    }
+
+                    Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                    
+                    RefreshClassic(null, null);
+                    this.ResumeLayout();
+
+                }
+
+
+
+
+            }
+            else
+            {
+                if (RetailListView.SelectedItems.Count > 0)
+                {
+                    this.SuspendLayout();
+
+                    List<ListViewItem> UpdateList = new List<ListViewItem>();
+
+                    foreach (ListViewItem ID in RetailListView.SelectedItems)
+                    {
+                        UpdateList.Add(ID);
+                    }
+
+                    GetAddonManifest(null, null);
+
+                    System.Xml.XPath.XPathNavigator nodeNav;
+                    nodeNav = Globals.RetailDB.CreateNavigator();
+
+                    foreach (ListViewItem item in UpdateList)
+                    {
+
+
+                        string XPathStringRetail = "config/Addon[ID='" + item.SubItems[0].Text + "']";
+                        var MatchedNodeRetail = nodeNav.SelectSingleNode(XPathStringRetail);
+
+                        MatchedNodeRetail.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeRetail.SelectSingleNode("LatestVersion").InnerXml;
+
+                        string[] Modules = MatchedNodeRetail.SelectSingleNode("Modules").InnerXml.Split(',');
+                        deleteModules(Modules);
+                        DownloadNewAddonFiles(MatchedNodeRetail.SelectSingleNode("DownloadLink").InnerXml);
+                    }
+
+                    Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+
+                    RefreshRetail(null, null);
+                    this.ResumeLayout();
+
+                }
+            }
+        }
     }
 }

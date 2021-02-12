@@ -81,24 +81,4 @@
     <Modules>MonolithDKP</Modules>
     <Website>https://www.curseforge.com/wow/addons/monolith-dkp</Website>
   </Addon>
-  <Addon>
-    <ID>20015</ID>
-    <Name>DBM-Interrupts</Name>
-    <DownloadLink>https://edge.forgecdn.net/files/3023/23/DBM-Interrupts.zip</DownloadLink>
-    <Description>A simple addon to track interrupts in Raids or PVP when timing may be critical.</Description>
-    <CurrentVersion>DBM-Interrupts 8.4.2020</CurrentVersion>
-    <LatestVersion>DBM-Interrupts 8.4.2020</LatestVersion>
-    <Modules>DBM-Interrupts</Modules>
-    <Website>https://www.curseforge.com/wow/addons/dbm-interrupts</Website>
-  </Addon>
-  <Addon>
-    <ID>21364</ID>
-    <Name>DBM-RaidLeadTools2</Name>
-    <DownloadLink>https://edge.forgecdn.net/files/2795/819/DBM-RaidLeadTools-r124-classic.zip</DownloadLink>
-    <Description>Provides a lot of functions to Track Raids in EQDKP, provides a BidBot for Raid Management and many more nice features</Description>
-    <CurrentVersion>r124-classic</CurrentVersion>
-    <LatestVersion>r124-classic</LatestVersion>
-    <Modules>DBM-RaidLeadTools</Modules>
-    <Website>https://www.curseforge.com/wow/addons/dbm-raidleadtools</Website>
-  </Addon>
 </config>
