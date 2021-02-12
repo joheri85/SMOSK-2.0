@@ -29,11 +29,13 @@ namespace SMOSK_2._0
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
             this.SearchFormListView = new System.Windows.Forms.ListView();
             this.Search_Input = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.GameVersionSelector = new System.Windows.Forms.ComboBox();
             this.ButtonInstallSelected = new System.Windows.Forms.Button();
+            this.LabelInstalling = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SearchFormListView
@@ -105,17 +107,32 @@ namespace SMOSK_2._0
             this.ButtonInstallSelected.UseVisualStyleBackColor = true;
             this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
             // 
+            // LabelInstalling
+            // 
+            this.LabelInstalling.BackColor = System.Drawing.Color.Black;
+            this.LabelInstalling.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelInstalling.ForeColor = System.Drawing.Color.White;
+            this.LabelInstalling.Location = new System.Drawing.Point(285, 171);
+            this.LabelInstalling.Name = "LabelInstalling";
+            this.LabelInstalling.Size = new System.Drawing.Size(182, 58);
+            this.LabelInstalling.TabIndex = 5;
+            this.LabelInstalling.Text = "Installing selected addons...";
+            this.LabelInstalling.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelInstalling.Visible = false;
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LabelInstalling);
             this.Controls.Add(this.ButtonInstallSelected);
             this.Controls.Add(this.GameVersionSelector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Search_Input);
             this.Controls.Add(this.SearchFormListView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SearchForm";
             this.Text = "SearchForm";
             this.Load += new System.EventHandler(this.SearchForm_Load);
@@ -131,5 +148,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GameVersionSelector;
         private System.Windows.Forms.Button ButtonInstallSelected;
+        private System.Windows.Forms.Label LabelInstalling;
     }
 }

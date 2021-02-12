@@ -43,6 +43,7 @@ namespace SMOSK_2._0
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ButtonUpdate = new System.Windows.Forms.Button();
+            this.LabelUpdating = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -68,6 +69,7 @@ namespace SMOSK_2._0
             // 
             // tabClassic
             // 
+            this.tabClassic.Controls.Add(this.LabelUpdating);
             this.tabClassic.Controls.Add(this.ClassicListView);
             this.tabClassic.Location = new System.Drawing.Point(4, 22);
             this.tabClassic.Name = "tabClassic";
@@ -191,6 +193,8 @@ namespace SMOSK_2._0
             this.Button_OpenSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_OpenSearch.BackColor = System.Drawing.Color.Black;
             this.Button_OpenSearch.BackgroundImage = global::SMOSK_2._0.Properties.Resources.search_context;
+            this.Button_OpenSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Button_OpenSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Button_OpenSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_OpenSearch.ForeColor = System.Drawing.Color.White;
             this.Button_OpenSearch.Location = new System.Drawing.Point(748, 504);
@@ -205,7 +209,8 @@ namespace SMOSK_2._0
             this.ButtonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonDelete.BackColor = System.Drawing.Color.Black;
             this.ButtonDelete.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_trash2;
-            this.ButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonDelete.ForeColor = System.Drawing.Color.White;
             this.ButtonDelete.Location = new System.Drawing.Point(620, 504);
@@ -240,6 +245,19 @@ namespace SMOSK_2._0
             this.ButtonUpdate.TabIndex = 9;
             this.ButtonUpdate.UseVisualStyleBackColor = false;
             this.ButtonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
+            // 
+            // LabelUpdating
+            // 
+            this.LabelUpdating.BackColor = System.Drawing.Color.Black;
+            this.LabelUpdating.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelUpdating.ForeColor = System.Drawing.Color.White;
+            this.LabelUpdating.Location = new System.Drawing.Point(292, 162);
+            this.LabelUpdating.Name = "LabelUpdating";
+            this.LabelUpdating.Size = new System.Drawing.Size(182, 58);
+            this.LabelUpdating.TabIndex = 1;
+            this.LabelUpdating.Text = "Updating selected addons...";
+            this.LabelUpdating.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelUpdating.Visible = false;
             // 
             // MainForm
             // 
@@ -284,6 +302,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Button ButtonDelete;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ButtonUpdate;
+        private System.Windows.Forms.Label LabelUpdating;
     }
 }
 

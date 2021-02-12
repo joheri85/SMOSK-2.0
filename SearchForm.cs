@@ -218,6 +218,7 @@ namespace SMOSK_2._0
         {
             if (SearchFormListView.SelectedItems.Count > 0)
             {
+                LabelInstalling.Visible = true;
                 ButtonInstallSelected.Text = "Installing...";
                 ButtonInstallSelected.Enabled = false;
                 SearchFormListView.Enabled = false;
@@ -375,7 +376,7 @@ namespace SMOSK_2._0
                     Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
                 }
             }
-
+            LabelInstalling.Visible = false;
             SearchFormListView.SelectedIndices.Clear();
             SearchFormListView.Enabled = true;
             ButtonInstallSelected.Enabled = true;

@@ -413,7 +413,7 @@ namespace SMOSK_2._0
                             if (IDNode.InnerText == ID)
                             {
                                 XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.ChildNodes[6].InnerXml.Split(','));
+                                deleteModules(addon.SelectSingleNode("Modules").InnerXml.Split(','));
                                 addon.ParentNode.RemoveChild(addon);
                                 continue;
                             }
@@ -440,7 +440,7 @@ namespace SMOSK_2._0
                             {
                                 
                                 XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.ChildNodes[6].InnerXml.Split(','));
+                                deleteModules(addon.SelectSingleNode("Modules").InnerXml.Split(','));
                                 addon.ParentNode.RemoveChild(addon);
                                 continue;
                             }
@@ -504,6 +504,8 @@ namespace SMOSK_2._0
                 
                 if (ClassicListView.SelectedItems.Count > 0)
                 {
+                    ClassicListView.Enabled = false;
+                    LabelUpdating.Visible = true;
                     this.SuspendLayout();
 
                     List<ListViewItem> UpdateList = new List<ListViewItem>();
@@ -535,6 +537,8 @@ namespace SMOSK_2._0
                     Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
                     
                     RefreshClassic(null, null);
+                    ClassicListView.Enabled = true;
+                    LabelUpdating.Visible = false;
                     this.ResumeLayout();
 
                 }
@@ -547,6 +551,8 @@ namespace SMOSK_2._0
             {
                 if (RetailListView.SelectedItems.Count > 0)
                 {
+                    LabelUpdating.Visible = true;
+                    RetailListView.Enabled = false;
                     this.SuspendLayout();
 
                     List<ListViewItem> UpdateList = new List<ListViewItem>();
@@ -577,8 +583,12 @@ namespace SMOSK_2._0
 
                     Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
 
+                    
                     RefreshRetail(null, null);
+                    LabelUpdating.Visible = false;
+                    RetailListView.Enabled = true;
                     this.ResumeLayout();
+                    
 
                 }
             }
