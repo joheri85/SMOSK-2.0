@@ -41,9 +41,11 @@ namespace SMOSK_2._0
             this.RefreshButton = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -56,10 +58,10 @@ namespace SMOSK_2._0
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.HotTrack = true;
             this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(-3, 20);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 483);
+            this.tabControl1.Size = new System.Drawing.Size(782, 465);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
@@ -69,7 +71,7 @@ namespace SMOSK_2._0
             this.tabClassic.Location = new System.Drawing.Point(4, 22);
             this.tabClassic.Name = "tabClassic";
             this.tabClassic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabClassic.Size = new System.Drawing.Size(768, 457);
+            this.tabClassic.Size = new System.Drawing.Size(774, 439);
             this.tabClassic.TabIndex = 0;
             this.tabClassic.Text = "Classic";
             this.tabClassic.UseVisualStyleBackColor = true;
@@ -87,7 +89,7 @@ namespace SMOSK_2._0
             this.ClassicListView.HideSelection = false;
             this.ClassicListView.Location = new System.Drawing.Point(-4, 0);
             this.ClassicListView.Name = "ClassicListView";
-            this.ClassicListView.Size = new System.Drawing.Size(772, 461);
+            this.ClassicListView.Size = new System.Drawing.Size(778, 443);
             this.ClassicListView.TabIndex = 0;
             this.ClassicListView.UseCompatibleStateImageBehavior = false;
             this.ClassicListView.View = System.Windows.Forms.View.Details;
@@ -98,7 +100,7 @@ namespace SMOSK_2._0
             this.tabRetail.Location = new System.Drawing.Point(4, 22);
             this.tabRetail.Name = "tabRetail";
             this.tabRetail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRetail.Size = new System.Drawing.Size(768, 457);
+            this.tabRetail.Size = new System.Drawing.Size(774, 439);
             this.tabRetail.TabIndex = 1;
             this.tabRetail.Text = "Retail";
             this.tabRetail.UseVisualStyleBackColor = true;
@@ -114,7 +116,7 @@ namespace SMOSK_2._0
             this.RetailListView.HideSelection = false;
             this.RetailListView.Location = new System.Drawing.Point(-4, 0);
             this.RetailListView.Name = "RetailListView";
-            this.RetailListView.Size = new System.Drawing.Size(776, 461);
+            this.RetailListView.Size = new System.Drawing.Size(778, 443);
             this.RetailListView.TabIndex = 0;
             this.RetailListView.UseCompatibleStateImageBehavior = false;
             this.RetailListView.View = System.Windows.Forms.View.Details;
@@ -176,7 +178,7 @@ namespace SMOSK_2._0
             this.RefreshButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RefreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RefreshButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshButton.Location = new System.Drawing.Point(763, 3);
+            this.RefreshButton.Location = new System.Drawing.Point(751, 9);
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Size = new System.Drawing.Size(25, 25);
             this.RefreshButton.TabIndex = 1;
@@ -212,20 +214,29 @@ namespace SMOSK_2._0
             this.ButtonDelete.UseVisualStyleBackColor = false;
             this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.RefreshButton);
+            this.panel1.Controls.Add(this.tabControl1);
+            this.panel1.Location = new System.Drawing.Point(12, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(776, 482);
+            this.panel1.TabIndex = 8;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
+            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.Button_OpenSearch);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.Button_BrowsPath);
             this.Controls.Add(this.Label_GamePath);
-            this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -234,6 +245,7 @@ namespace SMOSK_2._0
             this.tabControl1.ResumeLayout(false);
             this.tabClassic.ResumeLayout(false);
             this.tabRetail.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,6 +264,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Button_OpenSearch;
         private System.Windows.Forms.Button ButtonDelete;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

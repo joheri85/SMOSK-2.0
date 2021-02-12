@@ -120,5 +120,8 @@
   <ItemGroup>
     <None Include="Resources\Context_trash.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wall_color.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

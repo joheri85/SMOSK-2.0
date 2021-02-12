@@ -21,4 +21,74 @@
     <Modules>DBM-Core,DBM-Brawlers,DBM-DMF,DBM-GUI,DBM-WorldEvents,DBM-Party-Shadowlands,DBM-Shadowlands,DBM-CastleNathria,DBM-DefaultSkin,DBM-StatusBarTimers</Modules>
     <Website>https://www.curseforge.com/wow/addons/deadly-boss-mods</Website>
   </Addon>
+  <Addon>
+    <ID>20697</ID>
+    <Name>GTFO</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3193/190/GTFO-4.59.2.zip</DownloadLink>
+    <Description>GTFO warns you when you're standing in fire or other bad stuff.</Description>
+    <CurrentVersion>4.59.2</CurrentVersion>
+    <LatestVersion>4.59.2</LatestVersion>
+    <Modules>GTFO</Modules>
+    <Website>https://www.curseforge.com/wow/addons/gtfo</Website>
+  </Addon>
+  <Addon>
+    <ID>2450</ID>
+    <Name>MikScrollingBattleText</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3081/987/MikScrollingBattleText-5.7.152.zip</DownloadLink>
+    <Description>MikScrollingBattleText</Description>
+    <CurrentVersion>v5.7.152</CurrentVersion>
+    <LatestVersion>v5.7.152</LatestVersion>
+    <Modules>MSBTOptions,MikScrollingBattleText</Modules>
+    <Website>https://www.curseforge.com/wow/addons/mik-scrolling-battle-text</Website>
+  </Addon>
+  <Addon>
+    <ID>4646</ID>
+    <Name>Pawn</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3194/207/Pawn-2.4.13.zip</DownloadLink>
+    <Description>Pawn helps you compare items and find upgrades.</Description>
+    <CurrentVersion>2.4.13</CurrentVersion>
+    <LatestVersion>2.4.13</LatestVersion>
+    <Modules>Pawn</Modules>
+    <Website>https://www.curseforge.com/wow/addons/pawn</Website>
+  </Addon>
+  <Addon>
+    <ID>82745</ID>
+    <Name>Simulationcraft</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3140/206/Simulationcraft-v9.0.2-15.zip</DownloadLink>
+    <Description>An addon that generates a Simulationcraft profile for your character</Description>
+    <CurrentVersion>v9.0.2-15</CurrentVersion>
+    <LatestVersion>v9.0.2-15</LatestVersion>
+    <Modules>Simulationcraft</Modules>
+    <Website>https://www.curseforge.com/wow/addons/simulationcraft</Website>
+  </Addon>
+  <Addon>
+    <ID>15226</ID>
+    <Name>Grid2</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3182/439/Grid2-1.1.14.zip</DownloadLink>
+    <Description>A modular, lightweight and screen-estate saving grid of party/raid unit frames</Description>
+    <CurrentVersion>1.1.14</CurrentVersion>
+    <LatestVersion>1.1.14</LatestVersion>
+    <Modules>Grid2Options,Grid2RaidDebuffs,Grid2RaidDebuffsOptions,Grid2LDB,Grid2</Modules>
+    <Website>https://www.curseforge.com/wow/addons/grid2</Website>
+  </Addon>
+  <Addon>
+    <ID>2134</ID>
+    <Name>AtlasLoot Enhanced</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3093/262/AtlasLoot-v8.13.00.zip</DownloadLink>
+    <Description>Shows the possible loot from the bosses</Description>
+    <CurrentVersion>v8.13.00</CurrentVersion>
+    <LatestVersion>v8.13.00</LatestVersion>
+    <Modules>AtlasLoot_BattleforAzeroth,AtlasLoot_BurningCrusade,AtlasLoot_Cataclysm,AtlasLoot_Classic,AtlasLoot_Collections,AtlasLoot_Crafting,AtlasLoot_Factions,AtlasLoot_Legion,AtlasLoot_MistsofPandaria,AtlasLoot_Options,AtlasLoot_PvP,AtlasLoot_WarlordsofDraenor,AtlasLoot_WorldEvents,AtlasLoot_WrathoftheLichKing,AtlasLoot</Modules>
+    <Website>https://www.curseforge.com/wow/addons/atlasloot-enhanced</Website>
+  </Addon>
+  <Addon>
+    <ID>32832</ID>
+    <Name>Atlas Transportation</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3085/489/Atlas_Transportation-v1.48.00.zip</DownloadLink>
+    <Description>Transportation Maps</Description>
+    <CurrentVersion>v1.48.00</CurrentVersion>
+    <LatestVersion>v1.48.00</LatestVersion>
+    <Modules>Atlas_Transportation</Modules>
+    <Website>https://www.curseforge.com/wow/addons/atlas-transportation</Website>
+  </Addon>
 </config>

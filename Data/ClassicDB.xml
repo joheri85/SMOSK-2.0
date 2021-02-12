@@ -61,4 +61,44 @@
     <Modules>WeakAurasOptions,WeakAurasModelPaths,WeakAurasTemplates,WeakAurasArchive,WeakAuras</Modules>
     <Website>https://www.curseforge.com/wow/addons/weakauras-2</Website>
   </Addon>
+  <Addon>
+    <ID>8025</ID>
+    <Name>TellMeWhen</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3137/302/TellMeWhen-9.0.3-classic.zip</DownloadLink>
+    <Description>Provides visual, auditory, and textual notifications about cooldowns, buffs, and pretty much every other element of combat.</Description>
+    <CurrentVersion>9.0.3-classic</CurrentVersion>
+    <LatestVersion>9.0.3-classic</LatestVersion>
+    <Modules>TellMeWhen_Options,TellMeWhen</Modules>
+    <Website>https://www.curseforge.com/wow/addons/tellmewhen</Website>
+  </Addon>
+  <Addon>
+    <ID>335947</ID>
+    <Name>Monolith DKP</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/2847/422/MonolithDKP-v2.1.2.zip</DownloadLink>
+    <Description>An in-game DKP and raid management system. Track attendence, loot and boss kills even if your raid doesn't use DKP.</Description>
+    <CurrentVersion>MonolithDKP-v2.1.2.zip</CurrentVersion>
+    <LatestVersion>MonolithDKP-v2.1.2.zip</LatestVersion>
+    <Modules>MonolithDKP</Modules>
+    <Website>https://www.curseforge.com/wow/addons/monolith-dkp</Website>
+  </Addon>
+  <Addon>
+    <ID>20015</ID>
+    <Name>DBM-Interrupts</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3023/23/DBM-Interrupts.zip</DownloadLink>
+    <Description>A simple addon to track interrupts in Raids or PVP when timing may be critical.</Description>
+    <CurrentVersion>DBM-Interrupts 8.4.2020</CurrentVersion>
+    <LatestVersion>DBM-Interrupts 8.4.2020</LatestVersion>
+    <Modules>DBM-Interrupts</Modules>
+    <Website>https://www.curseforge.com/wow/addons/dbm-interrupts</Website>
+  </Addon>
+  <Addon>
+    <ID>21364</ID>
+    <Name>DBM-RaidLeadTools2</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/2795/819/DBM-RaidLeadTools-r124-classic.zip</DownloadLink>
+    <Description>Provides a lot of functions to Track Raids in EQDKP, provides a BidBot for Raid Management and many more nice features</Description>
+    <CurrentVersion>r124-classic</CurrentVersion>
+    <LatestVersion>r124-classic</LatestVersion>
+    <Modules>DBM-RaidLeadTools</Modules>
+    <Website>https://www.curseforge.com/wow/addons/dbm-raidleadtools</Website>
+  </Addon>
 </config>

@@ -101,7 +101,7 @@ namespace SMOSK_2._0
             this.ButtonInstallSelected.Name = "ButtonInstallSelected";
             this.ButtonInstallSelected.Size = new System.Drawing.Size(75, 23);
             this.ButtonInstallSelected.TabIndex = 4;
-            this.ButtonInstallSelected.Text = "button1";
+            this.ButtonInstallSelected.Text = "Install";
             this.ButtonInstallSelected.UseVisualStyleBackColor = true;
             this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
             // 
@@ -109,7 +109,7 @@ namespace SMOSK_2._0
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
+            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ButtonInstallSelected);
             this.Controls.Add(this.GameVersionSelector);

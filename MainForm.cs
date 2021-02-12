@@ -55,7 +55,7 @@ namespace SMOSK_2._0
             Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
             Globals.Settings.Load(@"..\..\Data\Settings.xml");
 
-
+            
 
             Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
             Label_GamePath.Width = 150;
@@ -64,6 +64,7 @@ namespace SMOSK_2._0
 
 
         }
+
 
 
         private void RefreshClassic(object sender, EventArgs e)

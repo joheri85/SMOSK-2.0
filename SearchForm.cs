@@ -218,6 +218,10 @@ namespace SMOSK_2._0
         {
             if (SearchFormListView.SelectedItems.Count > 0)
             {
+                ButtonInstallSelected.Text = "Installing...";
+                ButtonInstallSelected.Enabled = false;
+                SearchFormListView.Enabled = false;
+
                 List<string> IDs = new List<string>();
 
                 foreach (ListViewItem item in SearchFormListView.SelectedItems)
@@ -225,11 +229,11 @@ namespace SMOSK_2._0
                     IDs.Add(item.SubItems[0].Text);
                 }
 
-                //String[] IDArray = IDs.ToArray();
 
+                int i = 0;
                 foreach (String item in IDs)
                 {
-                    
+                    System.Xml.XPath.XPathNavigator nodeNav;
                     XmlNode root;
                     XmlNode SubNodeAddon;
                     XmlNode SubChildID;
@@ -243,22 +247,27 @@ namespace SMOSK_2._0
 
                     if (this.Name == "Classic")
                     {
-                        bool AddonExcists = false;
                         
-                        foreach (XmlNode node in Globals.ClassicDB.SelectNodes("config/Addon/ID"))
-                        {
-                            if (node.InnerText == item)
-                            {
-                                AddonExcists = true;
-                                break;
-                            }
-                        }
 
-                        if (AddonExcists)
+
+                        //********************************
+                        nodeNav = Globals.ClassicDB.CreateNavigator();
+
+                        string XPathStringClassic = "config/Addon[ID='" + item + "']";
+                        var MatchedNodeClassic = nodeNav.SelectSingleNode(XPathStringClassic);
+                    
+                        //********************************
+                        if (MatchedNodeClassic != null)
                         {
+                            SearchFormListView.SelectedItems[i].Text = "Already installed";
+                            SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.Orange;
+                            SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
+                            i++;
                             Console.Out.WriteLine("Addon already installed");
                             continue;
                         }
+                        
+                       
 
                         root = Globals.ClassicDB.SelectSingleNode("config");
                             SubNodeAddon    = Globals.ClassicDB.CreateNode(XmlNodeType.Element,"Addon",null);
@@ -273,19 +282,19 @@ namespace SMOSK_2._0
                     }
                     else
                     {
-                        bool AddonExcists = false;
+                        //********************************
+                        nodeNav = Globals.RetailDB.CreateNavigator();
 
-                        foreach (XmlNode node in Globals.RetailDB.SelectNodes("config/Addon/ID"))
-                        {
-                            if (node.InnerText == item)
-                            {
-                                AddonExcists = true;
-                                break;
-                            }
-                        }
+                        string XPathStringRetail = "config/Addon[ID='" + item + "']";
+                        var MatchedNodeRetail = nodeNav.SelectSingleNode(XPathStringRetail);
 
-                        if (AddonExcists)
+                        //********************************
+                        if (MatchedNodeRetail != null)
                         {
+                            SearchFormListView.SelectedItems[i].Text = "Already installed";
+                            SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.Orange;
+                            SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
+                            i++;
                             Console.Out.WriteLine("Addon already installed");
                             continue;
                         }
@@ -303,10 +312,9 @@ namespace SMOSK_2._0
                                 SubChildWeb     = Globals.RetailDB.CreateNode(XmlNodeType.Element, "Website", null);
                     }
 
-                    
 
 
-
+               
                     foreach (dynamic addon in Globals.SearchRespons)
                     {
                         if (item == (string)addon.id)
@@ -351,19 +359,27 @@ namespace SMOSK_2._0
 
                     root.AppendChild(SubNodeAddon);
 
-                    if (this.Name == "Classic")
-                    {
-                        Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
-                    }
-                    else
-                    {
-                        Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
-                    }
 
 
+                    SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.LightGreen;
+                    SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
+                    i++;
                 }
-                
+
+                if (this.Name == "Classic")
+                {
+                    Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                }
+                else
+                {
+                    Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+                }
             }
+
+            SearchFormListView.SelectedIndices.Clear();
+            SearchFormListView.Enabled = true;
+            ButtonInstallSelected.Enabled = true;
+            ButtonInstallSelected.Text = "Install";
         }
 
         private void newAddon(string url)
