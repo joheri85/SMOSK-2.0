@@ -45,6 +45,7 @@ namespace SMOSK_2._0
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchFormListView.AutoArrange = false;
             this.SearchFormListView.BackColor = System.Drawing.Color.Black;
+            this.SearchFormListView.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchFormListView.ForeColor = System.Drawing.Color.White;
             this.SearchFormListView.FullRowSelect = true;
             this.SearchFormListView.HideSelection = false;
@@ -87,6 +88,7 @@ namespace SMOSK_2._0
             this.GameVersionSelector.BackColor = System.Drawing.Color.Black;
             this.GameVersionSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GameVersionSelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GameVersionSelector.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GameVersionSelector.ForeColor = System.Drawing.Color.White;
             this.GameVersionSelector.FormattingEnabled = true;
             this.GameVersionSelector.ImeMode = System.Windows.Forms.ImeMode.Off;
@@ -102,6 +104,7 @@ namespace SMOSK_2._0
             // ButtonInstallSelected
             // 
             this.ButtonInstallSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonInstallSelected.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ButtonInstallSelected.Location = new System.Drawing.Point(713, 420);
             this.ButtonInstallSelected.Name = "ButtonInstallSelected";
             this.ButtonInstallSelected.Size = new System.Drawing.Size(75, 23);
