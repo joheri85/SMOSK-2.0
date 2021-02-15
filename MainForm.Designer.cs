@@ -44,6 +44,7 @@ namespace SMOSK_2._0
             this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
             this.LabelNrUpdates = new System.Windows.Forms.Label();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.LabelBackground = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -60,11 +61,11 @@ namespace SMOSK_2._0
             this.tabControl1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.HotTrack = true;
             this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.tabControl1.Location = new System.Drawing.Point(12, 23);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 465);
+            this.tabControl1.Size = new System.Drawing.Size(776, 476);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
@@ -111,7 +112,7 @@ namespace SMOSK_2._0
             this.tabRetail.Location = new System.Drawing.Point(4, 22);
             this.tabRetail.Name = "tabRetail";
             this.tabRetail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRetail.Size = new System.Drawing.Size(768, 439);
+            this.tabRetail.Size = new System.Drawing.Size(768, 450);
             this.tabRetail.TabIndex = 1;
             this.tabRetail.Text = "Retail";
             this.tabRetail.UseVisualStyleBackColor = true;
@@ -128,7 +129,7 @@ namespace SMOSK_2._0
             this.RetailListView.HideSelection = false;
             this.RetailListView.Location = new System.Drawing.Point(-4, 0);
             this.RetailListView.Name = "RetailListView";
-            this.RetailListView.Size = new System.Drawing.Size(770, 438);
+            this.RetailListView.Size = new System.Drawing.Size(770, 449);
             this.RetailListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.RetailListView.TabIndex = 0;
             this.RetailListView.UseCompatibleStateImageBehavior = false;
@@ -262,18 +263,26 @@ namespace SMOSK_2._0
             this.RefreshButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RefreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RefreshButton.ForeColor = System.Drawing.Color.White;
-            this.RefreshButton.Location = new System.Drawing.Point(762, 12);
+            this.RefreshButton.Location = new System.Drawing.Point(762, 4);
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Size = new System.Drawing.Size(25, 25);
             this.RefreshButton.TabIndex = 1;
             this.RefreshButton.UseVisualStyleBackColor = false;
             this.RefreshButton.Click += new System.EventHandler(this.GetAddonManifest);
             // 
+            // LabelBackground
+            // 
+            this.LabelBackground.Image = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.LabelBackground.Location = new System.Drawing.Point(-2, 33);
+            this.LabelBackground.Name = "LabelBackground";
+            this.LabelBackground.Size = new System.Drawing.Size(806, 525);
+            this.LabelBackground.TabIndex = 11;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
             this.Controls.Add(this.RefreshButton);
@@ -286,6 +295,7 @@ namespace SMOSK_2._0
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Button_BrowsPath);
             this.Controls.Add(this.Label_GamePath);
+            this.Controls.Add(this.LabelBackground);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -314,6 +324,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Label LabelNrUpdates;
         private System.Windows.Forms.Button RefreshButton;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Label LabelBackground;
     }
 }
 

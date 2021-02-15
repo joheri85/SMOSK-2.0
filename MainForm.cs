@@ -53,7 +53,7 @@ namespace SMOSK_2._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Application.EnableVisualStyles();
             Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
             Globals.RetailDB.Load(@".\Data\RetailDB.xml");
 
@@ -596,5 +596,7 @@ namespace SMOSK_2._0
                 }
             }
         }
+
+        
     }
 }
