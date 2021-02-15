@@ -79,7 +79,7 @@ namespace SMOSK_2._0
             this.tabClassic.Location = new System.Drawing.Point(4, 22);
             this.tabClassic.Name = "tabClassic";
             this.tabClassic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabClassic.Size = new System.Drawing.Size(768, 439);
+            this.tabClassic.Size = new System.Drawing.Size(768, 450);
             this.tabClassic.TabIndex = 0;
             this.tabClassic.Text = "Classic";
             this.tabClassic.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@ namespace SMOSK_2._0
             this.ClassicListView.HideSelection = false;
             this.ClassicListView.Location = new System.Drawing.Point(-4, 0);
             this.ClassicListView.Name = "ClassicListView";
-            this.ClassicListView.Size = new System.Drawing.Size(770, 438);
+            this.ClassicListView.Size = new System.Drawing.Size(770, 449);
             this.ClassicListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.ClassicListView.TabIndex = 0;
             this.ClassicListView.UseCompatibleStateImageBehavior = false;
@@ -273,6 +273,7 @@ namespace SMOSK_2._0
             // LabelBackground
             // 
             this.LabelBackground.Image = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.LabelBackground.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.LabelBackground.Location = new System.Drawing.Point(-2, 33);
             this.LabelBackground.Name = "LabelBackground";
             this.LabelBackground.Size = new System.Drawing.Size(806, 525);

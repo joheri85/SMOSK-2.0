@@ -89,7 +89,7 @@ namespace SMOSK_2._0
             ClassicListView.Columns.Add("Description");
             ClassicListView.Columns.Add("PID");
 
-            int NrUpdates = 0;
+            
             foreach (XmlNode Node in ClassicAddons)
             {
                 
@@ -105,13 +105,42 @@ namespace SMOSK_2._0
 
                 ClassicListView.Items.Add(ClassicItem);
 
-                if (Node["CurrentVersion"].InnerText != Node["LatestVersion"].InnerText)
+               
+                
+            }
+
+
+
+            ClassicListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            ClassicListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
+            ClassicListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
+            ClassicListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
+            ClassicListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            int NrUpdates = 0;
+            int i = 0;
+            foreach (ListViewItem item in ClassicListView.Items)
+            {
+                if (item.SubItems[1].Text != item.SubItems[2].Text)
                 {
-                    ClassicItem.ForeColor = System.Drawing.Color.Black;
-                    ClassicItem.BackColor = System.Drawing.Color.Orange;
+                    item.ForeColor = System.Drawing.Color.Black;
+                    item.BackColor = System.Drawing.Color.Orange;
                     NrUpdates++;
                 }
-                
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        item.BackColor = System.Drawing.Color.Black;
+                        item.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        item.ForeColor = System.Drawing.Color.Snow;
+                    }
+                }
+                i++;
             }
 
             if (NrUpdates != 0)
@@ -126,16 +155,8 @@ namespace SMOSK_2._0
             }
 
 
-            ClassicListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
-            ClassicListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
-            ClassicListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
-            ClassicListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
-            ClassicListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
 
-            
-
-
-    }
         private void RefreshRetail(object sender, EventArgs e)
         {
             
@@ -156,7 +177,7 @@ namespace SMOSK_2._0
             RetailListView.Columns.Add("Description");
             RetailListView.Columns.Add("PID");
 
-            int NrUpdates = 0;
+            
             foreach (XmlNode Node in RetailAddons)
             {
 
@@ -171,13 +192,41 @@ namespace SMOSK_2._0
 
                 RetailListView.Items.Add(RetailItem);
 
-                if (Node["CurrentVersion"].InnerText != Node["LatestVersion"].InnerText)
-                {
-                    RetailItem.ForeColor = System.Drawing.Color.Black;
-                    RetailItem.BackColor = System.Drawing.Color.Orange;
-                    NrUpdates++;
-                }
+                
 
+            }
+
+            
+            
+
+            RetailListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            RetailListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
+            RetailListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
+            RetailListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
+            RetailListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            int NrUpdates = 0;
+            int i = 0;
+            foreach (ListViewItem item in RetailListView.Items)
+            {
+                if (item.SubItems[1].Text != item.SubItems[2].Text)
+                {
+                    item.ForeColor = System.Drawing.Color.Black;
+                    item.BackColor = System.Drawing.Color.Orange;
+                    NrUpdates++;
+                }else
+                {
+                    if (i % 2 == 0) {
+                        item.BackColor = System.Drawing.Color.Black;
+                        item.ForeColor = System.Drawing.Color.LightGray;
+                    } 
+                    else
+                    {
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        item.ForeColor = System.Drawing.Color.Snow;
+                    }
+                }
+                i++;
             }
 
             if (NrUpdates != 0)
@@ -190,15 +239,6 @@ namespace SMOSK_2._0
             {
                 LabelNrUpdates.Visible = false;
             }
-            
-
-            RetailListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
-            RetailListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
-            RetailListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
-            RetailListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
-            RetailListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
-
-            
         }
 
 
