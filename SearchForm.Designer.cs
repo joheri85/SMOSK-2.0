@@ -35,7 +35,7 @@ namespace SMOSK_2._0
             this.label1 = new System.Windows.Forms.Label();
             this.GameVersionSelector = new System.Windows.Forms.ComboBox();
             this.ButtonInstallSelected = new System.Windows.Forms.Button();
-            this.LabelInstalling = new System.Windows.Forms.Label();
+            this.progressBarInstalling = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // SearchFormListView
@@ -51,6 +51,7 @@ namespace SMOSK_2._0
             this.SearchFormListView.Location = new System.Drawing.Point(12, 61);
             this.SearchFormListView.Name = "SearchFormListView";
             this.SearchFormListView.Size = new System.Drawing.Size(776, 353);
+            this.SearchFormListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.SearchFormListView.TabIndex = 0;
             this.SearchFormListView.UseCompatibleStateImageBehavior = false;
             this.SearchFormListView.View = System.Windows.Forms.View.Details;
@@ -82,6 +83,7 @@ namespace SMOSK_2._0
             // 
             // GameVersionSelector
             // 
+            this.GameVersionSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.GameVersionSelector.BackColor = System.Drawing.Color.Black;
             this.GameVersionSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GameVersionSelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -99,6 +101,7 @@ namespace SMOSK_2._0
             // 
             // ButtonInstallSelected
             // 
+            this.ButtonInstallSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonInstallSelected.Location = new System.Drawing.Point(713, 420);
             this.ButtonInstallSelected.Name = "ButtonInstallSelected";
             this.ButtonInstallSelected.Size = new System.Drawing.Size(75, 23);
@@ -107,26 +110,26 @@ namespace SMOSK_2._0
             this.ButtonInstallSelected.UseVisualStyleBackColor = true;
             this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
             // 
-            // LabelInstalling
+            // progressBarInstalling
             // 
-            this.LabelInstalling.BackColor = System.Drawing.Color.Black;
-            this.LabelInstalling.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LabelInstalling.ForeColor = System.Drawing.Color.White;
-            this.LabelInstalling.Location = new System.Drawing.Point(285, 171);
-            this.LabelInstalling.Name = "LabelInstalling";
-            this.LabelInstalling.Size = new System.Drawing.Size(182, 58);
-            this.LabelInstalling.TabIndex = 5;
-            this.LabelInstalling.Text = "Installing selected addons...";
-            this.LabelInstalling.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LabelInstalling.Visible = false;
+            this.progressBarInstalling.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarInstalling.BackColor = System.Drawing.Color.Black;
+            this.progressBarInstalling.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.progressBarInstalling.Location = new System.Drawing.Point(525, 420);
+            this.progressBarInstalling.Name = "progressBarInstalling";
+            this.progressBarInstalling.Size = new System.Drawing.Size(182, 23);
+            this.progressBarInstalling.Step = 1;
+            this.progressBarInstalling.TabIndex = 6;
+            this.progressBarInstalling.Visible = false;
             // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.LabelInstalling);
+            this.Controls.Add(this.progressBarInstalling);
             this.Controls.Add(this.ButtonInstallSelected);
             this.Controls.Add(this.GameVersionSelector);
             this.Controls.Add(this.label1);
@@ -148,6 +151,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GameVersionSelector;
         private System.Windows.Forms.Button ButtonInstallSelected;
-        private System.Windows.Forms.Label LabelInstalling;
+        private System.Windows.Forms.ProgressBar progressBarInstalling;
     }
 }

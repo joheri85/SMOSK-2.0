@@ -21,16 +21,6 @@
     <Website>https://www.curseforge.com/wow/addons/auctionator-classicfix</Website>
   </Addon>
   <Addon>
-    <ID>341297</ID>
-    <Name>AutoInvites</Name>
-    <DownloadLink>https://edge.forgecdn.net/files/3026/620/AutoInvite-1.1.zip</DownloadLink>
-    <Description>Auto invites players if they whisper the keyword</Description>
-    <CurrentVersion>1.1</CurrentVersion>
-    <LatestVersion>1.1</LatestVersion>
-    <Modules>AutoInvite</Modules>
-    <Website>https://www.curseforge.com/wow/addons/autoinvites</Website>
-  </Addon>
-  <Addon>
     <ID>334984</ID>
     <Name>LetMeCast</Name>
     <DownloadLink>https://edge.forgecdn.net/files/2777/357/LetMeCast_v1.3.zip</DownloadLink>
@@ -79,26 +69,6 @@
     <LatestVersion>1.13.2-3</LatestVersion>
     <Modules>SLoTe</Modules>
     <Website>https://www.curseforge.com/wow/addons/slote</Website>
-  </Addon>
-  <Addon>
-    <ID>353572</ID>
-    <Name>Classic Profession Filter</Name>
-    <DownloadLink>https://edge.forgecdn.net/files/3019/243/ClassicProfessionFilter-1.0.5.zip</DownloadLink>
-    <Description>Add a search bar to the default Blizzard profession windows</Description>
-    <CurrentVersion>1.0.5</CurrentVersion>
-    <LatestVersion>1.0.5</LatestVersion>
-    <Modules>ClassicProfessionFilter,ClassicProfessionFilter</Modules>
-    <Website>https://www.curseforge.com/wow/addons/classicprofessionfilter</Website>
-  </Addon>
-  <Addon>
-    <ID>323806</ID>
-    <Name>ClassicAuraDurations</Name>
-    <DownloadLink>https://edge.forgecdn.net/files/3026/563/ClassicAuraDurations-1.13.61-classic.zip</DownloadLink>
-    <Description>Restores cooldown swipe timers on default Target Frame and Blizzard Raid Frames</Description>
-    <CurrentVersion>1.13.61-classic</CurrentVersion>
-    <LatestVersion>1.13.61-classic</LatestVersion>
-    <Modules>ClassicAuraDurations</Modules>
-    <Website>https://www.curseforge.com/wow/addons/classicauradurations</Website>
   </Addon>
   <Addon>
     <ID>405809</ID>
@@ -287,8 +257,8 @@
     <Name>CommunityDKP</Name>
     <DownloadLink>https://edge.forgecdn.net/files/3163/63/CommunityDKP-3.2.4-r61.zip</DownloadLink>
     <Description>The Premiere DKP Management Tool</Description>
-    <CurrentVersion>3.2.4-r61</CurrentVersion>
-    <LatestVersion>3.2.4-r61</LatestVersion>
+    <CurrentVersion>3.2.4-r62</CurrentVersion>
+    <LatestVersion>3.2.4-r62</LatestVersion>
     <Modules>CommunityDKP</Modules>
     <Website>https://www.curseforge.com/wow/addons/communitydkp</Website>
   </Addon>
@@ -321,5 +291,35 @@
     <LatestVersion>3.5-classic-5</LatestVersion>
     <Modules>Quartz</Modules>
     <Website>https://www.curseforge.com/wow/addons/quartz</Website>
+  </Addon>
+  <Addon>
+    <ID>323806</ID>
+    <Name>ClassicAuraDurations</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3026/563/ClassicAuraDurations-1.13.61-classic.zip</DownloadLink>
+    <Description>Restores cooldown swipe timers on default Target Frame and Blizzard Raid Frames</Description>
+    <CurrentVersion>1.13.61-classic</CurrentVersion>
+    <LatestVersion>1.13.61-classic</LatestVersion>
+    <Modules>ClassicAuraDurations</Modules>
+    <Website>https://www.curseforge.com/wow/addons/classicauradurations</Website>
+  </Addon>
+  <Addon>
+    <ID>353572</ID>
+    <Name>Classic Profession Filter</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3019/243/ClassicProfessionFilter-1.0.5.zip</DownloadLink>
+    <Description>Add a search bar to the default Blizzard profession windows</Description>
+    <CurrentVersion>1.0.5</CurrentVersion>
+    <LatestVersion>1.0.5</LatestVersion>
+    <Modules>ClassicProfessionFilter</Modules>
+    <Website>https://www.curseforge.com/wow/addons/classicprofessionfilter</Website>
+  </Addon>
+  <Addon>
+    <ID>341297</ID>
+    <Name>AutoInvites</Name>
+    <DownloadLink>https://edge.forgecdn.net/files/3026/620/AutoInvite-1.1.zip</DownloadLink>
+    <Description>Auto invites players if they whisper the keyword</Description>
+    <CurrentVersion>1.1</CurrentVersion>
+    <LatestVersion>1.1</LatestVersion>
+    <Modules>AutoInvite</Modules>
+    <Website>https://www.curseforge.com/wow/addons/autoinvites</Website>
   </Addon>
 </config>

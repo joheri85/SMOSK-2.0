@@ -37,9 +37,9 @@ namespace SMOSK_2._0
 
         private void SearchForm_Load(object sender, EventArgs e)
         {
-            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
-            Globals.Settings.Load(@"..\..\Data\Settings.xml");
+            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            Globals.Settings.Load(@".\Data\Settings.xml");
 
             
 
@@ -126,10 +126,10 @@ namespace SMOSK_2._0
                 SearchFormListView.Clear();
 
 
-                SearchFormListView.Columns.Add("PID");
                 SearchFormListView.Columns.Add("Name");
-                SearchFormListView.Columns.Add("Version");
                 SearchFormListView.Columns.Add("Description");
+                SearchFormListView.Columns.Add("Version");
+                SearchFormListView.Columns.Add("PID");
 
                 
                 if (this.Name == "Classic")
@@ -146,7 +146,7 @@ namespace SMOSK_2._0
                 
                 
 
-                int i = 0;
+                
                 foreach (dynamic item in Globals.SearchRespons)
                 {
 
@@ -162,8 +162,8 @@ namespace SMOSK_2._0
                     }
 
                     ListViewItem ResultItem = new ListViewItem();
-                    ResultItem.Text = item.id;
-                    ResultItem.SubItems.Add((string)item.name);
+                    ResultItem.Text = item.name;
+                    ResultItem.SubItems.Add((string)item.summary);
                     if (correctRelease != null)
                     {
                         ResultItem.SubItems.Add((string)correctRelease.displayName);
@@ -173,24 +173,15 @@ namespace SMOSK_2._0
                         ResultItem.SubItems.Add("***** This addon has no version marked as 'Realease' for " + Globals.gameFlavor + " *****");
                     }
                     
-                    ResultItem.SubItems.Add((string)item.summary);
+                    ResultItem.SubItems.Add((string)item.id);
 
 
                     SearchFormListView.Items.Add(ResultItem);
-                    if (i % 2 == 0)
-                    {
-                        ResultItem.BackColor = System.Drawing.Color.Black;
-                        ResultItem.ForeColor = System.Drawing.Color.LightGray;
-                    }
-                    else
-                    {
-                        ResultItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
-                        ResultItem.ForeColor = System.Drawing.Color.Snow;
-                    }
-                    i++;
+                    
                     
                 }
 
+                SearchFormListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
                 SearchFormListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
                 SearchFormListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
                 SearchFormListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -218,7 +209,7 @@ namespace SMOSK_2._0
         {
             if (SearchFormListView.SelectedItems.Count > 0)
             {
-                LabelInstalling.Visible = true;
+                progressBarInstalling.Visible = true;
                 ButtonInstallSelected.Text = "Installing...";
                 ButtonInstallSelected.Enabled = false;
                 SearchFormListView.Enabled = false;
@@ -227,7 +218,7 @@ namespace SMOSK_2._0
 
                 foreach (ListViewItem item in SearchFormListView.SelectedItems)
                 {
-                    IDs.Add(item.SubItems[0].Text);
+                    IDs.Add(item.SubItems[3].Text);
                 }
 
 
@@ -260,7 +251,7 @@ namespace SMOSK_2._0
                         //********************************
                         if (MatchedNodeClassic != null)
                         {
-                            SearchFormListView.SelectedItems[i].Text = "Already installed";
+                            SearchFormListView.SelectedItems[i].SubItems[1].Text = "Already installed";
                             SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.Orange;
                             SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
                             i++;
@@ -292,7 +283,7 @@ namespace SMOSK_2._0
                         //********************************
                         if (MatchedNodeRetail != null)
                         {
-                            SearchFormListView.SelectedItems[i].Text = "Already installed";
+                            SearchFormListView.SelectedItems[i].SubItems[1].Text = "Already installed";
                             SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.Orange;
                             SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
                             i++;
@@ -365,18 +356,19 @@ namespace SMOSK_2._0
                     SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.LightGreen;
                     SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
                     i++;
+                    progressBarInstalling.Value = (int)((i / (decimal)IDs.Count) * 100);
                 }
 
                 if (this.Name == "Classic")
                 {
-                    Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                 }
                 else
                 {
-                    Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
                 }
             }
-            LabelInstalling.Visible = false;
+            progressBarInstalling.Visible = false;
             SearchFormListView.SelectedIndices.Clear();
             SearchFormListView.Enabled = true;
             ButtonInstallSelected.Enabled = true;
@@ -388,7 +380,7 @@ namespace SMOSK_2._0
 
             using (var client = new WebClient())
             {
-                client.DownloadFile(new System.Uri(url), "..\\..\\Downloads\\dl.zip");
+                client.DownloadFile(new System.Uri(url), ".\\Downloads\\dl.zip");
             }
             String ExtractPath;
             if (this.Name == "Classic")
@@ -400,9 +392,9 @@ namespace SMOSK_2._0
                 ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\";
             }
 
-            ZipFile.ExtractToDirectory("..\\..\\Downloads\\dl.zip", ExtractPath);
+            ZipFile.ExtractToDirectory(".\\Downloads\\dl.zip", ExtractPath);
 
-            File.Delete("..\\..\\Downloads\\dl.zip");
+            File.Delete(".\\Downloads\\dl.zip");
         }
     }
 }
