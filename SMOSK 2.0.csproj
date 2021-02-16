@@ -188,6 +188,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon_smosk.ico" />
+    <None Include="Resources\Context_update_all1.png" />
+    <None Include="Resources\Context_update_all.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -93,6 +93,36 @@ namespace SMOSK_2._0.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Context_update_all {
+            get {
+                object obj = ResourceManager.GetObject("Context_update_all", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Context_update_all1 {
+            get {
+                object obj = ResourceManager.GetObject("Context_update_all1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Context_update_all2 {
+            get {
+                object obj = ResourceManager.GetObject("Context_update_all2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Context_update2 {
             get {
                 object obj = ResourceManager.GetObject("Context_update2", resourceCulture);

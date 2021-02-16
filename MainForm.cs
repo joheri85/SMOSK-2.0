@@ -64,6 +64,32 @@ namespace SMOSK_2._0
             Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
             Label_GamePath.Width = 150;
 
+
+            try
+            {
+                var webRequest = WebRequest.Create(@"https://smosk.net/downloads/smosk2/smosk2version.txt");
+                string latesVersion;
+
+                using (var response = webRequest.GetResponse())
+                using (var content = response.GetResponseStream())
+                using (var reader = new StreamReader(content))
+                {
+                    latesVersion = reader.ReadToEnd();
+                }
+
+
+                string currentVersion = Globals.Settings.GetElementsByTagName("version")[0].InnerText;
+
+                if (currentVersion != latesVersion)
+                {
+                    LabelVersion.Visible = true;
+                }
+            } catch
+            {
+                Console.Out.WriteLine("Could not check latest version. Timeout.");
+            }
+            
+
             GetAddonManifest(null, null);
 
 
@@ -75,8 +101,8 @@ namespace SMOSK_2._0
 
         private void RefreshClassic(object sender, EventArgs e)
         {
-            
 
+            ClassicListView.Sorting = SortOrder.Ascending;
             XmlNodeList ClassicAddons = Globals.ClassicDB.GetElementsByTagName("Addon");
             
             ClassicListView.Clear();
@@ -115,16 +141,29 @@ namespace SMOSK_2._0
             ClassicListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
-            ClassicListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+            ClassicListView.Columns[4].Width = -2;
 
+
+            ClassicListView.Sorting = SortOrder.None;
             int NrUpdates = 0;
             int i = 0;
             foreach (ListViewItem item in ClassicListView.Items)
             {
                 if (item.SubItems[1].Text != item.SubItems[2].Text)
                 {
-                    item.ForeColor = System.Drawing.Color.Black;
-                    item.BackColor = System.Drawing.Color.Orange;
+                    ClassicListView.Items.RemoveAt(item.Index);
+                    ClassicListView.Items.Insert(NrUpdates, item);
+                    if (NrUpdates % 2 == 0)
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.Color.Orange;
+                    }
+                    else
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                    }
+                        
                     NrUpdates++;
                 }
                 else
@@ -154,15 +193,15 @@ namespace SMOSK_2._0
                 LabelNrUpdates.Visible = false;
             }
 
-
+            
         }
 
         private void RefreshRetail(object sender, EventArgs e)
         {
-            
-            
-            
 
+
+
+            RetailListView.Sorting = SortOrder.Ascending;
             XmlNodeList RetailAddons = Globals.RetailDB.GetElementsByTagName("Addon");
 
             
@@ -203,23 +242,37 @@ namespace SMOSK_2._0
             RetailListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             RetailListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             RetailListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
-            RetailListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+            RetailListView.Columns[4].Width = -2;
 
+            RetailListView.Sorting = SortOrder.None;
             int NrUpdates = 0;
             int i = 0;
             foreach (ListViewItem item in RetailListView.Items)
             {
                 if (item.SubItems[1].Text != item.SubItems[2].Text)
                 {
-                    item.ForeColor = System.Drawing.Color.Black;
-                    item.BackColor = System.Drawing.Color.Orange;
+                    RetailListView.Items.RemoveAt(item.Index);
+                    RetailListView.Items.Insert(NrUpdates, item);
+                    if (NrUpdates % 2 == 0)
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.Color.Orange;
+                    }
+                    else
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                    }
+
                     NrUpdates++;
-                }else
+                }
+                else
                 {
-                    if (i % 2 == 0) {
+                    if (i % 2 == 0)
+                    {
                         item.BackColor = System.Drawing.Color.Black;
                         item.ForeColor = System.Drawing.Color.LightGray;
-                    } 
+                    }
                     else
                     {
                         item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
@@ -530,24 +583,45 @@ namespace SMOSK_2._0
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab.Text == "Classic") { 
+            var buttonPressed = (Button)sender;
+
+            if (tabControl1.SelectedTab.Text == "Classic") {
                 
                 
-                if (ClassicListView.SelectedItems.Count > 0)
+                if (ClassicListView.SelectedItems.Count > 0 || buttonPressed.Name == "ButtonUpdateAll")
                 {
-                    
                     progressBarUpdate.Value = 0;
                     progressBarUpdate.Visible = true;
 
-                    ClassicListView.Enabled = false;
+                    
                     
 
                     List<ListViewItem> UpdateList = new List<ListViewItem>();
 
-                    foreach (ListViewItem ID in ClassicListView.SelectedItems)
+
+
+                    
+                    
+                    if (buttonPressed.Name == "ButtonUpdate")
                     {
-                        UpdateList.Add(ID);
+                        foreach (ListViewItem item in ClassicListView.SelectedItems)
+                        {
+                            UpdateList.Add(item);
+                        }
                     }
+                    else
+                    {
+                        foreach (ListViewItem item in ClassicListView.Items)
+                        {
+                            if (item.SubItems[1].Text != item.SubItems[2].Text)
+                            {
+                                UpdateList.Add(item);
+
+                            }   
+                        }
+                    }
+
+                    
                     
                     GetAddonManifest(null, null);
 
@@ -576,7 +650,6 @@ namespace SMOSK_2._0
                     
                     RefreshClassic(null, null);
                     progressBarUpdate.Visible = false;
-                    ClassicListView.Enabled = true;
                     //this.ResumeLayout();
 
                 }
@@ -587,18 +660,31 @@ namespace SMOSK_2._0
             }
             else
             {
-                if (RetailListView.SelectedItems.Count > 0)
+                if (RetailListView.SelectedItems.Count > 0 || buttonPressed.Name == "ButtonUpdateAll")
                 {
                     progressBarUpdate.Value = 0;
                     progressBarUpdate.Visible = true;
-                    RetailListView.Enabled = false;
                     this.SuspendLayout();
 
                     List<ListViewItem> UpdateList = new List<ListViewItem>();
 
-                    foreach (ListViewItem ID in RetailListView.SelectedItems)
+                    if (buttonPressed.Name == "ButtonUpdate")
                     {
-                        UpdateList.Add(ID);
+                        foreach (ListViewItem item in RetailListView.SelectedItems)
+                        {
+                            UpdateList.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        foreach (ListViewItem item in RetailListView.Items)
+                        {
+                            if (item.SubItems[1].Text != item.SubItems[2].Text)
+                            {
+                                UpdateList.Add(item);
+
+                            }
+                        }
                     }
 
                     GetAddonManifest(null, null);
@@ -628,7 +714,6 @@ namespace SMOSK_2._0
 
                     
                     RefreshRetail(null, null);
-                    RetailListView.Enabled = true;
                     progressBarUpdate.Visible = false;
                     this.ResumeLayout();
                     
@@ -637,6 +722,17 @@ namespace SMOSK_2._0
             }
         }
 
-        
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ClassicListView.Columns[4].Width = -2;
+            } 
+            else
+            {
+                RetailListView.Columns[4].Width = -2;
+            }
+            
+        }
     }
 }

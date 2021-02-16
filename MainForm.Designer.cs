@@ -38,13 +38,15 @@ namespace SMOSK_2._0
             this.Label_GamePath = new System.Windows.Forms.Label();
             this.Button_BrowsPath = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Button_OpenSearch = new System.Windows.Forms.Button();
-            this.ButtonDelete = new System.Windows.Forms.Button();
-            this.ButtonUpdate = new System.Windows.Forms.Button();
             this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
-            this.LabelNrUpdates = new System.Windows.Forms.Label();
+            this.ButtonUpdateAll = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.LabelNrUpdates = new System.Windows.Forms.Label();
+            this.ButtonUpdate = new System.Windows.Forms.Button();
+            this.ButtonDelete = new System.Windows.Forms.Button();
+            this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.LabelBackground = new System.Windows.Forms.Label();
+            this.LabelVersion = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -144,10 +146,10 @@ namespace SMOSK_2._0
             this.Label_GamePath.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label_GamePath.ForeColor = System.Drawing.Color.White;
             this.Label_GamePath.Location = new System.Drawing.Point(39, 519);
-            this.Label_GamePath.MinimumSize = new System.Drawing.Size(350, 25);
+            this.Label_GamePath.MinimumSize = new System.Drawing.Size(300, 25);
             this.Label_GamePath.Name = "Label_GamePath";
             this.Label_GamePath.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.Label_GamePath.Size = new System.Drawing.Size(351, 25);
+            this.Label_GamePath.Size = new System.Drawing.Size(300, 25);
             this.Label_GamePath.TabIndex = 3;
             this.Label_GamePath.Text = "test";
             this.Label_GamePath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -183,76 +185,32 @@ namespace SMOSK_2._0
             this.label1.TabIndex = 5;
             this.label1.Text = "World of Warcraft root path";
             // 
-            // Button_OpenSearch
-            // 
-            this.Button_OpenSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button_OpenSearch.BackColor = System.Drawing.Color.Black;
-            this.Button_OpenSearch.BackgroundImage = global::SMOSK_2._0.Properties.Resources.search_context;
-            this.Button_OpenSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Button_OpenSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Button_OpenSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_OpenSearch.ForeColor = System.Drawing.Color.White;
-            this.Button_OpenSearch.Location = new System.Drawing.Point(748, 504);
-            this.Button_OpenSearch.Name = "Button_OpenSearch";
-            this.Button_OpenSearch.Size = new System.Drawing.Size(40, 40);
-            this.Button_OpenSearch.TabIndex = 6;
-            this.Button_OpenSearch.UseVisualStyleBackColor = false;
-            this.Button_OpenSearch.Click += new System.EventHandler(this.Button_OpenSearch_Click);
-            // 
-            // ButtonDelete
-            // 
-            this.ButtonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonDelete.BackColor = System.Drawing.Color.Black;
-            this.ButtonDelete.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_trash2;
-            this.ButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ButtonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonDelete.ForeColor = System.Drawing.Color.White;
-            this.ButtonDelete.Location = new System.Drawing.Point(620, 504);
-            this.ButtonDelete.Name = "ButtonDelete";
-            this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
-            this.ButtonDelete.TabIndex = 7;
-            this.ButtonDelete.UseVisualStyleBackColor = false;
-            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
-            // 
-            // ButtonUpdate
-            // 
-            this.ButtonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonUpdate.BackColor = System.Drawing.Color.Black;
-            this.ButtonUpdate.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_update2;
-            this.ButtonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ButtonUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ButtonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonUpdate.ForeColor = System.Drawing.Color.White;
-            this.ButtonUpdate.Location = new System.Drawing.Point(702, 504);
-            this.ButtonUpdate.Name = "ButtonUpdate";
-            this.ButtonUpdate.Size = new System.Drawing.Size(40, 40);
-            this.ButtonUpdate.TabIndex = 9;
-            this.ButtonUpdate.UseVisualStyleBackColor = false;
-            this.ButtonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
-            // 
             // progressBarUpdate
             // 
             this.progressBarUpdate.BackColor = System.Drawing.Color.Black;
             this.progressBarUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBarUpdate.Location = new System.Drawing.Point(407, 519);
+            this.progressBarUpdate.Location = new System.Drawing.Point(345, 519);
             this.progressBarUpdate.Name = "progressBarUpdate";
             this.progressBarUpdate.Size = new System.Drawing.Size(182, 25);
             this.progressBarUpdate.Step = 1;
             this.progressBarUpdate.TabIndex = 1;
             this.progressBarUpdate.Visible = false;
             // 
-            // LabelNrUpdates
+            // ButtonUpdateAll
             // 
-            this.LabelNrUpdates.BackColor = System.Drawing.Color.Transparent;
-            this.LabelNrUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelNrUpdates.ForeColor = System.Drawing.Color.Black;
-            this.LabelNrUpdates.Image = global::SMOSK_2._0.Properties.Resources.NrUpdates;
-            this.LabelNrUpdates.Location = new System.Drawing.Point(682, 491);
-            this.LabelNrUpdates.Name = "LabelNrUpdates";
-            this.LabelNrUpdates.Size = new System.Drawing.Size(20, 20);
-            this.LabelNrUpdates.TabIndex = 10;
-            this.LabelNrUpdates.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ButtonUpdateAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonUpdateAll.BackColor = System.Drawing.Color.Black;
+            this.ButtonUpdateAll.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_update_all2;
+            this.ButtonUpdateAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonUpdateAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonUpdateAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonUpdateAll.ForeColor = System.Drawing.Color.White;
+            this.ButtonUpdateAll.Location = new System.Drawing.Point(656, 504);
+            this.ButtonUpdateAll.Name = "ButtonUpdateAll";
+            this.ButtonUpdateAll.Size = new System.Drawing.Size(40, 40);
+            this.ButtonUpdateAll.TabIndex = 12;
+            this.ButtonUpdateAll.UseVisualStyleBackColor = false;
+            this.ButtonUpdateAll.Click += new System.EventHandler(this.ButtonUpdate_Click);
             // 
             // RefreshButton
             // 
@@ -270,6 +228,66 @@ namespace SMOSK_2._0
             this.RefreshButton.UseVisualStyleBackColor = false;
             this.RefreshButton.Click += new System.EventHandler(this.GetAddonManifest);
             // 
+            // LabelNrUpdates
+            // 
+            this.LabelNrUpdates.BackColor = System.Drawing.Color.Transparent;
+            this.LabelNrUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelNrUpdates.ForeColor = System.Drawing.Color.Black;
+            this.LabelNrUpdates.Image = global::SMOSK_2._0.Properties.Resources.NrUpdates;
+            this.LabelNrUpdates.Location = new System.Drawing.Point(636, 491);
+            this.LabelNrUpdates.Name = "LabelNrUpdates";
+            this.LabelNrUpdates.Size = new System.Drawing.Size(20, 20);
+            this.LabelNrUpdates.TabIndex = 10;
+            this.LabelNrUpdates.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ButtonUpdate
+            // 
+            this.ButtonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonUpdate.BackColor = System.Drawing.Color.Black;
+            this.ButtonUpdate.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_update2;
+            this.ButtonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonUpdate.ForeColor = System.Drawing.Color.White;
+            this.ButtonUpdate.Location = new System.Drawing.Point(702, 504);
+            this.ButtonUpdate.Name = "ButtonUpdate";
+            this.ButtonUpdate.Size = new System.Drawing.Size(40, 40);
+            this.ButtonUpdate.TabIndex = 9;
+            this.ButtonUpdate.UseVisualStyleBackColor = false;
+            this.ButtonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
+            // 
+            // ButtonDelete
+            // 
+            this.ButtonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonDelete.BackColor = System.Drawing.Color.Black;
+            this.ButtonDelete.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_trash2;
+            this.ButtonDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonDelete.ForeColor = System.Drawing.Color.White;
+            this.ButtonDelete.Location = new System.Drawing.Point(558, 504);
+            this.ButtonDelete.Name = "ButtonDelete";
+            this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
+            this.ButtonDelete.TabIndex = 7;
+            this.ButtonDelete.UseVisualStyleBackColor = false;
+            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
+            // 
+            // Button_OpenSearch
+            // 
+            this.Button_OpenSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Button_OpenSearch.BackColor = System.Drawing.Color.Black;
+            this.Button_OpenSearch.BackgroundImage = global::SMOSK_2._0.Properties.Resources.search_context;
+            this.Button_OpenSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Button_OpenSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_OpenSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_OpenSearch.ForeColor = System.Drawing.Color.White;
+            this.Button_OpenSearch.Location = new System.Drawing.Point(748, 504);
+            this.Button_OpenSearch.Name = "Button_OpenSearch";
+            this.Button_OpenSearch.Size = new System.Drawing.Size(40, 40);
+            this.Button_OpenSearch.TabIndex = 6;
+            this.Button_OpenSearch.UseVisualStyleBackColor = false;
+            this.Button_OpenSearch.Click += new System.EventHandler(this.Button_OpenSearch_Click);
+            // 
             // LabelBackground
             // 
             this.LabelBackground.Image = global::SMOSK_2._0.Properties.Resources.Wall_color;
@@ -279,6 +297,19 @@ namespace SMOSK_2._0
             this.LabelBackground.Size = new System.Drawing.Size(806, 525);
             this.LabelBackground.TabIndex = 11;
             // 
+            // LabelVersion
+            // 
+            this.LabelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelVersion.ForeColor = System.Drawing.Color.DarkOrange;
+            this.LabelVersion.Location = new System.Drawing.Point(309, 4);
+            this.LabelVersion.Name = "LabelVersion";
+            this.LabelVersion.Size = new System.Drawing.Size(447, 25);
+            this.LabelVersion.TabIndex = 13;
+            this.LabelVersion.Text = "A new version of SMOSK is available!";
+            this.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LabelVersion.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,6 +317,8 @@ namespace SMOSK_2._0
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.LabelVersion);
+            this.Controls.Add(this.ButtonUpdateAll);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.LabelNrUpdates);
@@ -302,6 +335,7 @@ namespace SMOSK_2._0
             this.Name = "MainForm";
             this.Text = "SMOSK-C#";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.tabControl1.ResumeLayout(false);
             this.tabClassic.ResumeLayout(false);
             this.tabRetail.ResumeLayout(false);
@@ -326,6 +360,8 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Button RefreshButton;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label LabelBackground;
+        private System.Windows.Forms.Button ButtonUpdateAll;
+        private System.Windows.Forms.Label LabelVersion;
     }
 }
 

@@ -143,8 +143,8 @@ namespace SMOSK_2._0
 
 
 
-                
-                
+
+
 
                 
                 foreach (dynamic item in Globals.SearchRespons)
@@ -173,11 +173,15 @@ namespace SMOSK_2._0
                         ResultItem.SubItems.Add("***** This addon has no version marked as 'Realease' for " + Globals.gameFlavor + " *****");
                     }
                     
+
+
                     ResultItem.SubItems.Add((string)item.id);
 
 
                     SearchFormListView.Items.Add(ResultItem);
+
                     
+
                     
                 }
 
@@ -185,6 +189,25 @@ namespace SMOSK_2._0
                 SearchFormListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
                 SearchFormListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
                 SearchFormListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
+
+                int i = 0;
+                foreach (ListViewItem Item in SearchFormListView.Items)
+                {
+                    if (i % 2 == 0)
+                    {
+                        Item.BackColor = System.Drawing.Color.Black;
+                        Item.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        Item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        Item.ForeColor = System.Drawing.Color.Snow;
+                    }
+
+                    i++;
+                }
+
+
             } 
             catch (Exception e)
             {
