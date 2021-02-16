@@ -290,6 +290,9 @@ namespace SMOSK_2._0
             // 
             // LabelBackground
             // 
+            this.LabelBackground.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelBackground.Image = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.LabelBackground.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.LabelBackground.Location = new System.Drawing.Point(-2, 33);
