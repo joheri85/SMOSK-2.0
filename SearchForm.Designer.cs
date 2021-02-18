@@ -34,8 +34,8 @@ namespace SMOSK_2._0
             this.Search_Input = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.GameVersionSelector = new System.Windows.Forms.ComboBox();
-            this.ButtonInstallSelected = new System.Windows.Forms.Button();
             this.progressBarInstalling = new System.Windows.Forms.ProgressBar();
+            this.ButtonInstallSelected = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SearchFormListView
@@ -101,29 +101,33 @@ namespace SMOSK_2._0
             this.GameVersionSelector.TabIndex = 3;
             this.GameVersionSelector.SelectedIndexChanged += new System.EventHandler(this.GameVersionSelector_SelectedIndexChanged);
             // 
-            // ButtonInstallSelected
-            // 
-            this.ButtonInstallSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonInstallSelected.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonInstallSelected.Location = new System.Drawing.Point(713, 420);
-            this.ButtonInstallSelected.Name = "ButtonInstallSelected";
-            this.ButtonInstallSelected.Size = new System.Drawing.Size(75, 23);
-            this.ButtonInstallSelected.TabIndex = 4;
-            this.ButtonInstallSelected.Text = "Install";
-            this.ButtonInstallSelected.UseVisualStyleBackColor = true;
-            this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
-            // 
             // progressBarInstalling
             // 
             this.progressBarInstalling.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarInstalling.BackColor = System.Drawing.Color.Black;
             this.progressBarInstalling.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBarInstalling.Location = new System.Drawing.Point(525, 420);
+            this.progressBarInstalling.Location = new System.Drawing.Point(574, 420);
             this.progressBarInstalling.Name = "progressBarInstalling";
             this.progressBarInstalling.Size = new System.Drawing.Size(182, 23);
             this.progressBarInstalling.Step = 1;
             this.progressBarInstalling.TabIndex = 6;
             this.progressBarInstalling.Visible = false;
+            // 
+            // ButtonInstallSelected
+            // 
+            this.ButtonInstallSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonInstallSelected.BackColor = System.Drawing.Color.Black;
+            this.ButtonInstallSelected.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_update2;
+            this.ButtonInstallSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonInstallSelected.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonInstallSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonInstallSelected.ForeColor = System.Drawing.Color.White;
+            this.ButtonInstallSelected.Location = new System.Drawing.Point(762, 420);
+            this.ButtonInstallSelected.Name = "ButtonInstallSelected";
+            this.ButtonInstallSelected.Size = new System.Drawing.Size(26, 23);
+            this.ButtonInstallSelected.TabIndex = 10;
+            this.ButtonInstallSelected.UseVisualStyleBackColor = false;
+            this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
             // 
             // SearchForm
             // 
@@ -132,8 +136,8 @@ namespace SMOSK_2._0
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.progressBarInstalling);
             this.Controls.Add(this.ButtonInstallSelected);
+            this.Controls.Add(this.progressBarInstalling);
             this.Controls.Add(this.GameVersionSelector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Search_Input);
@@ -153,7 +157,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.TextBox Search_Input;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GameVersionSelector;
-        private System.Windows.Forms.Button ButtonInstallSelected;
         private System.Windows.Forms.ProgressBar progressBarInstalling;
+        private System.Windows.Forms.Button ButtonInstallSelected;
     }
 }

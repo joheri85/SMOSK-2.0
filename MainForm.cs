@@ -632,7 +632,7 @@ namespace SMOSK_2._0
                     foreach (ListViewItem item in UpdateList)
                     {
 
-
+                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count*2)) * 100);
                         string XPathStringClassic = "config/Addon[ID='" + item.SubItems[4].Text + "']";
                         var MatchedNodeClassic = nodeNav.SelectSingleNode(XPathStringClassic);
 
