@@ -39,6 +39,8 @@ namespace SMOSK_2._0
             this.Button_BrowsPath = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
+            this.LabelVersion = new System.Windows.Forms.Label();
+            this.ButtonImport = new System.Windows.Forms.Button();
             this.ButtonUpdateAll = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
             this.LabelNrUpdates = new System.Windows.Forms.Label();
@@ -46,7 +48,6 @@ namespace SMOSK_2._0
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.LabelBackground = new System.Windows.Forms.Label();
-            this.LabelVersion = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -196,6 +197,36 @@ namespace SMOSK_2._0
             this.progressBarUpdate.TabIndex = 1;
             this.progressBarUpdate.Visible = false;
             // 
+            // LabelVersion
+            // 
+            this.LabelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelVersion.ForeColor = System.Drawing.Color.DarkOrange;
+            this.LabelVersion.Location = new System.Drawing.Point(530, 4);
+            this.LabelVersion.Name = "LabelVersion";
+            this.LabelVersion.Size = new System.Drawing.Size(226, 25);
+            this.LabelVersion.TabIndex = 13;
+            this.LabelVersion.Text = "A new version of SMOSK is available!";
+            this.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LabelVersion.Visible = false;
+            this.LabelVersion.Click += new System.EventHandler(this.LabelVersion_Click);
+            // 
+            // ButtonImport
+            // 
+            this.ButtonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonImport.BackColor = System.Drawing.Color.Black;
+            this.ButtonImport.BackgroundImage = global::SMOSK_2._0.Properties.Resources.import26;
+            this.ButtonImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ButtonImport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonImport.ForeColor = System.Drawing.Color.White;
+            this.ButtonImport.Location = new System.Drawing.Point(579, 504);
+            this.ButtonImport.Name = "ButtonImport";
+            this.ButtonImport.Size = new System.Drawing.Size(40, 40);
+            this.ButtonImport.TabIndex = 14;
+            this.ButtonImport.UseVisualStyleBackColor = false;
+            this.ButtonImport.Click += new System.EventHandler(this.ButtonImport_Click);
+            // 
             // ButtonUpdateAll
             // 
             this.ButtonUpdateAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -265,7 +296,7 @@ namespace SMOSK_2._0
             this.ButtonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ButtonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonDelete.ForeColor = System.Drawing.Color.White;
-            this.ButtonDelete.Location = new System.Drawing.Point(558, 504);
+            this.ButtonDelete.Location = new System.Drawing.Point(533, 504);
             this.ButtonDelete.Name = "ButtonDelete";
             this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
             this.ButtonDelete.TabIndex = 7;
@@ -300,19 +331,6 @@ namespace SMOSK_2._0
             this.LabelBackground.Size = new System.Drawing.Size(806, 525);
             this.LabelBackground.TabIndex = 11;
             // 
-            // LabelVersion
-            // 
-            this.LabelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelVersion.ForeColor = System.Drawing.Color.DarkOrange;
-            this.LabelVersion.Location = new System.Drawing.Point(309, 4);
-            this.LabelVersion.Name = "LabelVersion";
-            this.LabelVersion.Size = new System.Drawing.Size(447, 25);
-            this.LabelVersion.TabIndex = 13;
-            this.LabelVersion.Text = "A new version of SMOSK is available!";
-            this.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LabelVersion.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +338,7 @@ namespace SMOSK_2._0
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.ButtonImport);
             this.Controls.Add(this.LabelVersion);
             this.Controls.Add(this.ButtonUpdateAll);
             this.Controls.Add(this.RefreshButton);
@@ -365,6 +384,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Label LabelBackground;
         private System.Windows.Forms.Button ButtonUpdateAll;
         private System.Windows.Forms.Label LabelVersion;
+        private System.Windows.Forms.Button ButtonImport;
     }
 }
 

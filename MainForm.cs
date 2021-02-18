@@ -15,6 +15,7 @@ using System.Net;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using System.Diagnostics;
 
 namespace SMOSK_2._0
 {
@@ -305,14 +306,16 @@ namespace SMOSK_2._0
             XPathNavigator node;
             string gameFlavor;
             bool isClassic;
-
+            
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 isClassic = true;
+                ClassicListView.BeginUpdate();
             }
             else
             {
                 isClassic = false;
+                RetailListView.BeginUpdate();
             }
 
             if (isClassic)
@@ -341,50 +344,59 @@ namespace SMOSK_2._0
 
             var response = APIPOST("https://addons-ecs.forgesvc.net/api/v2/addon/", JsonIDArray);
             
-            dynamic json = JsonConvert.DeserializeObject(response);
-
-
-            
-            
-            foreach (dynamic item in json )
+            if (response != null)
             {
-                if (tabControl1.SelectedTab.Text == "Classic")
+
+              
+            
+                dynamic json = JsonConvert.DeserializeObject(response);
+
+           
+            
+            
+                foreach (dynamic item in json )
                 {
-                    node = Globals.ClassicDB.CreateNavigator();
-                }
-                else
-                {
-                    node = Globals.RetailDB.CreateNavigator();
-                }
+                    if (tabControl1.SelectedTab.Text == "Classic")
+                    {
+                        node = Globals.ClassicDB.CreateNavigator();
+                    }
+                    else
+                    {
+                        node = Globals.RetailDB.CreateNavigator();
+                    }
 
                
-                string XPathString = "config/Addon[ID='" + item.id + "']";
-                var MatchedNode = node.SelectSingleNode(XPathString);
+                    string XPathString = "config/Addon[ID='" + item.id + "']";
+                    var MatchedNode = node.SelectSingleNode(XPathString);
 
 
-                foreach (dynamic subItem in item.latestFiles)
-                {
-                    if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
+                    foreach (dynamic subItem in item.latestFiles)
                     {
-                        MatchedNode.SelectSingleNode("LatestVersion").InnerXml = subItem.displayName;
-                        break;
-                    }
+                        if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
+                        {
+                            MatchedNode.SelectSingleNode("LatestVersion").InnerXml = subItem.displayName;
+                            break;
+                        }
                     
-                }
+                    }
 
+                }
             }
+
+
             if (isClassic)
             {
                 Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                 RefreshClassic(null, null);
+                ClassicListView.EndUpdate();
             }
             else
             {
                 Globals.RetailDB.Save(@".\Data\RetailDB.xml");
                 RefreshRetail(null, null);
+                RetailListView.EndUpdate();
             }
-                
-            
+
 
         }
 
@@ -425,7 +437,7 @@ namespace SMOSK_2._0
             }
             catch (WebException ex)
             {
-                throw ex;
+                return null;
             }
 
         }
@@ -733,6 +745,38 @@ namespace SMOSK_2._0
                 RetailListView.Columns[4].Width = -2;
             }
             
+        }
+
+        private void LabelVersion_Click(object sender, EventArgs e)
+        {
+            Process.Start(@".\SMOSK 2.0 Updater.exe");
+            Application.Exit();
+        }
+
+        private void ButtonImport_Click(object sender, EventArgs e)
+        {
+            ImportForm ImportView = new ImportForm();
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ImportView.Name = "Classic";
+            }
+            else
+            {
+                ImportView.Name = "Retail";
+            }
+            ImportView.StartPosition = FormStartPosition.Manual;
+            ImportView.Location = new Point(this.Bounds.Location.X + 50, this.Bounds.Location.Y + 50);
+            ImportView.ShowDialog();
+            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                RefreshClassic(null, null);
+            }
+            else
+            {
+                RefreshRetail(null, null);
+            }
         }
     }
 }

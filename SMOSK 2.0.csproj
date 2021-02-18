@@ -92,6 +92,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForm.Designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     <Compile Include="SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ImportForm.resx">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +197,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon_smosk.ico" />
+    <None Include="Resources\import26.png" />
+    <None Include="Resources\import32.png" />
+    <None Include="Resources\import48.png" />
+    <None Include="Resources\import.png" />
     <None Include="Resources\Context_update_all1.png" />
     <None Include="Resources\Context_update_all.png" />
   </ItemGroup>
