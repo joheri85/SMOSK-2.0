@@ -29,10 +29,12 @@ namespace SMOSK_2._0
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
             this.SearchFormListView = new System.Windows.Forms.ListView();
             this.Search_Input = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.GameVersionSelector = new System.Windows.Forms.ComboBox();
+            this.progressBarInstalling = new System.Windows.Forms.ProgressBar();
             this.ButtonInstallSelected = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -43,12 +45,14 @@ namespace SMOSK_2._0
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchFormListView.AutoArrange = false;
             this.SearchFormListView.BackColor = System.Drawing.Color.Black;
+            this.SearchFormListView.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchFormListView.ForeColor = System.Drawing.Color.White;
             this.SearchFormListView.FullRowSelect = true;
             this.SearchFormListView.HideSelection = false;
             this.SearchFormListView.Location = new System.Drawing.Point(12, 61);
             this.SearchFormListView.Name = "SearchFormListView";
             this.SearchFormListView.Size = new System.Drawing.Size(776, 353);
+            this.SearchFormListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.SearchFormListView.TabIndex = 0;
             this.SearchFormListView.UseCompatibleStateImageBehavior = false;
             this.SearchFormListView.View = System.Windows.Forms.View.Details;
@@ -80,9 +84,11 @@ namespace SMOSK_2._0
             // 
             // GameVersionSelector
             // 
+            this.GameVersionSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.GameVersionSelector.BackColor = System.Drawing.Color.Black;
             this.GameVersionSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GameVersionSelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GameVersionSelector.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GameVersionSelector.ForeColor = System.Drawing.Color.White;
             this.GameVersionSelector.FormattingEnabled = true;
             this.GameVersionSelector.ImeMode = System.Windows.Forms.ImeMode.Off;
@@ -95,27 +101,48 @@ namespace SMOSK_2._0
             this.GameVersionSelector.TabIndex = 3;
             this.GameVersionSelector.SelectedIndexChanged += new System.EventHandler(this.GameVersionSelector_SelectedIndexChanged);
             // 
+            // progressBarInstalling
+            // 
+            this.progressBarInstalling.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarInstalling.BackColor = System.Drawing.Color.Black;
+            this.progressBarInstalling.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.progressBarInstalling.Location = new System.Drawing.Point(574, 420);
+            this.progressBarInstalling.Name = "progressBarInstalling";
+            this.progressBarInstalling.Size = new System.Drawing.Size(182, 23);
+            this.progressBarInstalling.Step = 1;
+            this.progressBarInstalling.TabIndex = 6;
+            this.progressBarInstalling.Visible = false;
+            // 
             // ButtonInstallSelected
             // 
-            this.ButtonInstallSelected.Location = new System.Drawing.Point(713, 420);
+            this.ButtonInstallSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonInstallSelected.BackColor = System.Drawing.Color.Black;
+            this.ButtonInstallSelected.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Context_update2;
+            this.ButtonInstallSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonInstallSelected.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonInstallSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonInstallSelected.ForeColor = System.Drawing.Color.White;
+            this.ButtonInstallSelected.Location = new System.Drawing.Point(762, 420);
             this.ButtonInstallSelected.Name = "ButtonInstallSelected";
-            this.ButtonInstallSelected.Size = new System.Drawing.Size(75, 23);
-            this.ButtonInstallSelected.TabIndex = 4;
-            this.ButtonInstallSelected.Text = "button1";
-            this.ButtonInstallSelected.UseVisualStyleBackColor = true;
+            this.ButtonInstallSelected.Size = new System.Drawing.Size(26, 23);
+            this.ButtonInstallSelected.TabIndex = 10;
+            this.ButtonInstallSelected.UseVisualStyleBackColor = false;
             this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
             // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
+            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ButtonInstallSelected);
+            this.Controls.Add(this.progressBarInstalling);
             this.Controls.Add(this.GameVersionSelector);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Search_Input);
             this.Controls.Add(this.SearchFormListView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SearchForm";
             this.Text = "SearchForm";
             this.Load += new System.EventHandler(this.SearchForm_Load);
@@ -130,6 +157,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.TextBox Search_Input;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GameVersionSelector;
+        private System.Windows.Forms.ProgressBar progressBarInstalling;
         private System.Windows.Forms.Button ButtonInstallSelected;
     }
 }

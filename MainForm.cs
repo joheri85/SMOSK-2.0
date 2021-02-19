@@ -15,13 +15,14 @@ using System.Net;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using System.Diagnostics;
 
 namespace SMOSK_2._0
 {
-    
+
     public partial class MainForm : Form
     {
-        private object jsonconvert;
+        
 
         public MainForm()
         {
@@ -34,15 +35,17 @@ namespace SMOSK_2._0
             public static XmlDocument ClassicDB = new XmlDocument();
             public static XmlDocument RetailDB = new XmlDocument();
             public static XmlDocument Settings = new XmlDocument();
-            
+
 
         }
+
+
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
-            } 
+            }
             else
             {
                 RefreshRetail(null, null);
@@ -51,99 +54,155 @@ namespace SMOSK_2._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
-            Globals.Settings.Load(@"..\..\Data\Settings.xml");
+            Application.EnableVisualStyles();
+            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+
+            Globals.Settings.Load(@".\Data\Settings.xml");
 
 
 
             Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
             Label_GamePath.Width = 150;
 
-            RefreshClassic(null, null);
 
+            try
+            {
+                var webRequest = WebRequest.Create(@"https://smosk.net/downloads/smosk2/smosk2version.txt");
+                string latesVersion;
+
+                using (var response = webRequest.GetResponse())
+                using (var content = response.GetResponseStream())
+                using (var reader = new StreamReader(content))
+                {
+                    latesVersion = reader.ReadToEnd();
+                }
+
+
+                string currentVersion = Globals.Settings.GetElementsByTagName("version")[0].InnerText;
+
+                if (currentVersion != latesVersion)
+                {
+                    LabelVersion.Visible = true;
+                }
+            } catch
+            {
+                Console.Out.WriteLine("Could not check latest version. Timeout.");
+            }
+            
+
+            GetAddonManifest(null, null);
+
+
+        }
+        private void SortXml(){
 
         }
 
 
         private void RefreshClassic(object sender, EventArgs e)
         {
-            
 
+            ClassicListView.Sorting = SortOrder.Ascending;
             XmlNodeList ClassicAddons = Globals.ClassicDB.GetElementsByTagName("Addon");
             
             ClassicListView.Clear();
             
 
-            ClassicListView.Columns.Add("PID");
+            
             ClassicListView.Columns.Add("Name");
             ClassicListView.Columns.Add("Current version");
             ClassicListView.Columns.Add("Latest version");
             ClassicListView.Columns.Add("Description");
+            ClassicListView.Columns.Add("PID");
 
-            int i = 0;
-            int ii = 0;
+            
             foreach (XmlNode Node in ClassicAddons)
             {
                 
                 ListViewItem ClassicItem = new ListViewItem();
-                ClassicItem.Text = Node["ID"].InnerText;
+                ClassicItem.Text = Node["Name"].InnerText;
 
-                ClassicItem.SubItems.Add(Node["Name"].InnerText);
+                
                 ClassicItem.SubItems.Add(Node["CurrentVersion"].InnerText);
                 ClassicItem.SubItems.Add(Node["LatestVersion"].InnerText);
                 ClassicItem.SubItems.Add(Node["Description"].InnerText);
+                ClassicItem.SubItems.Add(Node["ID"].InnerText);
 
-                if (Node["CurrentVersion"].InnerText == Node["LatestVersion"].InnerText)
-                {
-                    ClassicListView.Items.Add(ClassicItem);
-                    if (i % 2 == 0)
-                    {
-                        ClassicItem.BackColor = System.Drawing.Color.Black;
-                        ClassicItem.ForeColor = System.Drawing.Color.LightGray;
-                    }
-                    else
-                    {
-                        ClassicItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
-                        ClassicItem.ForeColor = System.Drawing.Color.Snow;
-                    }
-                    i++;
-                }
-                else
-                {
-                    ClassicListView.Items.Insert(0,ClassicItem);
-                    if (ii % 2 == 0)
-                    {
-                        ClassicItem.BackColor = System.Drawing.Color.Orange;
-                        ClassicItem.ForeColor = System.Drawing.Color.Black;
-                    }
-                    else
-                    {
-                        ClassicItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
-                        ClassicItem.ForeColor = System.Drawing.Color.Black;
-                    }
-                    ii++;
-                }
-                
-                
+
+                ClassicListView.Items.Add(ClassicItem);
+
+               
                 
             }
 
+
+
+            ClassicListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             ClassicListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
-            ClassicListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+            ClassicListView.Columns[4].Width = -2;
+
+
+            ClassicListView.Sorting = SortOrder.None;
+            int NrUpdates = 0;
+            int i = 0;
+            foreach (ListViewItem item in ClassicListView.Items)
+            {
+                if (item.SubItems[1].Text != item.SubItems[2].Text)
+                {
+                    ClassicListView.Items.RemoveAt(item.Index);
+                    ClassicListView.Items.Insert(NrUpdates, item);
+                    if (NrUpdates % 2 == 0)
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.Color.Orange;
+                    }
+                    else
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                    }
+                        
+                    NrUpdates++;
+                }
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        item.BackColor = System.Drawing.Color.Black;
+                        item.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        item.ForeColor = System.Drawing.Color.Snow;
+                    }
+                }
+                i++;
+            }
+
+            if (NrUpdates != 0)
+            {
+                LabelNrUpdates.Text = NrUpdates.ToString();
+                LabelNrUpdates.Visible = true;
+
+            }
+            else
+            {
+                LabelNrUpdates.Visible = false;
+            }
 
             
+        }
 
-
-    }
         private void RefreshRetail(object sender, EventArgs e)
         {
-            
-            
-            
 
+
+
+            RetailListView.Sorting = SortOrder.Ascending;
             XmlNodeList RetailAddons = Globals.RetailDB.GetElementsByTagName("Addon");
 
             
@@ -151,84 +210,112 @@ namespace SMOSK_2._0
             RetailListView.Clear();
 
 
-            RetailListView.Columns.Add("PID");
+            
             RetailListView.Columns.Add("Name");
             RetailListView.Columns.Add("Current version");
             RetailListView.Columns.Add("Latest version");
             RetailListView.Columns.Add("Description");
+            RetailListView.Columns.Add("PID");
 
-            int i = 0;
-            int ii = 0;
+            
             foreach (XmlNode Node in RetailAddons)
             {
 
                 ListViewItem RetailItem = new ListViewItem();
-                RetailItem.Text = Node["ID"].InnerText;
+                RetailItem.Text = Node["Name"].InnerText;
 
-                RetailItem.SubItems.Add(Node["Name"].InnerText);
+                
                 RetailItem.SubItems.Add(Node["CurrentVersion"].InnerText);
                 RetailItem.SubItems.Add(Node["LatestVersion"].InnerText);
                 RetailItem.SubItems.Add(Node["Description"].InnerText);
+                RetailItem.SubItems.Add(Node["ID"].InnerText);
+
+                RetailListView.Items.Add(RetailItem);
 
                 
-                if (Node["CurrentVersion"].InnerText == Node["LatestVersion"].InnerText)
-                {
-                    RetailListView.Items.Add(RetailItem);
-                    if (i % 2 == 0)
-                    {
-                        RetailItem.BackColor = System.Drawing.Color.Black;
-                        RetailItem.ForeColor = System.Drawing.Color.LightGray;
-                    }
-                    else
-                    {
-                        RetailItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
-                        RetailItem.ForeColor = System.Drawing.Color.Snow;
-                    }
-                    i++;
-                }
-                else
-                {
-                    RetailListView.Items.Insert(0, RetailItem);
-                    if (ii % 2 == 0)
-                    {
-                        RetailItem.BackColor = System.Drawing.Color.Orange;
-                        RetailItem.ForeColor = System.Drawing.Color.Black;
-                    }
-                    else
-                    {
-                        RetailItem.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
-                        RetailItem.ForeColor = System.Drawing.Color.Black;
-                    }
-                    ii++;
-                }
+
             }
 
+            
+            
+
+            RetailListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             RetailListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             RetailListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             RetailListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
-            RetailListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent);
+            RetailListView.Columns[4].Width = -2;
+
+            RetailListView.Sorting = SortOrder.None;
+            int NrUpdates = 0;
+            int i = 0;
+            foreach (ListViewItem item in RetailListView.Items)
+            {
+                if (item.SubItems[1].Text != item.SubItems[2].Text)
+                {
+                    RetailListView.Items.RemoveAt(item.Index);
+                    RetailListView.Items.Insert(NrUpdates, item);
+                    if (NrUpdates % 2 == 0)
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.Color.Orange;
+                    }
+                    else
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                    }
+
+                    NrUpdates++;
+                }
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        item.BackColor = System.Drawing.Color.Black;
+                        item.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        item.ForeColor = System.Drawing.Color.Snow;
+                    }
+                }
+                i++;
+            }
+
+            if (NrUpdates != 0)
+            {
+                LabelNrUpdates.Text = NrUpdates.ToString();
+                LabelNrUpdates.Visible = true;
+
+            }
+            else
+            {
+                LabelNrUpdates.Visible = false;
+            }
         }
-        
 
 
 
 
-       
 
         private void GetAddonManifest(object sender, EventArgs e)
         {
+            
             XmlNodeList Addons;
             XPathNavigator node;
             string gameFlavor;
             bool isClassic;
-
+            
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 isClassic = true;
+                ClassicListView.BeginUpdate();
             }
             else
             {
                 isClassic = false;
+                RetailListView.BeginUpdate();
             }
 
             if (isClassic)
@@ -257,50 +344,59 @@ namespace SMOSK_2._0
 
             var response = APIPOST("https://addons-ecs.forgesvc.net/api/v2/addon/", JsonIDArray);
             
-            dynamic json = JsonConvert.DeserializeObject(response);
-
-
-            
-            
-            foreach (dynamic item in json )
+            if (response != null)
             {
-                if (tabControl1.SelectedTab.Text == "Classic")
+
+              
+            
+                dynamic json = JsonConvert.DeserializeObject(response);
+
+           
+            
+            
+                foreach (dynamic item in json )
                 {
-                    node = Globals.ClassicDB.CreateNavigator();
-                }
-                else
-                {
-                    node = Globals.RetailDB.CreateNavigator();
-                }
+                    if (tabControl1.SelectedTab.Text == "Classic")
+                    {
+                        node = Globals.ClassicDB.CreateNavigator();
+                    }
+                    else
+                    {
+                        node = Globals.RetailDB.CreateNavigator();
+                    }
 
                
-                string XPathString = "config/Addon[ID='" + item.id + "']";
-                var MatchedNode = node.SelectSingleNode(XPathString);
+                    string XPathString = "config/Addon[ID='" + item.id + "']";
+                    var MatchedNode = node.SelectSingleNode(XPathString);
 
 
-                foreach (dynamic subItem in item.latestFiles)
-                {
-                    if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
+                    foreach (dynamic subItem in item.latestFiles)
                     {
-                        MatchedNode.SelectSingleNode("LatestVersion").InnerXml = subItem.displayName;
-                        break;
-                    }
+                        if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
+                        {
+                            MatchedNode.SelectSingleNode("LatestVersion").InnerXml = subItem.displayName;
+                            break;
+                        }
                     
-                }
+                    }
 
+                }
             }
+
+
             if (isClassic)
             {
-                Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                 RefreshClassic(null, null);
+                ClassicListView.EndUpdate();
             }
             else
             {
-                Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+                Globals.RetailDB.Save(@".\Data\RetailDB.xml");
                 RefreshRetail(null, null);
+                RetailListView.EndUpdate();
             }
-                
-            
+
 
         }
 
@@ -341,7 +437,7 @@ namespace SMOSK_2._0
             }
             catch (WebException ex)
             {
-                throw ex;
+                return null;
             }
 
         }
@@ -358,7 +454,7 @@ namespace SMOSK_2._0
                 Environment.SpecialFolder root = folderDlg.RootFolder;
 
                 Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText = folderDlg.SelectedPath;
-                Globals.Settings.Save(@"..\..\Data\Settings.xml");
+                Globals.Settings.Save(@".\Data\Settings.xml");
             }
         }
 
@@ -378,10 +474,11 @@ namespace SMOSK_2._0
             {
                 AddonSearch.Name = "Retail";
             }
-            
+            AddonSearch.StartPosition = FormStartPosition.Manual;
+            AddonSearch.Location = new Point(this.Bounds.Location.X + 50, this.Bounds.Location.Y + 50);
             AddonSearch.ShowDialog();
-            Globals.ClassicDB.Load(@"..\..\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@"..\..\Data\RetailDB.xml");
+            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
@@ -402,7 +499,7 @@ namespace SMOSK_2._0
                 {
                     foreach (ListViewItem item in ClassicListView.SelectedItems)
                     {
-                        IDs.Add(item.SubItems[0].Text);
+                        IDs.Add(item.SubItems[4].Text);
                     }
 
                     foreach (string ID in IDs)
@@ -412,13 +509,13 @@ namespace SMOSK_2._0
                             if (IDNode.InnerText == ID)
                             {
                                 XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.ChildNodes[6]);
+                                deleteModules(addon.SelectSingleNode("Modules").InnerXml.Split(','));
                                 addon.ParentNode.RemoveChild(addon);
                                 continue;
                             }
                         }
                     }
-                    Globals.ClassicDB.Save(@"..\..\Data\ClassicDB.xml");
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                     RefreshClassic(null, null);
                 }
             }
@@ -428,7 +525,7 @@ namespace SMOSK_2._0
                 {
                     foreach (ListViewItem item in RetailListView.SelectedItems)
                     {
-                        IDs.Add(item.SubItems[0].Text);
+                        IDs.Add(item.SubItems[4].Text);
                     }
 
                     foreach (string ID in IDs) 
@@ -437,24 +534,24 @@ namespace SMOSK_2._0
                         {
                             if (IDNode.InnerText == ID)
                             {
-                               
+                                
                                 XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.ChildNodes[6]);
+                                deleteModules(addon.SelectSingleNode("Modules").InnerXml.Split(','));
                                 addon.ParentNode.RemoveChild(addon);
                                 continue;
                             }
                         }
                     }
 
-                    Globals.RetailDB.Save(@"..\..\Data\RetailDB.xml");
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
                     RefreshRetail(null, null);
                 }
             }
         }
 
-        private void deleteModules(XmlNode ID)
+        private void deleteModules(string[] Modules)
         {
-            string[] Modules = ID.InnerText.Split(',');
+            
             string ModulePath;
             foreach (string Module in Modules) {
                 if (tabControl1.SelectedTab.Text == "Classic")
@@ -474,6 +571,212 @@ namespace SMOSK_2._0
             
         }
 
-       
+        private void DownloadNewAddonFiles(string url)
+        {
+
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(new System.Uri(url), ".\\Downloads\\dl.zip");
+            }
+            String ExtractPath;
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_classic_\\Interface\\Addons\\";
+            }
+            else
+            {
+                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\";
+            }
+
+            System.IO.Compression.ZipFile.ExtractToDirectory(".\\Downloads\\dl.zip", ExtractPath);
+
+            File.Delete(".\\Downloads\\dl.zip");
+        }
+
+        private void ButtonUpdate_Click(object sender, EventArgs e)
+        {
+            var buttonPressed = (Button)sender;
+
+            if (tabControl1.SelectedTab.Text == "Classic") {
+                
+                
+                if (ClassicListView.SelectedItems.Count > 0 || buttonPressed.Name == "ButtonUpdateAll")
+                {
+                    progressBarUpdate.Value = 0;
+                    progressBarUpdate.Visible = true;
+
+                    
+                    
+
+                    List<ListViewItem> UpdateList = new List<ListViewItem>();
+
+
+
+                    
+                    
+                    if (buttonPressed.Name == "ButtonUpdate")
+                    {
+                        foreach (ListViewItem item in ClassicListView.SelectedItems)
+                        {
+                            UpdateList.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        foreach (ListViewItem item in ClassicListView.Items)
+                        {
+                            if (item.SubItems[1].Text != item.SubItems[2].Text)
+                            {
+                                UpdateList.Add(item);
+
+                            }   
+                        }
+                    }
+
+                    
+                    
+                    GetAddonManifest(null, null);
+
+                    System.Xml.XPath.XPathNavigator nodeNav;
+                    nodeNav = Globals.ClassicDB.CreateNavigator();
+
+                    decimal i = 1;
+                    foreach (ListViewItem item in UpdateList)
+                    {
+
+                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count*2)) * 100);
+                        string XPathStringClassic = "config/Addon[ID='" + item.SubItems[4].Text + "']";
+                        var MatchedNodeClassic = nodeNav.SelectSingleNode(XPathStringClassic);
+
+                        MatchedNodeClassic.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeClassic.SelectSingleNode("LatestVersion").InnerXml;
+
+                        string[] Modules = MatchedNodeClassic.SelectSingleNode("Modules").InnerXml.Split(',');
+                        deleteModules(Modules);
+                        DownloadNewAddonFiles(MatchedNodeClassic.SelectSingleNode("DownloadLink").InnerXml);
+                        progressBarUpdate.Value = (int)((i/(decimal)UpdateList.Count)*100);
+                        
+                        i++;
+                    }
+
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+                    
+                    RefreshClassic(null, null);
+                    progressBarUpdate.Visible = false;
+                    //this.ResumeLayout();
+
+                }
+
+
+
+
+            }
+            else
+            {
+                if (RetailListView.SelectedItems.Count > 0 || buttonPressed.Name == "ButtonUpdateAll")
+                {
+                    progressBarUpdate.Value = 0;
+                    progressBarUpdate.Visible = true;
+                    this.SuspendLayout();
+
+                    List<ListViewItem> UpdateList = new List<ListViewItem>();
+
+                    if (buttonPressed.Name == "ButtonUpdate")
+                    {
+                        foreach (ListViewItem item in RetailListView.SelectedItems)
+                        {
+                            UpdateList.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        foreach (ListViewItem item in RetailListView.Items)
+                        {
+                            if (item.SubItems[1].Text != item.SubItems[2].Text)
+                            {
+                                UpdateList.Add(item);
+
+                            }
+                        }
+                    }
+
+                    GetAddonManifest(null, null);
+
+                    System.Xml.XPath.XPathNavigator nodeNav;
+                    nodeNav = Globals.RetailDB.CreateNavigator();
+
+                    decimal i = 1;
+                    foreach (ListViewItem item in UpdateList)
+                    {
+
+
+                        string XPathStringRetail = "config/Addon[ID='" + item.SubItems[4].Text + "']";
+                        var MatchedNodeRetail = nodeNav.SelectSingleNode(XPathStringRetail);
+
+                        MatchedNodeRetail.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeRetail.SelectSingleNode("LatestVersion").InnerXml;
+
+                        string[] Modules = MatchedNodeRetail.SelectSingleNode("Modules").InnerXml.Split(',');
+                        deleteModules(Modules);
+                        DownloadNewAddonFiles(MatchedNodeRetail.SelectSingleNode("DownloadLink").InnerXml);
+                        progressBarUpdate.Value = (int)((i / (decimal)UpdateList.Count) * 100);
+
+                        i++;
+                    }
+
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+
+                    
+                    RefreshRetail(null, null);
+                    progressBarUpdate.Visible = false;
+                    this.ResumeLayout();
+                    
+
+                }
+            }
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ClassicListView.Columns[4].Width = -2;
+            } 
+            else
+            {
+                RetailListView.Columns[4].Width = -2;
+            }
+            
+        }
+
+        private void LabelVersion_Click(object sender, EventArgs e)
+        {
+            Process.Start(@".\SMOSK 2.0 Updater.exe");
+            Application.Exit();
+        }
+
+        private void ButtonImport_Click(object sender, EventArgs e)
+        {
+            ImportForm ImportView = new ImportForm();
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ImportView.Name = "Classic";
+            }
+            else
+            {
+                ImportView.Name = "Retail";
+            }
+            ImportView.StartPosition = FormStartPosition.Manual;
+            ImportView.Location = new Point(this.Bounds.Location.X + 50, this.Bounds.Location.Y + 50);
+            ImportView.ShowDialog();
+            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                RefreshClassic(null, null);
+            }
+            else
+            {
+                RefreshRetail(null, null);
+            }
+        }
     }
 }
