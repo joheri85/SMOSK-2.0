@@ -60,7 +60,16 @@ namespace SMOSK_2._0
 
             Globals.Settings.Load(@".\Data\Settings.xml");
 
+            // ToolTips
+            toolTipDelete.SetToolTip(ButtonDelete, "Delete selected addons");
+            toolTipImport.SetToolTip(ButtonImport, "Import excisting addons");
+            toolTipUppdateAll.SetToolTip(ButtonUpdateAll, "Update all addons with updates available");
+            toolTipUpdateSelected.SetToolTip(ButtonUpdate, "Update/re-install selected addons");
+            toolTipSearch.SetToolTip(Button_OpenSearch, "Search for new addons on CurseForge");
+            toolTipRefresh.SetToolTip(RefreshButton, "Check for updates and refresh the addon list");
+            toolTipBrows.SetToolTip(Button_BrowsPath, @"Select your WoW root dir Ex: 'D:\games\World of Warcraft'");
 
+            // End ToolTips
 
             Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
             Label_GamePath.Width = 150;
@@ -375,6 +384,7 @@ namespace SMOSK_2._0
                         if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
                         {
                             MatchedNode.SelectSingleNode("LatestVersion").InnerXml = subItem.displayName;
+                            MatchedNode.SelectSingleNode("DownloadLink").InnerXml = subItem.downloadUrl;
                             break;
                         }
                     
@@ -647,7 +657,6 @@ namespace SMOSK_2._0
                         progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count*2)) * 100);
                         string XPathStringClassic = "config/Addon[ID='" + item.SubItems[4].Text + "']";
                         var MatchedNodeClassic = nodeNav.SelectSingleNode(XPathStringClassic);
-
                         MatchedNodeClassic.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeClassic.SelectSingleNode("LatestVersion").InnerXml;
 
                         string[] Modules = MatchedNodeClassic.SelectSingleNode("Modules").InnerXml.Split(',');
@@ -777,6 +786,11 @@ namespace SMOSK_2._0
             {
                 RefreshRetail(null, null);
             }
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace SMOSK_2._0
 {
@@ -25,19 +26,24 @@ namespace SMOSK_2._0
         static class Globals
         {
             // Global Database variables
-            public static XmlDocument ClassicDB = new XmlDocument();
-            public static XmlDocument RetailDB = new XmlDocument();
+            public static XDocument ClassicDB;
+            public static XDocument RetailDB;
             public static XmlDocument Settings = new XmlDocument();
-            public static string gameFlavor;
             public static dynamic lastItem = null;
+            public static string gameFlavor;
 
         }
 
         private void ImportForm_Load(object sender, EventArgs e)
         {
-            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
             Globals.Settings.Load(@".\Data\Settings.xml");
+
+            if (File.Exists(@".\Data\import.xml"))
+            {
+                File.Delete(@".\Data\import.xml");
+            }
 
             if (this.Name == "Classic")
             {
@@ -57,6 +63,10 @@ namespace SMOSK_2._0
             ImportFormListView.Columns.Add("Description");
             ImportFormListView.Columns.Add("Version");
             ImportFormListView.Columns.Add("PID");
+
+            XDocument importXML = new XDocument(new XElement("config", string.Empty));
+                                         
+            importXML.Save(@".\Data\import.xml");
 
             if (this.Name == "Classic")
             {
@@ -118,12 +128,15 @@ namespace SMOSK_2._0
                 i++;
             }
             ImportProgressbar.Visible = false;
+            ButtonImportSelected.Visible = true;
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             ImportFormListView.Clear();
+           
+            
             ImportProgressbar.Value = 0;
             ImportProgressbar.Visible = true;
             GetAddonList();
@@ -152,7 +165,8 @@ namespace SMOSK_2._0
                             dynamic addonResponse = JsonConvert.DeserializeObject(responseData);
                             dynamic item = addonResponse[0];
 
-                           
+                            
+
                             dynamic correctRelease = null;
                             foreach (dynamic subItem in item.latestFiles)
                             {
@@ -163,6 +177,31 @@ namespace SMOSK_2._0
                                 }
 
                             }
+
+
+                            // XML
+
+                            XDocument importXML = XDocument.Load(@".\Data\import.xml");
+                            importXML.Descendants("config").Last().Add(new XElement("Addon"));
+
+                            importXML.Descendants("Addon").Last().Add(new XElement("ID", (string)item.id));
+                            importXML.Descendants("Addon").Last().Add(new XElement("Name", (string)item.name));
+                            importXML.Descendants("Addon").Last().Add(new XElement("DownloadLink", (string)correctRelease.downloadUrl));
+                            importXML.Descendants("Addon").Last().Add(new XElement("Description", (string)item.summary));
+                            importXML.Descendants("Addon").Last().Add(new XElement("CurrentVersion", "???"));
+                            importXML.Descendants("Addon").Last().Add(new XElement("LatestVersion", (string)correctRelease.displayName));
+                            string moduleString = "";
+                            foreach (dynamic module in correctRelease.modules)
+                            {
+                                moduleString += (module.foldername + ",");
+                            }
+                            
+                            importXML.Descendants("Addon").Last().Add(new XElement("Modules", moduleString.Trim(new Char[] { ',' })));
+                            importXML.Descendants("Addon").Last().Add(new XElement("Website", (string)item.websiteUrl));
+
+                            importXML.Save(@".\Data\import.xml");
+
+                            // End XML
 
                             ListViewItem ResultItem = new ListViewItem();
                             ResultItem.Text = item.name;
@@ -197,6 +236,8 @@ namespace SMOSK_2._0
                             ImportFormListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
                             ImportFormListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
                             ImportFormListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
+
+                            
                         }
                     }
                 }
@@ -208,11 +249,66 @@ namespace SMOSK_2._0
 
         }
 
+        private void ButtonImportSelected_Click(object sender, EventArgs e)
+        {
 
-        
+            XDocument importXML = XDocument.Load(@".\Data\import.xml");
 
-        
-        
+            if (this.Name == "Classic")
+            {
+                foreach (ListViewItem item in ImportFormListView.SelectedItems)
+                {
+                    try
+                    {
+                        var ExcistingNode = Globals.ClassicDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                            .Single();
+                    } 
+                    catch
+                    {
+                        var MatchingXMLNode = importXML.Descendants("Addon")
+                        .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                        .First();
+
+                        Globals.ClassicDB.Descendants("config").Last().Add(MatchingXMLNode);
+                    }
+
+                }
+
+                
+                
+                Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+            } 
+            else
+            {
+                foreach (ListViewItem item in ImportFormListView.SelectedItems)
+                {
+
+                    try
+                    {
+                        var ExcistingNode = Globals.RetailDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                            .Single();
+                    }
+                    catch
+                    {
+                        var MatchingXMLNode = importXML.Descendants("Addon")
+                        .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                        .First();
+
+                        Globals.RetailDB.Descendants("config").Last().Add(MatchingXMLNode);
+                    }
+
+                }
+                Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+            }
+
+
+
+
+            this.Close();
+
+        }
     }
 }
 

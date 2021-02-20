@@ -31,8 +31,9 @@ namespace SMOSK_2._0
         {
             this.labelTitle = new System.Windows.Forms.Label();
             this.ImportFormListView = new System.Windows.Forms.ListView();
-            this.button1 = new System.Windows.Forms.Button();
             this.ImportProgressbar = new System.Windows.Forms.ProgressBar();
+            this.ButtonScan = new System.Windows.Forms.Button();
+            this.ButtonImportSelected = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -66,24 +67,46 @@ namespace SMOSK_2._0
             this.ImportFormListView.UseCompatibleStateImageBehavior = false;
             this.ImportFormListView.View = System.Windows.Forms.View.Details;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(713, 405);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 33);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Scan";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // ImportProgressbar
             // 
-            this.ImportProgressbar.Location = new System.Drawing.Point(13, 406);
+            this.ImportProgressbar.Location = new System.Drawing.Point(13, 405);
             this.ImportProgressbar.Name = "ImportProgressbar";
-            this.ImportProgressbar.Size = new System.Drawing.Size(694, 32);
+            this.ImportProgressbar.Size = new System.Drawing.Size(737, 33);
             this.ImportProgressbar.TabIndex = 7;
             this.ImportProgressbar.Visible = false;
+            // 
+            // ButtonScan
+            // 
+            this.ButtonScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonScan.BackColor = System.Drawing.Color.Black;
+            this.ButtonScan.BackgroundImage = global::SMOSK_2._0.Properties.Resources.search_context;
+            this.ButtonScan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ButtonScan.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonScan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonScan.ForeColor = System.Drawing.Color.White;
+            this.ButtonScan.Location = new System.Drawing.Point(756, 406);
+            this.ButtonScan.Name = "ButtonScan";
+            this.ButtonScan.Size = new System.Drawing.Size(32, 32);
+            this.ButtonScan.TabIndex = 8;
+            this.ButtonScan.UseVisualStyleBackColor = false;
+            this.ButtonScan.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ButtonImportSelected
+            // 
+            this.ButtonImportSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonImportSelected.BackColor = System.Drawing.Color.Black;
+            this.ButtonImportSelected.BackgroundImage = global::SMOSK_2._0.Properties.Resources.import26;
+            this.ButtonImportSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ButtonImportSelected.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonImportSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonImportSelected.ForeColor = System.Drawing.Color.White;
+            this.ButtonImportSelected.Location = new System.Drawing.Point(718, 405);
+            this.ButtonImportSelected.Name = "ButtonImportSelected";
+            this.ButtonImportSelected.Size = new System.Drawing.Size(32, 32);
+            this.ButtonImportSelected.TabIndex = 15;
+            this.ButtonImportSelected.UseVisualStyleBackColor = false;
+            this.ButtonImportSelected.Visible = false;
+            this.ButtonImportSelected.Click += new System.EventHandler(this.ButtonImportSelected_Click);
             // 
             // ImportForm
             // 
@@ -91,8 +114,9 @@ namespace SMOSK_2._0
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ButtonImportSelected);
+            this.Controls.Add(this.ButtonScan);
             this.Controls.Add(this.ImportProgressbar);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.ImportFormListView);
             this.Name = "ImportForm";
@@ -107,7 +131,8 @@ namespace SMOSK_2._0
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.ListView ImportFormListView;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ProgressBar ImportProgressbar;
+        private System.Windows.Forms.Button ButtonScan;
+        private System.Windows.Forms.Button ButtonImportSelected;
     }
 }

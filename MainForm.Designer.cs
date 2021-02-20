@@ -29,6 +29,7 @@ namespace SMOSK_2._0
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabClassic = new System.Windows.Forms.TabPage();
@@ -48,6 +49,13 @@ namespace SMOSK_2._0
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.LabelBackground = new System.Windows.Forms.Label();
+            this.toolTipDelete = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipImport = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipUppdateAll = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipUpdateSelected = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipSearch = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipRefresh = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipBrows = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -200,6 +208,7 @@ namespace SMOSK_2._0
             // LabelVersion
             // 
             this.LabelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelVersion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LabelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelVersion.ForeColor = System.Drawing.Color.DarkOrange;
             this.LabelVersion.Location = new System.Drawing.Point(530, 4);
@@ -385,6 +394,13 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Button ButtonUpdateAll;
         private System.Windows.Forms.Label LabelVersion;
         private System.Windows.Forms.Button ButtonImport;
+        private System.Windows.Forms.ToolTip toolTipDelete;
+        private System.Windows.Forms.ToolTip toolTipImport;
+        private System.Windows.Forms.ToolTip toolTipUppdateAll;
+        private System.Windows.Forms.ToolTip toolTipUpdateSelected;
+        private System.Windows.Forms.ToolTip toolTipSearch;
+        private System.Windows.Forms.ToolTip toolTipRefresh;
+        private System.Windows.Forms.ToolTip toolTipBrows;
     }
 }
 
