@@ -28,7 +28,7 @@ namespace SMOSK_2._0
             // Global Database variables
             public static XDocument ClassicDB;
             public static XDocument RetailDB;
-            public static XmlDocument Settings = new XmlDocument();
+            public static XDocument Settings;
             public static dynamic lastItem = null;
             public static string gameFlavor;
 
@@ -38,20 +38,25 @@ namespace SMOSK_2._0
         {
             Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
             Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
-            Globals.Settings.Load(@".\Data\Settings.xml");
+            Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
 
             if (File.Exists(@".\Data\import.xml"))
             {
                 File.Delete(@".\Data\import.xml");
             }
 
+            toolTipScan.SetToolTip(ButtonScan, ("Scan " + this.Name + " folder for excisting addons"));
+            toolTipImport.SetToolTip(ButtonImportSelected, ("Import selected addons"));
+
             if (this.Name == "Classic")
             {
                 Globals.gameFlavor = "wow_classic";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\' for excisting addons";
             }
             else
             {
                 Globals.gameFlavor = "wow_retail";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_retail_\Interface\addons\' for excisting addons";
             }
         }
 
@@ -70,7 +75,7 @@ namespace SMOSK_2._0
 
             if (this.Name == "Classic")
             {
-                string ClassicPath = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText + @"\_classic_\Interface\addons\";
+                string ClassicPath = (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\";
                 var directories = Directory.GetDirectories(ClassicPath);
 
                 int ii = 0;
@@ -91,7 +96,7 @@ namespace SMOSK_2._0
             }
             else
             {
-                string RetailPath = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText + @"\_retail_\Interface\addons\";
+                string RetailPath = (string)Globals.Settings.Descendants("wowpath").First() + @"\_retail_\Interface\addons\";
                 var directories = Directory.GetDirectories(RetailPath);
 
                 int ii = 0;
@@ -111,22 +116,7 @@ namespace SMOSK_2._0
             
             
 
-            int i = 0;
-            foreach (ListViewItem Item in ImportFormListView.Items)
-            {
-                if (i % 2 == 0)
-                {
-                    Item.BackColor = System.Drawing.Color.Black;
-                    Item.ForeColor = System.Drawing.Color.LightGray;
-                }
-                else
-                {
-                    Item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
-                    Item.ForeColor = System.Drawing.Color.Snow;
-                }
-
-                i++;
-            }
+            
             ImportProgressbar.Visible = false;
             ButtonImportSelected.Visible = true;
 
@@ -134,12 +124,15 @@ namespace SMOSK_2._0
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ImportFormListView.BeginUpdate();
             ImportFormListView.Clear();
            
             
             ImportProgressbar.Value = 0;
             ImportProgressbar.Visible = true;
             GetAddonList();
+            
+            ImportFormListView.EndUpdate();
         }
 
 
@@ -207,10 +200,7 @@ namespace SMOSK_2._0
                             ResultItem.Text = item.name;
                             ResultItem.SubItems.Add((string)item.summary);
                             
-                            if (ImportFormListView.FindItemWithText((string)correctRelease.displayName) != null)
-                            {
-                                Console.Out.WriteLine(ImportFormListView.FindItemWithText((string)correctRelease.displayName).Text);
-                            }
+                            
                             
 
                             if (correctRelease != null)
@@ -267,8 +257,8 @@ namespace SMOSK_2._0
                     catch
                     {
                         var MatchingXMLNode = importXML.Descendants("Addon")
-                        .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
-                        .First();
+                            .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                            .First();
 
                         Globals.ClassicDB.Descendants("config").Last().Add(MatchingXMLNode);
                     }
@@ -293,8 +283,8 @@ namespace SMOSK_2._0
                     catch
                     {
                         var MatchingXMLNode = importXML.Descendants("Addon")
-                        .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
-                        .First();
+                            .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                            .First();
 
                         Globals.RetailDB.Descendants("config").Last().Add(MatchingXMLNode);
                     }

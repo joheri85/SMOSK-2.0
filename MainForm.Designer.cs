@@ -113,6 +113,7 @@ namespace SMOSK_2._0
             this.ClassicListView.TabIndex = 0;
             this.ClassicListView.UseCompatibleStateImageBehavior = false;
             this.ClassicListView.View = System.Windows.Forms.View.Details;
+            this.ClassicListView.DoubleClick += new System.EventHandler(this.ClassicListView_DoubleClick);
             // 
             // tabRetail
             // 
@@ -145,6 +146,7 @@ namespace SMOSK_2._0
             this.RetailListView.TabIndex = 0;
             this.RetailListView.UseCompatibleStateImageBehavior = false;
             this.RetailListView.View = System.Windows.Forms.View.Details;
+            this.RetailListView.DoubleClick += new System.EventHandler(this.RetailListView_DoubleClick);
             // 
             // Label_GamePath
             // 

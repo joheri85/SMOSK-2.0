@@ -792,5 +792,34 @@ namespace SMOSK_2._0
         {
 
         }
+
+        private void ClassicListView_DoubleClick(object sender, EventArgs e)
+        {
+            
+            
+            var Classic = XDocument.Load(@".\Data\ClassicDB.xml");
+
+            var Url = Classic.Descendants("Addon")
+                .Where(x => (string)x.Element("ID") == ClassicListView.SelectedItems[0].SubItems[4].Text)
+                .First()
+                .Descendants("Website")
+                .First();
+            System.Diagnostics.Process.Start((string)Url);
+
+            
+            
+        }
+
+        private void RetailListView_DoubleClick(object sender, EventArgs e)
+        {
+            var Retail = XDocument.Load(@".\Data\RetailDB.xml");
+
+            var Url = Retail.Descendants("Addon")
+                .Where(x => (string)x.Element("ID") == RetailListView.SelectedItems[0].SubItems[4].Text)
+                .First()
+                .Descendants("Website")
+                .First();
+            System.Diagnostics.Process.Start((string)Url);
+        }
     }
 }
