@@ -471,7 +471,10 @@ namespace SMOSK_2._0
                 Label_GamePath.Text = folderDlg.SelectedPath;
                 Environment.SpecialFolder root = folderDlg.RootFolder;
 
-                Globals.Settings.Descendants("wowpath").First().Value = folderDlg.SelectedPath;
+                Globals.Settings.Descendants("wowpath")
+                    .First()
+                    .Value = folderDlg.SelectedPath;
+
                 Globals.Settings.Save(@".\Data\Settings.xml");
             }
         }
@@ -649,21 +652,22 @@ namespace SMOSK_2._0
                     
                     GetAddonManifest(null, null);
 
-                    System.Xml.XPath.XPathNavigator nodeNav;
-                    nodeNav = Globals.ClassicDB.CreateNavigator();
+                   
 
                     decimal i = 1;
                     foreach (ListViewItem item in UpdateList)
                     {
 
                         progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count*2)) * 100);
-                        string XPathStringClassic = "config/Addon[ID='" + item.SubItems[4].Text + "']";
-                        var MatchedNodeClassic = nodeNav.SelectSingleNode(XPathStringClassic);
-                        MatchedNodeClassic.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeClassic.SelectSingleNode("LatestVersion").InnerXml;
+                      
+                        var MatchedNodeClassic = Globals.ClassicDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item.SubItems[4].Text)
+                            .First();
+                        MatchedNodeClassic.Element("CurrentVersion").Value = MatchedNodeClassic.Element("LatestVersion").Value;
 
-                        string[] Modules = MatchedNodeClassic.SelectSingleNode("Modules").InnerXml.Split(',');
+                        string[] Modules = MatchedNodeClassic.Element("Modules").Value.Split(',');
                         deleteModules(Modules);
-                        DownloadNewAddonFiles(MatchedNodeClassic.SelectSingleNode("DownloadLink").InnerXml);
+                        DownloadNewAddonFiles(MatchedNodeClassic.Element("DownloadLink").Value);
                         progressBarUpdate.Value = (int)((i/(decimal)UpdateList.Count)*100);
                         
                         i++;
@@ -712,22 +716,22 @@ namespace SMOSK_2._0
 
                     GetAddonManifest(null, null);
 
-                    System.Xml.XPath.XPathNavigator nodeNav;
-                    nodeNav = Globals.RetailDB.CreateNavigator();
 
                     decimal i = 1;
                     foreach (ListViewItem item in UpdateList)
                     {
 
 
-                        string XPathStringRetail = "config/Addon[ID='" + item.SubItems[4].Text + "']";
-                        var MatchedNodeRetail = nodeNav.SelectSingleNode(XPathStringRetail);
+                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count * 2)) * 100);
 
-                        MatchedNodeRetail.SelectSingleNode("CurrentVersion").InnerXml = MatchedNodeRetail.SelectSingleNode("LatestVersion").InnerXml;
+                        var MatchedNodeRetail = Globals.RetailDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item.SubItems[4].Text)
+                            .First();
+                        MatchedNodeRetail.Element("CurrentVersion").Value = MatchedNodeRetail.Element("LatestVersion").Value;
 
-                        string[] Modules = MatchedNodeRetail.SelectSingleNode("Modules").InnerXml.Split(',');
+                        string[] Modules = MatchedNodeRetail.Element("Modules").Value.Split(',');
                         deleteModules(Modules);
-                        DownloadNewAddonFiles(MatchedNodeRetail.SelectSingleNode("DownloadLink").InnerXml);
+                        DownloadNewAddonFiles(MatchedNodeRetail.Element("DownloadLink").Value);
                         progressBarUpdate.Value = (int)((i / (decimal)UpdateList.Count) * 100);
 
                         i++;
