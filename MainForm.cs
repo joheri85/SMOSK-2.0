@@ -32,9 +32,9 @@ namespace SMOSK_2._0
         static class Globals
         {
             // Global Database variables
-            public static XmlDocument ClassicDB = new XmlDocument();
-            public static XmlDocument RetailDB = new XmlDocument();
-            public static XmlDocument Settings = new XmlDocument();
+            public static XDocument ClassicDB;
+            public static XDocument RetailDB;
+            public static XDocument Settings;
 
 
         }
@@ -55,10 +55,10 @@ namespace SMOSK_2._0
         private void Form1_Load(object sender, EventArgs e)
         {
             Application.EnableVisualStyles();
-            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
 
-            Globals.Settings.Load(@".\Data\Settings.xml");
+            Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
 
             // ToolTips
             toolTipDelete.SetToolTip(ButtonDelete, "Delete selected addons");
@@ -71,7 +71,9 @@ namespace SMOSK_2._0
 
             // End ToolTips
 
-            Label_GamePath.Text = Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText;
+            
+            Label_GamePath.Text = (string)Globals.Settings.Descendants("wowpath")
+                .First();
             Label_GamePath.Width = 150;
 
 
@@ -88,7 +90,8 @@ namespace SMOSK_2._0
                 }
 
 
-                string currentVersion = Globals.Settings.GetElementsByTagName("version")[0].InnerText;
+                string currentVersion = (string)Globals.Settings.Descendants("version")
+                    .First();
 
                 if (currentVersion != latesVersion)
                 {
@@ -113,7 +116,7 @@ namespace SMOSK_2._0
         {
 
             ClassicListView.Sorting = SortOrder.Ascending;
-            XmlNodeList ClassicAddons = Globals.ClassicDB.GetElementsByTagName("Addon");
+            var ClassicAddons = Globals.ClassicDB.Descendants("Addon");
             
             ClassicListView.Clear();
             
@@ -126,17 +129,17 @@ namespace SMOSK_2._0
             ClassicListView.Columns.Add("PID");
 
             
-            foreach (XmlNode Node in ClassicAddons)
+            foreach (XElement Node in ClassicAddons)
             {
                 
                 ListViewItem ClassicItem = new ListViewItem();
-                ClassicItem.Text = Node["Name"].InnerText;
+                ClassicItem.Text = Node.Element("Name").Value;
 
                 
-                ClassicItem.SubItems.Add(Node["CurrentVersion"].InnerText);
-                ClassicItem.SubItems.Add(Node["LatestVersion"].InnerText);
-                ClassicItem.SubItems.Add(Node["Description"].InnerText);
-                ClassicItem.SubItems.Add(Node["ID"].InnerText);
+                ClassicItem.SubItems.Add(Node.Element("CurrentVersion").Value);
+                ClassicItem.SubItems.Add(Node.Element("LatestVersion").Value);
+                ClassicItem.SubItems.Add(Node.Element("Description").Value);
+                ClassicItem.SubItems.Add(Node.Element("ID").Value);
 
 
                 ClassicListView.Items.Add(ClassicItem);
@@ -212,7 +215,7 @@ namespace SMOSK_2._0
 
 
             RetailListView.Sorting = SortOrder.Ascending;
-            XmlNodeList RetailAddons = Globals.RetailDB.GetElementsByTagName("Addon");
+            var RetailAddons = Globals.RetailDB.Descendants("Addon");
 
             
 
@@ -227,17 +230,17 @@ namespace SMOSK_2._0
             RetailListView.Columns.Add("PID");
 
             
-            foreach (XmlNode Node in RetailAddons)
+            foreach (XElement Node in RetailAddons)
             {
 
                 ListViewItem RetailItem = new ListViewItem();
-                RetailItem.Text = Node["Name"].InnerText;
+                RetailItem.Text = Node.Element("Name").Value;
 
                 
-                RetailItem.SubItems.Add(Node["CurrentVersion"].InnerText);
-                RetailItem.SubItems.Add(Node["LatestVersion"].InnerText);
-                RetailItem.SubItems.Add(Node["Description"].InnerText);
-                RetailItem.SubItems.Add(Node["ID"].InnerText);
+                RetailItem.SubItems.Add(Node.Element("CurrentVersion").Value);
+                RetailItem.SubItems.Add(Node.Element("LatestVersion").Value);
+                RetailItem.SubItems.Add(Node.Element("Description").Value);
+                RetailItem.SubItems.Add(Node.Element("ID").Value);
 
                 RetailListView.Items.Add(RetailItem);
 
@@ -311,7 +314,7 @@ namespace SMOSK_2._0
         private void GetAddonManifest(object sender, EventArgs e)
         {
             
-            XmlNodeList Addons;
+            dynamic Addons;
             XPathNavigator node;
             string gameFlavor;
             bool isClassic;
@@ -329,21 +332,21 @@ namespace SMOSK_2._0
 
             if (isClassic)
             {
-                Addons = Globals.ClassicDB.GetElementsByTagName("Addon");
+                Addons = Globals.ClassicDB.Descendants("Addon");
                 gameFlavor = "wow_classic";
             }
             else
             {
-                Addons = Globals.RetailDB.GetElementsByTagName("Addon");
+                Addons = Globals.RetailDB.Descendants("Addon");
                 gameFlavor = "wow_retail";
             }
             
 
             List<string> IDs = new List<string>();
 
-            foreach (XmlNode addonNode in Addons)
+            foreach (XElement addonNode in Addons)
             {
-                IDs.Add(addonNode["ID"].InnerText);
+                IDs.Add(addonNode.Element("ID").Value);
             }
 
             String[] IDArray = IDs.ToArray();
@@ -365,26 +368,31 @@ namespace SMOSK_2._0
 
                 foreach (dynamic item in json )
                 {
+
+                    dynamic MatchedNode = null;
                     if (tabControl1.SelectedTab.Text == "Classic")
                     {
-                        node = Globals.ClassicDB.CreateNavigator();
+                        MatchedNode = Globals.ClassicDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item.id)
+                            .First();
                     }
                     else
                     {
-                        node = Globals.RetailDB.CreateNavigator();
+                        MatchedNode = Globals.RetailDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item.id)
+                            .First();
                     }
 
                
-                    string XPathString = "config/Addon[ID='" + item.id + "']";
-                    var MatchedNode = node.SelectSingleNode(XPathString);
+                   
 
 
                     foreach (dynamic subItem in item.latestFiles)
                     {
                         if (subItem.gameVersionFlavor == gameFlavor && subItem.releaseType == "1")
                         {
-                            MatchedNode.SelectSingleNode("LatestVersion").InnerXml = subItem.displayName;
-                            MatchedNode.SelectSingleNode("DownloadLink").InnerXml = subItem.downloadUrl;
+                            MatchedNode.Element("LatestVersion").Value = (string)subItem.displayName;
+                            MatchedNode.Element("DownloadLink").Value = (string)subItem.downloadUrl;
                             break;
                         }
                     
@@ -463,7 +471,7 @@ namespace SMOSK_2._0
                 Label_GamePath.Text = folderDlg.SelectedPath;
                 Environment.SpecialFolder root = folderDlg.RootFolder;
 
-                Globals.Settings.GetElementsByTagName("wowpath")[0].InnerText = folderDlg.SelectedPath;
+                Globals.Settings.Descendants("wowpath").First().Value = folderDlg.SelectedPath;
                 Globals.Settings.Save(@".\Data\Settings.xml");
             }
         }
@@ -487,8 +495,8 @@ namespace SMOSK_2._0
             AddonSearch.StartPosition = FormStartPosition.Manual;
             AddonSearch.Location = new Point(this.Bounds.Location.X + 50, this.Bounds.Location.Y + 50);
             AddonSearch.ShowDialog();
-            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
@@ -502,28 +510,26 @@ namespace SMOSK_2._0
 
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
-            List<string> IDs = new List<string>();
+            
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 if (ClassicListView.SelectedItems.Count > 0)
                 {
                     foreach (ListViewItem item in ClassicListView.SelectedItems)
                     {
-                        IDs.Add(item.SubItems[4].Text);
-                    }
+                        
+                    
+                        string ID = item.SubItems[4].Text;
 
-                    foreach (string ID in IDs)
-                    {
-                        foreach (XmlNode IDNode in Globals.ClassicDB.SelectNodes("config/Addon/ID"))
-                        {
-                            if (IDNode.InnerText == ID)
-                            {
-                                XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.SelectSingleNode("Modules").InnerXml.Split(','));
-                                addon.ParentNode.RemoveChild(addon);
-                                continue;
-                            }
-                        }
+                        var NodeToDelete = Globals.ClassicDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == ID)
+                            .First();
+
+                        deleteModules((NodeToDelete.Element("Modules").Value).Split(','));
+
+                        NodeToDelete.Remove();
+
+
                     }
                     Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                     RefreshClassic(null, null);
@@ -535,25 +541,21 @@ namespace SMOSK_2._0
                 {
                     foreach (ListViewItem item in RetailListView.SelectedItems)
                     {
-                        IDs.Add(item.SubItems[4].Text);
-                    }
 
-                    foreach (string ID in IDs) 
-                    {
-                        foreach (XmlNode IDNode in Globals.RetailDB.SelectNodes("config/Addon/ID"))
-                        {
-                            if (IDNode.InnerText == ID)
-                            {
-                                
-                                XmlNode addon = IDNode.ParentNode;
-                                deleteModules(addon.SelectSingleNode("Modules").InnerXml.Split(','));
-                                addon.ParentNode.RemoveChild(addon);
-                                continue;
-                            }
-                        }
-                    }
 
-                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+                        string ID = item.SubItems[4].Text;
+
+                        var NodeToDelete = Globals.RetailDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == ID)
+                            .First();
+
+                        deleteModules((NodeToDelete.Element("Modules").Value).Split(','));
+
+                        NodeToDelete.Remove();
+
+
+                    }
+                    Globals.RetailDB.Save(@".\Data\ClassicDB.xml");
                     RefreshRetail(null, null);
                 }
             }
@@ -566,11 +568,11 @@ namespace SMOSK_2._0
             foreach (string Module in Modules) {
                 if (tabControl1.SelectedTab.Text == "Classic")
                 {
-                    ModulePath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_classic_\\Interface\\Addons\\" + Module;
+                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + "\\_classic_\\Interface\\Addons\\" + Module;
                 }
                 else
                 {
-                    ModulePath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\" + Module;
+                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + "\\_retail_\\Interface\\Addons\\" + Module;
                 }
 
                 if (Directory.Exists(ModulePath))
@@ -591,11 +593,11 @@ namespace SMOSK_2._0
             String ExtractPath;
             if (tabControl1.SelectedTab.Text == "Classic")
             {
-                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_classic_\\Interface\\Addons\\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + "\\_classic_\\Interface\\Addons\\";
             }
             else
             {
-                ExtractPath = (Globals.Settings.SelectNodes("config/wowpath")[0].InnerText) + "\\_retail_\\Interface\\Addons\\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + "\\_retail_\\Interface\\Addons\\";
             }
 
             System.IO.Compression.ZipFile.ExtractToDirectory(".\\Downloads\\dl.zip", ExtractPath);
@@ -776,8 +778,8 @@ namespace SMOSK_2._0
             ImportView.StartPosition = FormStartPosition.Manual;
             ImportView.Location = new Point(this.Bounds.Location.X + 50, this.Bounds.Location.Y + 50);
             ImportView.ShowDialog();
-            Globals.ClassicDB.Load(@".\Data\ClassicDB.xml");
-            Globals.RetailDB.Load(@".\Data\RetailDB.xml");
+            Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.RetailDB= XDocument.Load(@".\Data\RetailDB.xml");
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
