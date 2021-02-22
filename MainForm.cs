@@ -304,7 +304,7 @@ namespace SMOSK_2._0
             }
         }
 
-
+       
 
 
 
@@ -356,13 +356,13 @@ namespace SMOSK_2._0
             if (response != null)
             {
 
-              
-            
+               
+                
                 dynamic json = JsonConvert.DeserializeObject(response);
 
-           
-            
-            
+               
+
+
                 foreach (dynamic item in json )
                 {
                     if (tabControl1.SelectedTab.Text == "Classic")

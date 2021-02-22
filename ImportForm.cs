@@ -131,7 +131,7 @@ namespace SMOSK_2._0
             ImportProgressbar.Value = 0;
             ImportProgressbar.Visible = true;
             GetAddonList();
-            
+            labelImportSelected.Visible = true;
             ImportFormListView.EndUpdate();
         }
 

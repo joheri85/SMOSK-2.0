@@ -38,6 +38,7 @@ namespace SMOSK_2._0
             this.ButtonImportSelected = new System.Windows.Forms.Button();
             this.toolTipScan = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipImport = new System.Windows.Forms.ToolTip(this.components);
+            this.labelImportSelected = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -104,7 +105,7 @@ namespace SMOSK_2._0
             this.ButtonImportSelected.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ButtonImportSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonImportSelected.ForeColor = System.Drawing.Color.White;
-            this.ButtonImportSelected.Location = new System.Drawing.Point(718, 405);
+            this.ButtonImportSelected.Location = new System.Drawing.Point(718, 406);
             this.ButtonImportSelected.Name = "ButtonImportSelected";
             this.ButtonImportSelected.Size = new System.Drawing.Size(32, 32);
             this.ButtonImportSelected.TabIndex = 15;
@@ -112,12 +113,26 @@ namespace SMOSK_2._0
             this.ButtonImportSelected.Visible = false;
             this.ButtonImportSelected.Click += new System.EventHandler(this.ButtonImportSelected_Click);
             // 
+            // labelImportSelected
+            // 
+            this.labelImportSelected.BackColor = System.Drawing.Color.Transparent;
+            this.labelImportSelected.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelImportSelected.ForeColor = System.Drawing.Color.Orange;
+            this.labelImportSelected.Location = new System.Drawing.Point(230, 406);
+            this.labelImportSelected.Name = "labelImportSelected";
+            this.labelImportSelected.Size = new System.Drawing.Size(490, 32);
+            this.labelImportSelected.TabIndex = 16;
+            this.labelImportSelected.Text = "Select the addons you want to import and click ->";
+            this.labelImportSelected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelImportSelected.Visible = false;
+            // 
             // ImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelImportSelected);
             this.Controls.Add(this.ButtonImportSelected);
             this.Controls.Add(this.ButtonScan);
             this.Controls.Add(this.ImportProgressbar);
@@ -141,5 +156,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Button ButtonImportSelected;
         private System.Windows.Forms.ToolTip toolTipScan;
         private System.Windows.Forms.ToolTip toolTipImport;
+        private System.Windows.Forms.Label labelImportSelected;
     }
 }
