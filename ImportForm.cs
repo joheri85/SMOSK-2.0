@@ -125,12 +125,14 @@ namespace SMOSK_2._0
         private void button1_Click(object sender, EventArgs e)
         {
             ImportFormListView.BeginUpdate();
+            System.Threading.Thread.Sleep(500);
             ImportFormListView.Clear();
            
             
             ImportProgressbar.Value = 0;
             ImportProgressbar.Visible = true;
             GetAddonList();
+            System.Threading.Thread.Sleep(500);
             labelImportSelected.Visible = true;
             ImportFormListView.EndUpdate();
         }

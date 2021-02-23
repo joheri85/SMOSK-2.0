@@ -232,6 +232,7 @@ namespace SMOSK_2._0
         {
             if (SearchFormListView.SelectedItems.Count > 0)
             {
+                Search_Input.Enabled = false;
                 progressBarInstalling.Visible = true;
                 ButtonInstallSelected.Text = "Installing...";
                 ButtonInstallSelected.Enabled = false;
@@ -395,6 +396,7 @@ namespace SMOSK_2._0
             SearchFormListView.SelectedIndices.Clear();
             SearchFormListView.Enabled = true;
             ButtonInstallSelected.Enabled = true;
+            Search_Input.Enabled = true;
             ButtonInstallSelected.Text = "Install";
         }
 
