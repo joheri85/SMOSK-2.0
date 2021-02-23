@@ -315,7 +315,6 @@ namespace SMOSK_2._0
         {
             
             dynamic Addons;
-            XPathNavigator node;
             string gameFlavor;
             bool isClassic;
             
@@ -455,6 +454,7 @@ namespace SMOSK_2._0
             }
             catch (WebException ex)
             {
+                Console.Out.WriteLine(ex);
                 return null;
             }
 
@@ -571,11 +571,11 @@ namespace SMOSK_2._0
             foreach (string Module in Modules) {
                 if (tabControl1.SelectedTab.Text == "Classic")
                 {
-                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + "\\_classic_\\Interface\\Addons\\" + Module;
+                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\" + Module;
                 }
                 else
                 {
-                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + "\\_retail_\\Interface\\Addons\\" + Module;
+                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_retail_\Interface\Addons\" + Module;
                 }
 
                 if (Directory.Exists(ModulePath))
@@ -591,21 +591,21 @@ namespace SMOSK_2._0
 
             using (var client = new WebClient())
             {
-                client.DownloadFile(new System.Uri(url), ".\\Downloads\\dl.zip");
+                client.DownloadFile(new System.Uri(url), @".\Downloads\dl.zip");
             }
             String ExtractPath;
             if (tabControl1.SelectedTab.Text == "Classic")
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + "\\_classic_\\Interface\\Addons\\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\";
             }
             else
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + "\\_retail_\\Interface\\Addons\\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_retail_\Interface\Addons\";
             }
 
-            System.IO.Compression.ZipFile.ExtractToDirectory(".\\Downloads\\dl.zip", ExtractPath);
+            System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
 
-            File.Delete(".\\Downloads\\dl.zip");
+            File.Delete(@".\Downloads\dl.zip");
         }
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
