@@ -51,12 +51,12 @@ namespace SMOSK_2._0
             if (this.Name == "Classic")
             {
                 Globals.gameFlavor = "wow_classic";
-                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\' for excisting addons";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\' for existing addons";
             }
             else
             {
                 Globals.gameFlavor = "wow_retail";
-                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_retail_\Interface\addons\' for excisting addons";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("retailPath").First() + @"\_retail_\Interface\addons\' for existing addons";
             }
         }
 
@@ -96,7 +96,7 @@ namespace SMOSK_2._0
             }
             else
             {
-                string RetailPath = (string)Globals.Settings.Descendants("wowpath").First() + @"\_retail_\Interface\addons\";
+                string RetailPath = (string)Globals.Settings.Descendants("retailPath").First() + @"\_retail_\Interface\addons\";
                 var directories = Directory.GetDirectories(RetailPath);
 
                 int ii = 0;
@@ -109,6 +109,7 @@ namespace SMOSK_2._0
 
                     System.Threading.Thread.Sleep(200);
                     ImportProgressbar.Value = (int)((ii / (decimal)directories.Length) * 100);
+                    ImportProgressbar.Update();
                     ii++;
                 }
             }
@@ -124,6 +125,9 @@ namespace SMOSK_2._0
 
         private void button1_Click(object sender, EventArgs e)
         {
+            LabelSearchingInProgress.Text = "Scanning..." + Environment.NewLine + Environment.NewLine + "(Window may appear unresponsive)";
+            LabelSearchingInProgress.Visible = true;
+            LabelSearchingInProgress.Update();
             ImportFormListView.BeginUpdate();
             System.Threading.Thread.Sleep(500);
             ImportFormListView.Clear();
@@ -134,6 +138,7 @@ namespace SMOSK_2._0
             GetAddonList();
             System.Threading.Thread.Sleep(500);
             labelImportSelected.Visible = true;
+            LabelSearchingInProgress.Visible = false;
             ImportFormListView.EndUpdate();
         }
 

@@ -38,9 +38,17 @@ namespace SMOSK_2._0
             this.RetailListView = new System.Windows.Forms.ListView();
             this.Label_GamePath = new System.Windows.Forms.Label();
             this.Button_BrowsPath = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
             this.LabelVersion = new System.Windows.Forms.Label();
+            this.toolTipDelete = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipImport = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipUppdateAll = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipUpdateSelected = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipSearch = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipRefresh = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipBrows = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonSplitPath = new System.Windows.Forms.Button();
             this.ButtonImport = new System.Windows.Forms.Button();
             this.ButtonUpdateAll = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
@@ -49,13 +57,7 @@ namespace SMOSK_2._0
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.LabelBackground = new System.Windows.Forms.Label();
-            this.toolTipDelete = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipImport = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipUppdateAll = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipUpdateSelected = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipSearch = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipRefresh = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTipBrows = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipSplitPath = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
@@ -157,10 +159,10 @@ namespace SMOSK_2._0
             this.Label_GamePath.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label_GamePath.ForeColor = System.Drawing.Color.White;
             this.Label_GamePath.Location = new System.Drawing.Point(39, 519);
-            this.Label_GamePath.MinimumSize = new System.Drawing.Size(300, 25);
+            this.Label_GamePath.MinimumSize = new System.Drawing.Size(270, 25);
             this.Label_GamePath.Name = "Label_GamePath";
             this.Label_GamePath.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.Label_GamePath.Size = new System.Drawing.Size(300, 25);
+            this.Label_GamePath.Size = new System.Drawing.Size(270, 25);
             this.Label_GamePath.TabIndex = 3;
             this.Label_GamePath.Text = "test";
             this.Label_GamePath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -181,20 +183,6 @@ namespace SMOSK_2._0
             this.Button_BrowsPath.Text = "...";
             this.Button_BrowsPath.UseVisualStyleBackColor = false;
             this.Button_BrowsPath.Click += new System.EventHandler(this.Button_BrowsPath_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 498);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 18);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "World of Warcraft root path";
             // 
             // progressBarUpdate
             // 
@@ -221,6 +209,36 @@ namespace SMOSK_2._0
             this.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LabelVersion.Visible = false;
             this.LabelVersion.Click += new System.EventHandler(this.LabelVersion_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(12, 493);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(298, 18);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "World of Warcraft Classic game folder";
+            // 
+            // buttonSplitPath
+            // 
+            this.buttonSplitPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSplitPath.BackColor = System.Drawing.Color.Black;
+            this.buttonSplitPath.BackgroundImage = global::SMOSK_2._0.Properties.Resources.split;
+            this.buttonSplitPath.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonSplitPath.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonSplitPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSplitPath.ForeColor = System.Drawing.Color.White;
+            this.buttonSplitPath.Location = new System.Drawing.Point(312, 520);
+            this.buttonSplitPath.Name = "buttonSplitPath";
+            this.buttonSplitPath.Size = new System.Drawing.Size(25, 23);
+            this.buttonSplitPath.TabIndex = 15;
+            this.buttonSplitPath.UseVisualStyleBackColor = false;
+            this.buttonSplitPath.Click += new System.EventHandler(this.buttonSplitPath_Click);
             // 
             // ButtonImport
             // 
@@ -349,6 +367,7 @@ namespace SMOSK_2._0
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 556);
+            this.Controls.Add(this.buttonSplitPath);
             this.Controls.Add(this.ButtonImport);
             this.Controls.Add(this.LabelVersion);
             this.Controls.Add(this.ButtonUpdateAll);
@@ -384,7 +403,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.ListView RetailListView;
         private System.Windows.Forms.Label Label_GamePath;
         private System.Windows.Forms.Button Button_BrowsPath;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Button_OpenSearch;
         private System.Windows.Forms.Button ButtonDelete;
         private System.Windows.Forms.Button ButtonUpdate;
@@ -403,6 +421,9 @@ namespace SMOSK_2._0
         private System.Windows.Forms.ToolTip toolTipSearch;
         private System.Windows.Forms.ToolTip toolTipRefresh;
         private System.Windows.Forms.ToolTip toolTipBrows;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonSplitPath;
+        private System.Windows.Forms.ToolTip toolTipSplitPath;
     }
 }
 

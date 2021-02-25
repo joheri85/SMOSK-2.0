@@ -197,6 +197,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon_smosk.ico" />
+    <None Include="Resources\split_on.png" />
+    <None Include="Resources\split.png" />
     <None Include="Resources\import26.png" />
     <None Include="Resources\import32.png" />
     <None Include="Resources\import48.png" />

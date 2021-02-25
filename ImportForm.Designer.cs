@@ -39,6 +39,7 @@ namespace SMOSK_2._0
             this.toolTipScan = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipImport = new System.Windows.Forms.ToolTip(this.components);
             this.labelImportSelected = new System.Windows.Forms.Label();
+            this.LabelSearchingInProgress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -126,12 +127,27 @@ namespace SMOSK_2._0
             this.labelImportSelected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelImportSelected.Visible = false;
             // 
+            // LabelSearchingInProgress
+            // 
+            this.LabelSearchingInProgress.BackColor = System.Drawing.Color.Black;
+            this.LabelSearchingInProgress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelSearchingInProgress.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelSearchingInProgress.ForeColor = System.Drawing.Color.White;
+            this.LabelSearchingInProgress.Location = new System.Drawing.Point(12, 46);
+            this.LabelSearchingInProgress.Name = "LabelSearchingInProgress";
+            this.LabelSearchingInProgress.Size = new System.Drawing.Size(776, 353);
+            this.LabelSearchingInProgress.TabIndex = 17;
+            this.LabelSearchingInProgress.Text = "PlaceholderText";
+            this.LabelSearchingInProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelSearchingInProgress.Visible = false;
+            // 
             // ImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LabelSearchingInProgress);
             this.Controls.Add(this.labelImportSelected);
             this.Controls.Add(this.ButtonImportSelected);
             this.Controls.Add(this.ButtonScan);
@@ -157,5 +173,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.ToolTip toolTipScan;
         private System.Windows.Forms.ToolTip toolTipImport;
         private System.Windows.Forms.Label labelImportSelected;
+        private System.Windows.Forms.Label LabelSearchingInProgress;
     }
 }

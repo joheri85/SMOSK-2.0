@@ -233,6 +233,9 @@ namespace SMOSK_2._0
         {
             if (SearchFormListView.SelectedItems.Count > 0)
             {
+                LabelInstalling.Text = "Installing..." + Environment.NewLine + Environment.NewLine + "(Window may appear unresponsive)";
+                LabelInstalling.Visible = true;
+                LabelInstalling.Update();
                 Search_Input.Enabled = false;
                 progressBarInstalling.Visible = true;
                 ButtonInstallSelected.Text = "Installing...";
@@ -271,16 +274,16 @@ namespace SMOSK_2._0
                         }
 
 
-                        NewAddon.Add(new XElement("ID", null));
-                        NewAddon.Add(new XElement("Name", null));
-                        NewAddon.Add(new XElement("DownloadLink", null));
-                        NewAddon.Add(new XElement("Description", null));
-                        NewAddon.Add(new XElement("CurrentVersion", null));
-                        NewAddon.Add(new XElement("LatestVersion", null));
-                        NewAddon.Add(new XElement("Modules", null));
-                        NewAddon.Add(new XElement("Website", null));
+                        NewAddon.Add(new XElement("ID"));
+                        NewAddon.Add(new XElement("Name"));
+                        NewAddon.Add(new XElement("DownloadLink"));
+                        NewAddon.Add(new XElement("Description"));
+                        NewAddon.Add(new XElement("CurrentVersion"));
+                        NewAddon.Add(new XElement("LatestVersion"));
+                        NewAddon.Add(new XElement("Modules"));
+                        NewAddon.Add(new XElement("Website"));
                     }
-                    else
+                    else //if retail
                     {
                         var MatchedNodeRetail = Globals.RetailDB.Descendants("Addon")
                             .Where(x => (string)x.Element("ID").Value == (string)item)
@@ -297,14 +300,14 @@ namespace SMOSK_2._0
                         }
 
 
-                        NewAddon.Add(new XElement("ID", null));
-                        NewAddon.Add(new XElement("Name", null));
-                        NewAddon.Add(new XElement("DownloadLink", null));
-                        NewAddon.Add(new XElement("Description", null));
-                        NewAddon.Add(new XElement("CurrentVersion", null));
-                        NewAddon.Add(new XElement("LatestVersion", null));
-                        NewAddon.Add(new XElement("Modules", null));
-                        NewAddon.Add(new XElement("Website", null));
+                        NewAddon.Add(new XElement("ID"));
+                        NewAddon.Add(new XElement("Name"));
+                        NewAddon.Add(new XElement("DownloadLink"));
+                        NewAddon.Add(new XElement("Description"));
+                        NewAddon.Add(new XElement("CurrentVersion"));
+                        NewAddon.Add(new XElement("LatestVersion"));
+                        NewAddon.Add(new XElement("Modules"));
+                        NewAddon.Add(new XElement("Website"));
                     }
 
 
@@ -360,6 +363,7 @@ namespace SMOSK_2._0
                     SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
                     i++;
                     progressBarInstalling.Value = (int)((i / (decimal)IDs.Count) * 100);
+                    progressBarInstalling.Update();
                 }
 
                 if (this.Name == "Classic")
@@ -377,6 +381,7 @@ namespace SMOSK_2._0
             ButtonInstallSelected.Enabled = true;
             Search_Input.Enabled = true;
             ButtonInstallSelected.Text = "Install";
+            LabelInstalling.Visible = false;
         }
 
         private void newAddon(string url)
@@ -393,7 +398,7 @@ namespace SMOSK_2._0
             }
             else
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_retail_\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\";
             }
 
             ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);

@@ -45,10 +45,14 @@ namespace SMOSK_2._0
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
+                label1.Text = "World of Warcraft Classic game folder";
+                Label_GamePath.Text = Globals.Settings.Descendants("wowpath").First().Value;
             }
             else
             {
                 RefreshRetail(null, null);
+                label1.Text = "World of Warcraft Retail game folder";
+                Label_GamePath.Text = Globals.Settings.Descendants("retailPath").First().Value;
             }
         }
 
@@ -60,6 +64,32 @@ namespace SMOSK_2._0
 
             Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
 
+
+            var splitpathEnabled = Globals.Settings.Descendants("splitEnabled")
+                .Count();
+
+            if (splitpathEnabled == 0)
+            {
+
+                
+                Globals.Settings.Descendants("config").First().Add(new XElement("splitEnabled", "No"));
+                Globals.Settings.Descendants("config").First().Add(new XElement("retailPath", Globals.Settings.Descendants("wowpath").First().Value));
+                Globals.Settings.Save(@".\Data\Settings.xml");
+            }
+
+            string IsSplitpathEnabled = Globals.Settings.Descendants("splitEnabled")
+                .First()
+                .Value;
+
+            if (IsSplitpathEnabled == "Yes")
+            {
+                buttonSplitPath.BackgroundImage = global::SMOSK_2._0.Properties.Resources.split_on;
+            }
+            else
+            {
+                buttonSplitPath.BackgroundImage = global::SMOSK_2._0.Properties.Resources.split;
+            }
+
             // ToolTips
             toolTipDelete.SetToolTip(ButtonDelete, "Delete selected addons");
             toolTipImport.SetToolTip(ButtonImport, "Import excisting addons");
@@ -68,6 +98,7 @@ namespace SMOSK_2._0
             toolTipSearch.SetToolTip(Button_OpenSearch, "Search for new addons on CurseForge");
             toolTipRefresh.SetToolTip(RefreshButton, "Check for updates and refresh the addon list");
             toolTipBrows.SetToolTip(Button_BrowsPath, @"Select your WoW root dir Ex: 'D:\games\World of Warcraft'");
+            toolTipSplitPath.SetToolTip(buttonSplitPath, "Toggle Split installation paths for classic and retail");
 
             // End ToolTips
 
@@ -97,7 +128,8 @@ namespace SMOSK_2._0
                 {
                     LabelVersion.Visible = true;
                 }
-            } catch
+            } 
+            catch
             {
                 Console.Out.WriteLine("Could not check latest version. Timeout.");
             }
@@ -462,21 +494,84 @@ namespace SMOSK_2._0
 
         private void Button_BrowsPath_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
-            folderDlg.ShowNewFolderButton = true;
-            // Show the FolderBrowserDialog.  
-            DialogResult result = folderDlg.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                Label_GamePath.Text = folderDlg.SelectedPath;
-                Environment.SpecialFolder root = folderDlg.RootFolder;
+            //************
+            var isSplitpathEnabled = Globals.Settings.Descendants("splitEnabled")
+                .First()
+                .Value;
 
-                Globals.Settings.Descendants("wowpath")
+            if (isSplitpathEnabled == "No")
+            {
+                FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+                folderDlg.Description = "Select WoW folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\";
+                folderDlg.ShowNewFolderButton = true;
+                // Show the FolderBrowserDialog.  
+                DialogResult result = folderDlg.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    Label_GamePath.Text = folderDlg.SelectedPath;
+                    Environment.SpecialFolder root = folderDlg.RootFolder;
+
+                    Globals.Settings.Descendants("wowpath")
+                        .First()
+                        .Value = folderDlg.SelectedPath;
+                    
+                    Globals.Settings.Descendants("retailPath")
                     .First()
                     .Value = folderDlg.SelectedPath;
-
-                Globals.Settings.Save(@".\Data\Settings.xml");
+                    
+                    
+                }
+                
+               
             }
+            else
+            {
+                if (tabControl1.SelectedTab.Text == "Classic")
+                {
+                    FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+                    folderDlg.Description = "Select WoW classic folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\";
+                    folderDlg.ShowNewFolderButton = true;
+                    // Show the FolderBrowserDialog.  
+                    DialogResult result = folderDlg.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        Label_GamePath.Text = folderDlg.SelectedPath;
+                        Environment.SpecialFolder root = folderDlg.RootFolder;
+
+                        Globals.Settings.Descendants("wowpath")
+                            .First()
+                            .Value = folderDlg.SelectedPath;
+                        
+                        
+                    }
+                }
+                else
+                {
+                    FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+                    folderDlg.Description = "Select WoW retail folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\";
+                    folderDlg.ShowNewFolderButton = true;
+                    // Show the FolderBrowserDialog.  
+                    DialogResult result = folderDlg.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        Label_GamePath.Text = folderDlg.SelectedPath;
+                        Environment.SpecialFolder root = folderDlg.RootFolder;
+
+                        Globals.Settings.Descendants("retailPath")
+                            .First()
+                            .Value = folderDlg.SelectedPath;
+                    }
+                }
+
+
+
+                
+            }
+            Globals.Settings.Save(@".\Data\Settings.xml");
+            //************
+
+            
+            
         }
 
         private void Label_GamePath_Paint(object sender, PaintEventArgs e)
@@ -558,7 +653,7 @@ namespace SMOSK_2._0
 
 
                     }
-                    Globals.RetailDB.Save(@".\Data\ClassicDB.xml");
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
                     RefreshRetail(null, null);
                 }
             }
@@ -575,7 +670,7 @@ namespace SMOSK_2._0
                 }
                 else
                 {
-                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_retail_\Interface\Addons\" + Module;
+                    ModulePath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\" + Module;
                 }
 
                 if (Directory.Exists(ModulePath))
@@ -600,7 +695,7 @@ namespace SMOSK_2._0
             }
             else
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_retail_\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\";
             }
 
             System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
@@ -826,6 +921,33 @@ namespace SMOSK_2._0
                 .Descendants("Website")
                 .First();
             System.Diagnostics.Process.Start((string)Url);
+        }
+
+        private void buttonSplitPath_Click(object sender, EventArgs e)
+        {
+            var isSplitpathEnabled = Globals.Settings.Descendants("splitEnabled")
+                .First()
+                .Value;
+
+            if (isSplitpathEnabled == "No") 
+            {
+                    buttonSplitPath.BackgroundImage = global::SMOSK_2._0.Properties.Resources.split_on;
+
+                    Globals.Settings.Descendants("splitEnabled")
+                        .First()
+                        .Value = "Yes";
+            }
+            else
+            {
+                buttonSplitPath.BackgroundImage = global::SMOSK_2._0.Properties.Resources.split;
+                Globals.Settings.Descendants("splitEnabled")
+                    .First()
+                    .Value = "No";
+
+                Globals.Settings.Descendants("retailPath").First().Value = Globals.Settings.Descendants("wowpath").First().Value;
+                Label_GamePath.Text = Globals.Settings.Descendants("retailPath").First().Value;
+            }
+            Globals.Settings.Save(@".\Data\Settings.xml");
         }
     }
 }

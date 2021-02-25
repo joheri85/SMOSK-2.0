@@ -36,6 +36,7 @@ namespace SMOSK_2._0
             this.GameVersionSelector = new System.Windows.Forms.ComboBox();
             this.progressBarInstalling = new System.Windows.Forms.ProgressBar();
             this.ButtonInstallSelected = new System.Windows.Forms.Button();
+            this.LabelInstalling = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SearchFormListView
@@ -129,6 +130,19 @@ namespace SMOSK_2._0
             this.ButtonInstallSelected.UseVisualStyleBackColor = false;
             this.ButtonInstallSelected.Click += new System.EventHandler(this.ButtonInstallSelected_Click);
             // 
+            // LabelInstalling
+            // 
+            this.LabelInstalling.BackColor = System.Drawing.Color.Black;
+            this.LabelInstalling.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelInstalling.ForeColor = System.Drawing.Color.White;
+            this.LabelInstalling.Location = new System.Drawing.Point(12, 61);
+            this.LabelInstalling.Name = "LabelInstalling";
+            this.LabelInstalling.Size = new System.Drawing.Size(776, 353);
+            this.LabelInstalling.TabIndex = 11;
+            this.LabelInstalling.Text = "Placeholdertext";
+            this.LabelInstalling.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelInstalling.Visible = false;
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -136,6 +150,7 @@ namespace SMOSK_2._0
             this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LabelInstalling);
             this.Controls.Add(this.ButtonInstallSelected);
             this.Controls.Add(this.progressBarInstalling);
             this.Controls.Add(this.GameVersionSelector);
@@ -159,5 +174,6 @@ namespace SMOSK_2._0
         private System.Windows.Forms.ComboBox GameVersionSelector;
         private System.Windows.Forms.ProgressBar progressBarInstalling;
         private System.Windows.Forms.Button ButtonInstallSelected;
+        private System.Windows.Forms.Label LabelInstalling;
     }
 }
