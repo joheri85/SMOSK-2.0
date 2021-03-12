@@ -152,7 +152,8 @@ namespace SMOSK_2._0
             // 
             // Label_GamePath
             // 
-            this.Label_GamePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Label_GamePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Label_GamePath.AutoEllipsis = true;
             this.Label_GamePath.BackColor = System.Drawing.Color.Black;
             this.Label_GamePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

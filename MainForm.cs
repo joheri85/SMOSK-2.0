@@ -701,6 +701,7 @@ namespace SMOSK_2._0
             System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
 
             File.Delete(@".\Downloads\dl.zip");
+            System.Threading.Thread.Sleep(250);
         }
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
@@ -753,7 +754,7 @@ namespace SMOSK_2._0
                     foreach (ListViewItem item in UpdateList)
                     {
 
-                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count*2)) * 100);
+                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count)) * 100);
                       
                         var MatchedNodeClassic = Globals.ClassicDB.Descendants("Addon")
                             .Where(x => (string)x.Element("ID").Value == (string)item.SubItems[4].Text)
@@ -817,7 +818,7 @@ namespace SMOSK_2._0
                     {
 
 
-                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count * 2)) * 100);
+                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count)) * 100);
 
                         var MatchedNodeRetail = Globals.RetailDB.Descendants("Addon")
                             .Where(x => (string)x.Element("ID").Value == (string)item.SubItems[4].Text)
