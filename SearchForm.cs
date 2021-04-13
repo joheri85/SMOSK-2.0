@@ -29,6 +29,7 @@ namespace SMOSK_2._0
         {
             // Global Database variables
             public static XDocument ClassicDB;
+            public static XDocument TBCDB;
             public static XDocument RetailDB;
             public static XDocument Settings;
             public static dynamic SearchRespons;
@@ -39,6 +40,7 @@ namespace SMOSK_2._0
         private void SearchForm_Load(object sender, EventArgs e)
         {
             Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.TBCDB = XDocument.Load(@".\Data\TBCDB.xml");
             Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
             Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
 
@@ -47,6 +49,10 @@ namespace SMOSK_2._0
             if (this.Name == "Classic")
             {
                 Globals.gameFlavor = "wow_classic";
+            }
+            else if (this.Name == "TBC")
+            {
+                Globals.gameFlavor = "wow_burning_crusade";
             }
             else
             {
@@ -57,9 +63,13 @@ namespace SMOSK_2._0
             {
                 GameVersionSelector.SelectedItem = GameVersionSelector.Items[0];
             }
-            else
+            else if (this.Name == "TBC")
             {
                 GameVersionSelector.SelectedItem = GameVersionSelector.Items[1];
+            }
+            else
+            {
+                GameVersionSelector.SelectedItem = GameVersionSelector.Items[2];
             }
             
         }
@@ -73,6 +83,11 @@ namespace SMOSK_2._0
                 if (this.Name == "Classic")
                 {
                     string query = "api/v2/addon/search?&gameId=1&sort=downloadCount&gameVersionFlavor=wow_classic&searchFilter=" + Search_Input.Text;
+                    _ = APISearchAsync(query);
+                }
+                else if (this.Name == "TBC")
+                {
+                    string query = "api/v2/addon/search?&gameId=1&sort=downloadCount&gameVersionFlavor=wow_burning_crusade&searchFilter=" + Search_Input.Text;
                     _ = APISearchAsync(query);
                 }
                 else
@@ -136,6 +151,10 @@ namespace SMOSK_2._0
                 if (this.Name == "Classic")
                 {
                     Globals.gameFlavor = "wow_classic";
+                }
+                else if (this.Name == "TBC")
+                {
+                    Globals.gameFlavor = "wow_burning_crusade";
                 }
                 else
                 {
@@ -222,6 +241,10 @@ namespace SMOSK_2._0
             {
                 this.Name = "Classic";
             }
+            else if (GameVersionSelector.SelectedItem == GameVersionSelector.Items[1])
+            {
+                this.Name = "TBC";
+            }
             else
             {
                 this.Name = "Retail";
@@ -264,6 +287,33 @@ namespace SMOSK_2._0
                             .Count();
 
                         if (MatchedNodeClassic > 0)
+                        {
+                            SearchFormListView.SelectedItems[i].SubItems[1].Text = "Already installed";
+                            SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.Orange;
+                            SearchFormListView.SelectedItems[i].ForeColor = System.Drawing.Color.Black;
+                            i++;
+                            Console.Out.WriteLine("Addon already installed");
+                            continue;
+                        }
+
+
+                        NewAddon.Add(new XElement("ID"));
+                        NewAddon.Add(new XElement("Name"));
+                        NewAddon.Add(new XElement("DownloadLink"));
+                        NewAddon.Add(new XElement("Description"));
+                        NewAddon.Add(new XElement("CurrentVersion"));
+                        NewAddon.Add(new XElement("LatestVersion"));
+                        NewAddon.Add(new XElement("Modules"));
+                        NewAddon.Add(new XElement("Website"));
+                    }
+                    else if (this.Name == "TBC")
+                    {
+
+                        var MatchedNodeTBC = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item)
+                            .Count();
+
+                        if (MatchedNodeTBC > 0)
                         {
                             SearchFormListView.SelectedItems[i].SubItems[1].Text = "Already installed";
                             SearchFormListView.SelectedItems[i].BackColor = System.Drawing.Color.Orange;
@@ -352,6 +402,10 @@ namespace SMOSK_2._0
                     {
                         Globals.ClassicDB.Descendants("config").Last().Add(NewAddon);
                     }
+                    else if (this.Name == "TBC")
+                    {
+                        Globals.TBCDB.Descendants("config").Last().Add(NewAddon);
+                    }
                     else
                     {
                         Globals.RetailDB.Descendants("config").Last().Add(NewAddon);
@@ -369,6 +423,10 @@ namespace SMOSK_2._0
                 if (this.Name == "Classic")
                 {
                     Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+                }
+                else if (this.Name == "TBC")
+                {
+                    Globals.TBCDB.Save(@".\Data\TBCDB.xml");
                 }
                 else
                 {
@@ -396,12 +454,23 @@ namespace SMOSK_2._0
             {
                 ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\";
             }
+            else if (this.Name == "TBC")
+            {
+                ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_tbc_\Interface\Addons\";
+            }
             else
             {
                 ExtractPath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\";
             }
+            try
+            {
+                ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
+            }
+            catch (Exception e)
+            {
+                Console.Out.WriteLine(e);
+            }
 
-            ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
 
             File.Delete(@".\Downloads\dl.zip");
         }

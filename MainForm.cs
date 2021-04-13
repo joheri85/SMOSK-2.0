@@ -34,8 +34,9 @@ namespace SMOSK_2._0
             // Global Database variables
             public static XDocument ClassicDB;
             public static XDocument RetailDB;
+            public static XDocument TBCDB;
             public static XDocument Settings;
-
+            
 
         }
 
@@ -48,6 +49,12 @@ namespace SMOSK_2._0
                 label1.Text = "World of Warcraft Classic game folder";
                 Label_GamePath.Text = Globals.Settings.Descendants("wowpath").First().Value;
             }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                RefreshTBC(null, null);
+                label1.Text = "World of Warcraft TBC game folder";
+                Label_GamePath.Text = Globals.Settings.Descendants("TBCPath").First().Value;
+            }
             else
             {
                 RefreshRetail(null, null);
@@ -59,7 +66,24 @@ namespace SMOSK_2._0
         private void Form1_Load(object sender, EventArgs e)
         {
             Application.EnableVisualStyles();
+
+            if (File.Exists(@".\Data\TBCDB.xml"))
+            {
+                Globals.TBCDB = XDocument.Load(@".\Data\TBCDB.xml");
+            }
+            else
+            {
+                Globals.TBCDB = new XDocument(
+                    new XElement("config")
+                    );
+
+                Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+
+                
+            }
+
             Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.TBCDB = XDocument.Load(@".\Data\TBCDB.xml");
             Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
 
             Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
@@ -74,6 +98,7 @@ namespace SMOSK_2._0
                 
                 Globals.Settings.Descendants("config").First().Add(new XElement("splitEnabled", "No"));
                 Globals.Settings.Descendants("config").First().Add(new XElement("retailPath", Globals.Settings.Descendants("wowpath").First().Value));
+                Globals.Settings.Descendants("config").First().Add(new XElement("TBCPath", Globals.Settings.Descendants("wowpath").First().Value));
                 Globals.Settings.Save(@".\Data\Settings.xml");
             }
 
@@ -241,6 +266,104 @@ namespace SMOSK_2._0
             
         }
 
+        private void RefreshTBC(object sender, EventArgs e)
+        {
+
+
+
+            TBCListView.Sorting = SortOrder.Ascending;
+            var TBCAddons = Globals.TBCDB.Descendants("Addon");
+
+
+
+            TBCListView.Clear();
+
+
+
+            TBCListView.Columns.Add("Name");
+            TBCListView.Columns.Add("Current version");
+            TBCListView.Columns.Add("Latest version");
+            TBCListView.Columns.Add("Description");
+            TBCListView.Columns.Add("PID");
+
+
+            foreach (XElement Node in TBCAddons)
+            {
+
+                ListViewItem TBCItem = new ListViewItem();
+                TBCItem.Text = Node.Element("Name").Value;
+
+
+                TBCItem.SubItems.Add(Node.Element("CurrentVersion").Value);
+                TBCItem.SubItems.Add(Node.Element("LatestVersion").Value);
+                TBCItem.SubItems.Add(Node.Element("Description").Value);
+                TBCItem.SubItems.Add(Node.Element("ID").Value);
+
+               TBCListView.Items.Add(TBCItem);
+
+
+
+            }
+
+
+
+
+            TBCListView.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            TBCListView.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
+            TBCListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
+            TBCListView.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
+            TBCListView.Columns[4].Width = -2;
+
+            TBCListView.Sorting = SortOrder.None;
+            int NrUpdates = 0;
+            int i = 0;
+            foreach (ListViewItem item in TBCListView.Items)
+            {
+                if (item.SubItems[1].Text != item.SubItems[2].Text)
+                {
+                    TBCListView.Items.RemoveAt(item.Index);
+                    TBCListView.Items.Insert(NrUpdates, item);
+                    if (NrUpdates % 2 == 0)
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.Color.Orange;
+                    }
+                    else
+                    {
+                        item.ForeColor = System.Drawing.Color.Black;
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#e49400");
+                    }
+
+                    NrUpdates++;
+                }
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        item.BackColor = System.Drawing.Color.Black;
+                        item.ForeColor = System.Drawing.Color.LightGray;
+                    }
+                    else
+                    {
+                        item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
+                        item.ForeColor = System.Drawing.Color.Snow;
+                    }
+                }
+                i++;
+            }
+
+            if (NrUpdates != 0)
+            {
+                LabelNrUpdates.Text = NrUpdates.ToString();
+                LabelNrUpdates.Visible = true;
+
+            }
+            else
+            {
+                LabelNrUpdates.Visible = false;
+            }
+        }
+
         private void RefreshRetail(object sender, EventArgs e)
         {
 
@@ -348,29 +471,28 @@ namespace SMOSK_2._0
             
             dynamic Addons;
             string gameFlavor;
-            bool isClassic;
+            
             
             if (tabControl1.SelectedTab.Text == "Classic")
             {
-                isClassic = true;
                 ClassicListView.BeginUpdate();
-            }
-            else
-            {
-                isClassic = false;
-                RetailListView.BeginUpdate();
-            }
-
-            if (isClassic)
-            {
                 Addons = Globals.ClassicDB.Descendants("Addon");
                 gameFlavor = "wow_classic";
+            } 
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                TBCListView.BeginUpdate();
+                Addons = Globals.TBCDB.Descendants("Addon");
+                gameFlavor = "wow_burning_crusade";
             }
             else
             {
+                RetailListView.BeginUpdate();
                 Addons = Globals.RetailDB.Descendants("Addon");
                 gameFlavor = "wow_retail";
             }
+
+         
             
 
             List<string> IDs = new List<string>();
@@ -407,6 +529,12 @@ namespace SMOSK_2._0
                             .Where(x => (string)x.Element("ID").Value == (string)item.id)
                             .First();
                     }
+                    else if (tabControl1.SelectedTab.Text == "TBC")
+                    {
+                        MatchedNode = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item.id)
+                            .First();
+                    }
                     else
                     {
                         MatchedNode = Globals.RetailDB.Descendants("Addon")
@@ -433,11 +561,17 @@ namespace SMOSK_2._0
             }
 
 
-            if (isClassic)
+            if (tabControl1.SelectedTab.Text == "Classic")
             {
                 Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                 RefreshClassic(null, null);
                 ClassicListView.EndUpdate();
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+                RefreshTBC(null, null);
+                TBCListView.EndUpdate();
             }
             else
             {
@@ -514,7 +648,11 @@ namespace SMOSK_2._0
                     Globals.Settings.Descendants("wowpath")
                         .First()
                         .Value = folderDlg.SelectedPath;
-                    
+
+                    Globals.Settings.Descendants("TBCPath")
+                    .First()
+                    .Value = folderDlg.SelectedPath;
+
                     Globals.Settings.Descendants("retailPath")
                     .First()
                     .Value = folderDlg.SelectedPath;
@@ -543,6 +681,25 @@ namespace SMOSK_2._0
                             .Value = folderDlg.SelectedPath;
                         
                         
+                    }
+                }
+                if (tabControl1.SelectedTab.Text == "TBC")
+                {
+                    FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+                    folderDlg.Description = "Select WoW TBC folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\";
+                    folderDlg.ShowNewFolderButton = true;
+                    // Show the FolderBrowserDialog.  
+                    DialogResult result = folderDlg.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        Label_GamePath.Text = folderDlg.SelectedPath;
+                        Environment.SpecialFolder root = folderDlg.RootFolder;
+
+                        Globals.Settings.Descendants("TBCPath")
+                            .First()
+                            .Value = folderDlg.SelectedPath;
+
+
                     }
                 }
                 else
@@ -586,6 +743,10 @@ namespace SMOSK_2._0
             {
                 AddonSearch.Name = "Classic";
             }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                AddonSearch.Name = "TBC";
+            }
             else
             {
                 AddonSearch.Name = "Retail";
@@ -595,9 +756,14 @@ namespace SMOSK_2._0
             AddonSearch.ShowDialog();
             Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
             Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
+            Globals.TBCDB = XDocument.Load(@".\Data\TBCDB.xml");
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
+            } 
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                RefreshTBC(null, null);
             }
             else
             {
@@ -631,6 +797,30 @@ namespace SMOSK_2._0
                     }
                     Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
                     RefreshClassic(null, null);
+                }
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                if (TBCListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in TBCListView.SelectedItems)
+                    {
+
+
+                        string ID = item.SubItems[4].Text;
+
+                        var NodeToDelete = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == ID)
+                            .First();
+
+                        deleteModules((NodeToDelete.Element("Modules").Value).Split(','));
+
+                        NodeToDelete.Remove();
+
+
+                    }
+                    Globals.TBCDB.Save(@".\Data\ClassicDB.xml");
+                    RefreshTBC(null, null);
                 }
             }
             else
@@ -668,6 +858,10 @@ namespace SMOSK_2._0
                 {
                     ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\" + Module;
                 }
+                else if (tabControl1.SelectedTab.Text == "TBC")
+                {
+                    ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_tbc_\Interface\Addons\" + Module;
+                }
                 else
                 {
                     ModulePath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\" + Module;
@@ -692,6 +886,10 @@ namespace SMOSK_2._0
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\";
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_tbc_\Interface\Addons\";
             }
             else
             {
@@ -781,6 +979,80 @@ namespace SMOSK_2._0
 
 
             }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+
+
+                if (TBCListView.SelectedItems.Count > 0 || buttonPressed.Name == "ButtonUpdateAll")
+                {
+                    progressBarUpdate.Value = 0;
+                    progressBarUpdate.Visible = true;
+
+
+
+
+                    List<ListViewItem> UpdateList = new List<ListViewItem>();
+
+
+
+
+
+                    if (buttonPressed.Name == "ButtonUpdate")
+                    {
+                        foreach (ListViewItem item in TBCListView.SelectedItems)
+                        {
+                            UpdateList.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        foreach (ListViewItem item in TBCListView.Items)
+                        {
+                            if (item.SubItems[1].Text != item.SubItems[2].Text)
+                            {
+                                UpdateList.Add(item);
+
+                            }
+                        }
+                    }
+
+
+
+                    GetAddonManifest(null, null);
+
+
+
+                    decimal i = 1;
+                    foreach (ListViewItem item in UpdateList)
+                    {
+
+                        progressBarUpdate.Value = (int)((i / ((decimal)UpdateList.Count)) * 100);
+
+                        var MatchedNodeTBC = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)item.SubItems[4].Text)
+                            .First();
+                        MatchedNodeTBC.Element("CurrentVersion").Value = MatchedNodeTBC.Element("LatestVersion").Value;
+
+                        string[] Modules = MatchedNodeTBC.Element("Modules").Value.Split(',');
+                        deleteModules(Modules);
+                        DownloadNewAddonFiles(MatchedNodeTBC.Element("DownloadLink").Value);
+                        progressBarUpdate.Value = (int)((i / (decimal)UpdateList.Count) * 100);
+
+                        i++;
+                    }
+
+                    Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+
+                    RefreshTBC(null, null);
+                    progressBarUpdate.Visible = false;
+                    //this.ResumeLayout();
+
+                }
+
+
+
+
+            }
             else
             {
                 if (RetailListView.SelectedItems.Count > 0 || buttonPressed.Name == "ButtonUpdateAll")
@@ -850,7 +1122,11 @@ namespace SMOSK_2._0
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 ClassicListView.Columns[4].Width = -2;
-            } 
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                TBCListView.Columns[4].Width = -2;
+            }
             else
             {
                 RetailListView.Columns[4].Width = -2;
@@ -871,6 +1147,10 @@ namespace SMOSK_2._0
             {
                 ImportView.Name = "Classic";
             }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                ImportView.Name = "TBC";
+            }
             else
             {
                 ImportView.Name = "Retail";
@@ -878,11 +1158,16 @@ namespace SMOSK_2._0
             ImportView.StartPosition = FormStartPosition.Manual;
             ImportView.Location = new Point(this.Bounds.Location.X + 50, this.Bounds.Location.Y + 50);
             ImportView.ShowDialog();
+            Globals.TBCDB = XDocument.Load(@".\Data\TBCDB.xml");
             Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
             Globals.RetailDB= XDocument.Load(@".\Data\RetailDB.xml");
             if (tabControl1.SelectedTab.Text == "Classic")
             {
                 RefreshClassic(null, null);
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                RefreshTBC(null, null);
             }
             else
             {
@@ -910,6 +1195,23 @@ namespace SMOSK_2._0
 
             
             
+        }
+
+        private void TBCListView_DoubleClick(object sender, EventArgs e)
+        {
+
+
+            var TBC = XDocument.Load(@".\Data\TBCDB.xml");
+
+            var Url = TBC.Descendants("Addon")
+                .Where(x => (string)x.Element("ID") == TBCListView.SelectedItems[0].SubItems[4].Text)
+                .First()
+                .Descendants("Website")
+                .First();
+            System.Diagnostics.Process.Start((string)Url);
+
+
+
         }
 
         private void RetailListView_DoubleClick(object sender, EventArgs e)
@@ -946,7 +1248,8 @@ namespace SMOSK_2._0
                     .Value = "No";
 
                 Globals.Settings.Descendants("retailPath").First().Value = Globals.Settings.Descendants("wowpath").First().Value;
-                Label_GamePath.Text = Globals.Settings.Descendants("retailPath").First().Value;
+                Globals.Settings.Descendants("TBCPath").First().Value = Globals.Settings.Descendants("wowpath").First().Value;
+                Label_GamePath.Text = Globals.Settings.Descendants("wowpath").First().Value;
             }
             Globals.Settings.Save(@".\Data\Settings.xml");
         }

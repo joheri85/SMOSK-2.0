@@ -58,9 +58,12 @@ namespace SMOSK_2._0
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.LabelBackground = new System.Windows.Forms.Label();
             this.toolTipSplitPath = new System.Windows.Forms.ToolTip(this.components);
+            this.tabTBC = new System.Windows.Forms.TabPage();
+            this.TBCListView = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
+            this.tabTBC.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -69,6 +72,7 @@ namespace SMOSK_2._0
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabClassic);
+            this.tabControl1.Controls.Add(this.tabTBC);
             this.tabControl1.Controls.Add(this.tabRetail);
             this.tabControl1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tabControl1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -361,6 +365,35 @@ namespace SMOSK_2._0
             this.LabelBackground.Size = new System.Drawing.Size(806, 525);
             this.LabelBackground.TabIndex = 11;
             // 
+            // tabTBC
+            // 
+            this.tabTBC.Controls.Add(this.TBCListView);
+            this.tabTBC.Location = new System.Drawing.Point(4, 22);
+            this.tabTBC.Name = "tabTBC";
+            this.tabTBC.Size = new System.Drawing.Size(768, 450);
+            this.tabTBC.TabIndex = 2;
+            this.tabTBC.Text = "TBC";
+            this.tabTBC.UseVisualStyleBackColor = true;
+            // 
+            // TBCListView
+            // 
+            this.TBCListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TBCListView.BackColor = System.Drawing.Color.Black;
+            this.TBCListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TBCListView.ForeColor = System.Drawing.Color.White;
+            this.TBCListView.FullRowSelect = true;
+            this.TBCListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.TBCListView.HideSelection = false;
+            this.TBCListView.Location = new System.Drawing.Point(-1, 1);
+            this.TBCListView.Name = "TBCListView";
+            this.TBCListView.Size = new System.Drawing.Size(770, 449);
+            this.TBCListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.TBCListView.TabIndex = 1;
+            this.TBCListView.UseCompatibleStateImageBehavior = false;
+            this.TBCListView.View = System.Windows.Forms.View.Details;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -392,6 +425,7 @@ namespace SMOSK_2._0
             this.tabControl1.ResumeLayout(false);
             this.tabClassic.ResumeLayout(false);
             this.tabRetail.ResumeLayout(false);
+            this.tabTBC.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,6 +459,8 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSplitPath;
         private System.Windows.Forms.ToolTip toolTipSplitPath;
+        private System.Windows.Forms.TabPage tabTBC;
+        private System.Windows.Forms.ListView TBCListView;
     }
 }
 

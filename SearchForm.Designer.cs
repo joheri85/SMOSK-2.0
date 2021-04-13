@@ -95,6 +95,7 @@ namespace SMOSK_2._0
             this.GameVersionSelector.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.GameVersionSelector.Items.AddRange(new object[] {
             "Classic",
+            "TBC",
             "Retail"});
             this.GameVersionSelector.Location = new System.Drawing.Point(667, 8);
             this.GameVersionSelector.Name = "GameVersionSelector";

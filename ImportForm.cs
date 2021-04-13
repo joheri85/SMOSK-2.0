@@ -28,6 +28,7 @@ namespace SMOSK_2._0
             // Global Database variables
             public static XDocument ClassicDB;
             public static XDocument RetailDB;
+            public static XDocument TBCDB;
             public static XDocument Settings;
             public static dynamic lastItem = null;
             public static string gameFlavor;
@@ -37,6 +38,7 @@ namespace SMOSK_2._0
         private void ImportForm_Load(object sender, EventArgs e)
         {
             Globals.ClassicDB = XDocument.Load(@".\Data\ClassicDB.xml");
+            Globals.TBCDB = XDocument.Load(@".\Data\TBCDB.xml");
             Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
             Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
 
@@ -52,6 +54,11 @@ namespace SMOSK_2._0
             {
                 Globals.gameFlavor = "wow_classic";
                 labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\' for existing addons";
+            }
+            else if (this.Name == "TBC")
+            {
+                Globals.gameFlavor = "wow_burning_crusade";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_tbc_\Interface\addons\' for existing addons";
             }
             else
             {
@@ -91,6 +98,27 @@ namespace SMOSK_2._0
                     ii++;
                 }
                 
+
+
+            }
+            else if (this.Name == "TBC")
+            {
+                string TBCPath = (string)Globals.Settings.Descendants("TBCPath").First() + @"\_tbc_\Interface\addons\";
+                var directories = Directory.GetDirectories(TBCPath);
+
+                int ii = 0;
+                foreach (string dir in directories)
+                {
+                    string[] FullPath = dir.Split('\\');
+                    string name = FullPath[FullPath.Length - 1];
+
+                    _ = APISearchAsync("api/v2/addon/search?&gameId=1&sort=downloadCount&gameVersionFlavor=wow_burning_crusade&searchFilter=" + name);
+
+                    System.Threading.Thread.Sleep(200);
+                    ImportProgressbar.Value = (int)((ii / (decimal)directories.Length) * 100);
+                    ii++;
+                }
+
 
 
             }
@@ -275,7 +303,32 @@ namespace SMOSK_2._0
                 
                 
                 Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
-            } 
+            }
+            else if (this.Name == "TBC")
+            {
+                foreach (ListViewItem item in ImportFormListView.SelectedItems)
+                {
+                    try
+                    {
+                        var ExcistingNode = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                            .Single();
+                    }
+                    catch
+                    {
+                        var MatchingXMLNode = importXML.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == item.SubItems[3].Text)
+                            .First();
+
+                        Globals.TBCDB.Descendants("config").Last().Add(MatchingXMLNode);
+                    }
+
+                }
+
+
+
+                Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+            }
             else
             {
                 foreach (ListViewItem item in ImportFormListView.SelectedItems)
