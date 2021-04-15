@@ -1189,19 +1189,7 @@ namespace SMOSK_2._0
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab.Text == "Classic")
-            {
-                ClassicListView.Columns[4].Width = -2;
-            }
-            else if (tabControl1.SelectedTab.Text == "TBC")
-            {
-                TBCListView.Columns[4].Width = -2;
-            }
-            else
-            {
-                RetailListView.Columns[4].Width = -2;
-            }
-            
+
         }
 
         private void LabelVersion_Click(object sender, EventArgs e)
@@ -1330,6 +1318,39 @@ namespace SMOSK_2._0
         private void toolTipSplitPath_Popup(object sender, PopupEventArgs e)
         {
 
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            ResumeLayout();
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                ClassicListView.Columns[4].Width = -2;
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                TBCListView.Columns[4].Width = -2;
+            } 
+            else
+            {
+                RetailListView.Columns[4].Width = -2;
+            }
+            
+        }
+
+        private void MainForm_ResizeBegin(object sender, EventArgs e)
+        {
+            SuspendLayout();
+        }
+
+      
+
+        private void MainForm_SizeChanged_1(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                MainForm_ResizeEnd(null, null);
+            }
         }
     }
 }

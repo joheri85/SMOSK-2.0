@@ -421,7 +421,9 @@ namespace SMOSK_2._0
             this.Name = "MainForm";
             this.Text = "SMOSK-C#";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
+            this.ResizeBegin += new System.EventHandler(this.MainForm_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged_1);
             this.tabControl1.ResumeLayout(false);
             this.tabClassic.ResumeLayout(false);
             this.tabTBC.ResumeLayout(false);
