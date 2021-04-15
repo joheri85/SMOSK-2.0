@@ -133,6 +133,9 @@ namespace SMOSK_2._0
             // 
             // LabelInstalling
             // 
+            this.LabelInstalling.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelInstalling.BackColor = System.Drawing.Color.Black;
             this.LabelInstalling.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInstalling.ForeColor = System.Drawing.Color.White;
@@ -148,7 +151,7 @@ namespace SMOSK_2._0
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.LabelInstalling);

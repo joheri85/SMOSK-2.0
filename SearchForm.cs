@@ -1,19 +1,14 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.IO.Compression;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace SMOSK_2._0
@@ -182,14 +177,16 @@ namespace SMOSK_2._0
                     }
 
                     ListViewItem ResultItem = new ListViewItem();
-                    ResultItem.Text = item.name;
+                    
                     ResultItem.SubItems.Add((string)item.summary);
                     if (correctRelease != null)
                     {
+                        ResultItem.Text = item.name;
                         ResultItem.SubItems.Add((string)correctRelease.displayName);
                     }
                     else
                     {
+                        ResultItem.Text = item.name + " (Listed but no release available yet)";
                         ResultItem.SubItems.Add("***** This addon has no version marked as 'Realease' for " + Globals.gameFlavor + " *****");
                     }
                     
@@ -213,6 +210,8 @@ namespace SMOSK_2._0
                 int i = 0;
                 foreach (ListViewItem Item in SearchFormListView.Items)
                 {
+                    
+
                     if (i % 2 == 0)
                     {
                         Item.BackColor = System.Drawing.Color.Black;
@@ -222,6 +221,11 @@ namespace SMOSK_2._0
                     {
                         Item.BackColor = System.Drawing.ColorTranslator.FromHtml("#272727");
                         Item.ForeColor = System.Drawing.Color.Snow;
+                    }
+
+                    if (Item.SubItems[2].Text.StartsWith("****"))
+                    {
+                        Item.ForeColor = System.Drawing.ColorTranslator.FromHtml("#a664f5");
                     }
 
                     i++;

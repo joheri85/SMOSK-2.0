@@ -63,6 +63,16 @@ namespace SMOSK_2._0.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap body_transparent {
+            get {
+                object obj = ResourceManager.GetObject("body_transparent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Context_trash {
             get {
                 object obj = ResourceManager.GetObject("Context_trash", resourceCulture);
@@ -256,6 +266,16 @@ namespace SMOSK_2._0.Properties {
         internal static System.Drawing.Bitmap wallpaper_seamless {
             get {
                 object obj = ResourceManager.GetObject("wallpaper_seamless", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Wallpaper1 {
+            get {
+                object obj = ResourceManager.GetObject("Wallpaper1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

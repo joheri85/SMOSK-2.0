@@ -75,6 +75,8 @@ namespace SMOSK_2._0
             // 
             // ImportProgressbar
             // 
+            this.ImportProgressbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ImportProgressbar.Location = new System.Drawing.Point(13, 405);
             this.ImportProgressbar.Name = "ImportProgressbar";
             this.ImportProgressbar.Size = new System.Drawing.Size(737, 33);
@@ -116,6 +118,7 @@ namespace SMOSK_2._0
             // 
             // labelImportSelected
             // 
+            this.labelImportSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelImportSelected.BackColor = System.Drawing.Color.Transparent;
             this.labelImportSelected.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelImportSelected.ForeColor = System.Drawing.Color.Orange;
@@ -129,6 +132,9 @@ namespace SMOSK_2._0
             // 
             // LabelSearchingInProgress
             // 
+            this.LabelSearchingInProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelSearchingInProgress.BackColor = System.Drawing.Color.Black;
             this.LabelSearchingInProgress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LabelSearchingInProgress.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -145,7 +151,7 @@ namespace SMOSK_2._0
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.Wall_color;
+            this.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.LabelSearchingInProgress);
             this.Controls.Add(this.labelImportSelected);
