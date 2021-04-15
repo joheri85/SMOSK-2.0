@@ -267,7 +267,7 @@ namespace SMOSK_2._0
             this.buttonSplitPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSplitPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSplitPath.ForeColor = System.Drawing.Color.White;
-            this.buttonSplitPath.Location = new System.Drawing.Point(312, 519);
+            this.buttonSplitPath.Location = new System.Drawing.Point(311, 519);
             this.buttonSplitPath.Name = "buttonSplitPath";
             this.buttonSplitPath.Size = new System.Drawing.Size(25, 25);
             this.buttonSplitPath.TabIndex = 15;
