@@ -51,6 +51,7 @@ namespace SMOSK_2._0
             this.toolTipBrows = new System.Windows.Forms.ToolTip(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSplitPath = new System.Windows.Forms.Button();
+            this.toolTipSplitPath = new System.Windows.Forms.ToolTip(this.components);
             this.ButtonImport = new System.Windows.Forms.Button();
             this.ButtonUpdateAll = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@ namespace SMOSK_2._0
             this.ButtonUpdate = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
-            this.toolTipSplitPath = new System.Windows.Forms.ToolTip(this.components);
             this.panelBackground = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabClassic.SuspendLayout();
@@ -216,6 +216,8 @@ namespace SMOSK_2._0
             this.Button_BrowsPath.Text = "...";
             this.Button_BrowsPath.UseVisualStyleBackColor = false;
             this.Button_BrowsPath.Click += new System.EventHandler(this.Button_BrowsPath_Click);
+            this.Button_BrowsPath.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.Button_BrowsPath.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // progressBarUpdate
             // 
@@ -274,6 +276,8 @@ namespace SMOSK_2._0
             this.buttonSplitPath.Text = "1";
             this.buttonSplitPath.UseVisualStyleBackColor = false;
             this.buttonSplitPath.Click += new System.EventHandler(this.buttonSplitPath_Click);
+            this.buttonSplitPath.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.buttonSplitPath.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // ButtonImport
             // 
@@ -290,6 +294,8 @@ namespace SMOSK_2._0
             this.ButtonImport.TabIndex = 14;
             this.ButtonImport.UseVisualStyleBackColor = false;
             this.ButtonImport.Click += new System.EventHandler(this.ButtonImport_Click);
+            this.ButtonImport.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.ButtonImport.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // ButtonUpdateAll
             // 
@@ -306,6 +312,8 @@ namespace SMOSK_2._0
             this.ButtonUpdateAll.TabIndex = 12;
             this.ButtonUpdateAll.UseVisualStyleBackColor = false;
             this.ButtonUpdateAll.Click += new System.EventHandler(this.ButtonUpdate_Click);
+            this.ButtonUpdateAll.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.ButtonUpdateAll.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // RefreshButton
             // 
@@ -322,9 +330,12 @@ namespace SMOSK_2._0
             this.RefreshButton.TabIndex = 1;
             this.RefreshButton.UseVisualStyleBackColor = false;
             this.RefreshButton.Click += new System.EventHandler(this.GetAddonManifest);
+            this.RefreshButton.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.RefreshButton.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // LabelNrUpdates
             // 
+            this.LabelNrUpdates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelNrUpdates.BackColor = System.Drawing.Color.Transparent;
             this.LabelNrUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelNrUpdates.ForeColor = System.Drawing.Color.Black;
@@ -350,6 +361,8 @@ namespace SMOSK_2._0
             this.ButtonUpdate.TabIndex = 9;
             this.ButtonUpdate.UseVisualStyleBackColor = false;
             this.ButtonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
+            this.ButtonUpdate.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.ButtonUpdate.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // ButtonDelete
             // 
@@ -365,7 +378,8 @@ namespace SMOSK_2._0
             this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
             this.ButtonDelete.TabIndex = 7;
             this.ButtonDelete.UseVisualStyleBackColor = false;
-            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
+            this.ButtonDelete.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.ButtonDelete.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // Button_OpenSearch
             // 
@@ -382,6 +396,8 @@ namespace SMOSK_2._0
             this.Button_OpenSearch.TabIndex = 6;
             this.Button_OpenSearch.UseVisualStyleBackColor = false;
             this.Button_OpenSearch.Click += new System.EventHandler(this.Button_OpenSearch_Click);
+            this.Button_OpenSearch.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.Button_OpenSearch.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 
             // panelBackground
             // 
@@ -418,6 +434,7 @@ namespace SMOSK_2._0
             this.Controls.Add(this.panelBackground);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(816, 595);
             this.Name = "MainForm";
             this.Text = "SMOSK-C#";
             this.Load += new System.EventHandler(this.Form1_Load);
