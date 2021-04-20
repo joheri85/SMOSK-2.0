@@ -149,6 +149,7 @@ namespace SMOSK_2._0
             this.TBCListView.TabIndex = 1;
             this.TBCListView.UseCompatibleStateImageBehavior = false;
             this.TBCListView.View = System.Windows.Forms.View.Details;
+            this.TBCListView.DoubleClick += new System.EventHandler(this.TBCListView_DoubleClick);
             // 
             // tabRetail
             // 
@@ -378,6 +379,7 @@ namespace SMOSK_2._0
             this.ButtonDelete.Size = new System.Drawing.Size(40, 40);
             this.ButtonDelete.TabIndex = 7;
             this.ButtonDelete.UseVisualStyleBackColor = false;
+            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             this.ButtonDelete.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
             this.ButtonDelete.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
             // 

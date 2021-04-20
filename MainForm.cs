@@ -841,6 +841,78 @@ namespace SMOSK_2._0
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
 
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                if (ClassicListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in ClassicListView.SelectedItems)
+                    {
+
+
+                        string ID = item.SubItems[4].Text;
+
+                        var NodeToDelete = Globals.ClassicDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == ID)
+                            .First();
+
+                        deleteModules((NodeToDelete.Element("Modules").Value).Split(','));
+
+                        NodeToDelete.Remove();
+
+
+                    }
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+                    RefreshClassic(null, null);
+                }
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                if (TBCListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in TBCListView.SelectedItems)
+                    {
+
+
+                        string ID = item.SubItems[4].Text;
+
+                        var NodeToDelete = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == ID)
+                            .First();
+
+                        deleteModules((NodeToDelete.Element("Modules").Value).Split(','));
+
+                        NodeToDelete.Remove();
+
+
+                    }
+                    Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+                    RefreshTBC(null, null);
+                }
+            }
+            else
+            {
+                if (RetailListView.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in RetailListView.SelectedItems)
+                    {
+
+
+                        string ID = item.SubItems[4].Text;
+
+                        var NodeToDelete = Globals.RetailDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID") == ID)
+                            .First();
+
+                        deleteModules((NodeToDelete.Element("Modules").Value).Split(','));
+
+                        NodeToDelete.Remove();
+
+
+                    }
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+                    RefreshRetail(null, null);
+                }
+            }
         }
 
         private void deleteModules(string[] Modules)
@@ -1284,13 +1356,17 @@ namespace SMOSK_2._0
         private void Buttons_MouseEnter(object sender, EventArgs e)
         {
             Button senderButton = (Button)sender;
-            senderButton.ForeColor = System.Drawing.Color.Orange;
+            senderButton.ForeColor = Color.Orange;
+            senderButton.BackColor = System.Drawing.ColorTranslator.FromHtml("#231f1f");
         }
 
         private void Buttons_MouseLeave(object sender, EventArgs e)
         {
             Button senderButton = (Button)sender;
-            senderButton.ForeColor = System.Drawing.Color.White;
+            senderButton.ForeColor = Color.White;
+            senderButton.BackColor = Color.Black;
         }
+
+        
     }
 }

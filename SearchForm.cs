@@ -211,7 +211,7 @@ namespace SMOSK_2._0
                 foreach (ListViewItem Item in SearchFormListView.Items)
                 {
                     
-
+                    // Different bg color on evry other row
                     if (i % 2 == 0)
                     {
                         Item.BackColor = System.Drawing.Color.Black;
@@ -223,9 +223,46 @@ namespace SMOSK_2._0
                         Item.ForeColor = System.Drawing.Color.Snow;
                     }
 
+                    // Text color if addon has no version marked as release
                     if (Item.SubItems[2].Text.StartsWith("****"))
                     {
-                        Item.ForeColor = System.Drawing.ColorTranslator.FromHtml("#a664f5");
+                        Item.ForeColor = System.Drawing.ColorTranslator.FromHtml("#bc8cf6");
+                    }
+
+                    // Text color green if addon is already installed
+                    if (this.Name == "Classic")
+                    {
+                        int isInstalled = Globals.ClassicDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)Item.SubItems[3].Text)
+                            .Count();
+                        if (isInstalled > 0)
+                        {
+                            Item.ForeColor = System.Drawing.ColorTranslator.FromHtml("#98fb87");
+                            Item.Text = Item.Text + " (Already installed)";
+                        }
+                        
+                    }
+                    else if (this.Name == "TBC")
+                    {
+                        int isInstalled = Globals.TBCDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)Item.SubItems[3].Text)
+                            .Count();
+                        if (isInstalled > 0)
+                        {
+                            Item.ForeColor = System.Drawing.ColorTranslator.FromHtml("#98fb87");
+                            Item.Text = Item.Text + " (Already installed)";
+                        }
+                    }
+                    else
+                    {
+                        int isInstalled = Globals.RetailDB.Descendants("Addon")
+                            .Where(x => (string)x.Element("ID").Value == (string)Item.SubItems[3].Text)
+                            .Count();
+                        if (isInstalled > 0)
+                        {
+                            Item.ForeColor = System.Drawing.ColorTranslator.FromHtml("#98fb87");
+                            Item.Text = Item.Text + " (Already installed)";
+                        }
                     }
 
                     i++;
