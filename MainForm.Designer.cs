@@ -49,7 +49,7 @@ namespace SMOSK_2._0
             this.toolTipSearch = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipRefresh = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipBrows = new System.Windows.Forms.ToolTip(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_GamePathHeader = new System.Windows.Forms.Label();
             this.buttonSplitPath = new System.Windows.Forms.Button();
             this.toolTipSplitPath = new System.Windows.Forms.ToolTip(this.components);
             this.ButtonImport = new System.Windows.Forms.Button();
@@ -71,8 +71,8 @@ namespace SMOSK_2._0
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabClassic);
             this.tabControl1.Controls.Add(this.tabTBC);
+            this.tabControl1.Controls.Add(this.tabClassic);
             this.tabControl1.Controls.Add(this.tabRetail);
             this.tabControl1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tabControl1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -112,9 +112,9 @@ namespace SMOSK_2._0
             this.ClassicListView.FullRowSelect = true;
             this.ClassicListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.ClassicListView.HideSelection = false;
-            this.ClassicListView.Location = new System.Drawing.Point(-4, 0);
+            this.ClassicListView.Location = new System.Drawing.Point(-1, 1);
             this.ClassicListView.Name = "ClassicListView";
-            this.ClassicListView.Size = new System.Drawing.Size(770, 449);
+            this.ClassicListView.Size = new System.Drawing.Size(774, 450);
             this.ClassicListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.ClassicListView.TabIndex = 0;
             this.ClassicListView.UseCompatibleStateImageBehavior = false;
@@ -123,6 +123,7 @@ namespace SMOSK_2._0
             // 
             // tabTBC
             // 
+            this.tabTBC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabTBC.Controls.Add(this.TBCListView);
             this.tabTBC.Location = new System.Drawing.Point(4, 22);
             this.tabTBC.Name = "tabTBC";
@@ -144,7 +145,7 @@ namespace SMOSK_2._0
             this.TBCListView.HideSelection = false;
             this.TBCListView.Location = new System.Drawing.Point(-1, 1);
             this.TBCListView.Name = "TBCListView";
-            this.TBCListView.Size = new System.Drawing.Size(770, 449);
+            this.TBCListView.Size = new System.Drawing.Size(774, 450);
             this.TBCListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.TBCListView.TabIndex = 1;
             this.TBCListView.UseCompatibleStateImageBehavior = false;
@@ -175,9 +176,9 @@ namespace SMOSK_2._0
             this.RetailListView.ForeColor = System.Drawing.Color.White;
             this.RetailListView.FullRowSelect = true;
             this.RetailListView.HideSelection = false;
-            this.RetailListView.Location = new System.Drawing.Point(-4, 0);
+            this.RetailListView.Location = new System.Drawing.Point(-1, 1);
             this.RetailListView.Name = "RetailListView";
-            this.RetailListView.Size = new System.Drawing.Size(770, 449);
+            this.RetailListView.Size = new System.Drawing.Size(774, 450);
             this.RetailListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.RetailListView.TabIndex = 0;
             this.RetailListView.UseCompatibleStateImageBehavior = false;
@@ -247,19 +248,18 @@ namespace SMOSK_2._0
             this.LabelVersion.Visible = false;
             this.LabelVersion.Click += new System.EventHandler(this.LabelVersion_Click);
             // 
-            // label1
+            // label_GamePathHeader
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 493);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(298, 18);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "World of Warcraft Classic game folder";
+            this.label_GamePathHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_GamePathHeader.AutoSize = true;
+            this.label_GamePathHeader.BackColor = System.Drawing.Color.Transparent;
+            this.label_GamePathHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_GamePathHeader.ForeColor = System.Drawing.Color.White;
+            this.label_GamePathHeader.Location = new System.Drawing.Point(12, 496);
+            this.label_GamePathHeader.Name = "label_GamePathHeader";
+            this.label_GamePathHeader.Size = new System.Drawing.Size(298, 18);
+            this.label_GamePathHeader.TabIndex = 5;
+            this.label_GamePathHeader.Text = "World of Warcraft Classic game folder";
             // 
             // buttonSplitPath
             // 
@@ -407,9 +407,9 @@ namespace SMOSK_2._0
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBackground.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
-            this.panelBackground.Location = new System.Drawing.Point(-6, 32);
+            this.panelBackground.Location = new System.Drawing.Point(-6, 34);
             this.panelBackground.Name = "panelBackground";
-            this.panelBackground.Size = new System.Drawing.Size(808, 524);
+            this.panelBackground.Size = new System.Drawing.Size(808, 522);
             this.panelBackground.TabIndex = 1;
             // 
             // MainForm
@@ -430,7 +430,7 @@ namespace SMOSK_2._0
             this.Controls.Add(this.ButtonUpdate);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.Button_OpenSearch);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_GamePathHeader);
             this.Controls.Add(this.Button_BrowsPath);
             this.Controls.Add(this.Label_GamePath);
             this.Controls.Add(this.panelBackground);
@@ -476,7 +476,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.ToolTip toolTipSearch;
         private System.Windows.Forms.ToolTip toolTipRefresh;
         private System.Windows.Forms.ToolTip toolTipBrows;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_GamePathHeader;
         private System.Windows.Forms.Button buttonSplitPath;
         private System.Windows.Forms.ToolTip toolTipSplitPath;
         private System.Windows.Forms.TabPage tabTBC;

@@ -493,11 +493,11 @@ namespace SMOSK_2._0
             String ExtractPath;
             if (this.Name == "Classic")
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era\Interface\Addons\";
             }
             else if (this.Name == "TBC")
             {
-                ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_tbc_\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\";
             }
             else
             {

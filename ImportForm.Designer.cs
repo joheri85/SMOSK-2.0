@@ -121,7 +121,7 @@ namespace SMOSK_2._0
             this.labelImportSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelImportSelected.BackColor = System.Drawing.Color.Transparent;
             this.labelImportSelected.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelImportSelected.ForeColor = System.Drawing.Color.Orange;
+            this.labelImportSelected.ForeColor = System.Drawing.Color.White;
             this.labelImportSelected.Location = new System.Drawing.Point(230, 406);
             this.labelImportSelected.Name = "labelImportSelected";
             this.labelImportSelected.Size = new System.Drawing.Size(490, 32);

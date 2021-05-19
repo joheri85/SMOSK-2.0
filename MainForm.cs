@@ -47,17 +47,17 @@ namespace SMOSK_2._0
 
                 Label_GamePath.Text = Globals.Settings.Descendants("wowpath").First().Value;
 
-                if (Directory.Exists(Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\"))
+                if (Directory.Exists(Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era_\Interface\Addons\"))
                 {
                     setActions(true);
-                    label1.Text = "World of Warcraft Classic game folder";
-                    label1.ForeColor = System.Drawing.Color.White;
+                    label_GamePathHeader.Text = "World of Warcraft Classic game folder";
+                    label_GamePathHeader.ForeColor = System.Drawing.Color.White;
                 }
                 else
                 {
                     setActions(false);
-                    label1.Text = @"/_classic_/Interface/Addons not found in selected path!";
-                    label1.ForeColor = System.Drawing.Color.Orange;
+                    label_GamePathHeader.Text = @"/_classic_era_/Interface/Addons not found in selected path!";
+                    label_GamePathHeader.ForeColor = System.Drawing.Color.Orange;
                 }
             }
             else if (tabControl1.SelectedTab.Text == "TBC")
@@ -66,17 +66,17 @@ namespace SMOSK_2._0
 
                 Label_GamePath.Text = Globals.Settings.Descendants("TBCPath").First().Value;
 
-                if (Directory.Exists(Globals.Settings.Descendants("TBCPath").First().Value + @"\_tbc_\Interface\Addons\"))
+                if (Directory.Exists(Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\"))
                 {
                     setActions(true);
-                    label1.Text = "World of Warcraft TBC game folder";
-                    label1.ForeColor = System.Drawing.Color.White;
+                    label_GamePathHeader.Text = "World of Warcraft TBC game folder";
+                    label_GamePathHeader.ForeColor = System.Drawing.Color.White;
                 }
                 else
                 {
                     setActions(false);
-                    label1.Text = @"/_tbc_/Interface/Addons not found in selected path!";
-                    label1.ForeColor = System.Drawing.Color.Orange;
+                    label_GamePathHeader.Text = @"/_classic_/Interface/Addons not found in selected path!";
+                    label_GamePathHeader.ForeColor = System.Drawing.Color.Orange;
                 }
 
             }
@@ -89,14 +89,14 @@ namespace SMOSK_2._0
                 if (Directory.Exists(Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\"))
                 {
                     setActions(true);
-                    label1.Text = "World of Warcraft Retail game folder";
-                    label1.ForeColor = System.Drawing.Color.White;
+                    label_GamePathHeader.Text = "World of Warcraft Retail game folder";
+                    label_GamePathHeader.ForeColor = System.Drawing.Color.White;
                 }
                 else
                 {
                     setActions(false);
-                    label1.Text = @"/_retail_/Interface/Addons not found in selected path!";
-                    label1.ForeColor = System.Drawing.Color.Orange;
+                    label_GamePathHeader.Text = @"/_retail_/Interface/Addons not found in selected path!";
+                    label_GamePathHeader.ForeColor = System.Drawing.Color.Orange;
                 }
                
             }
@@ -123,6 +123,26 @@ namespace SMOSK_2._0
             }
         }
 
+        void TransparetBackground(Control C)
+        {
+            C.Visible = false;
+
+            C.Refresh();
+            Application.DoEvents();
+
+            Rectangle screenRectangle = RectangleToScreen(this.ClientRectangle);
+            int titleHeight = screenRectangle.Top - this.Top;
+            int Right = screenRectangle.Left - this.Left;
+
+            Bitmap bmp = new Bitmap(this.Width, this.Height);
+            this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+            Bitmap bmpImage = new Bitmap(bmp);
+            bmp = bmpImage.Clone(new Rectangle(C.Location.X + Right, C.Location.Y + titleHeight, C.Width, C.Height), bmpImage.PixelFormat);
+            C.BackgroundImage = bmp;
+
+            C.Visible = true;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             Application.EnableVisualStyles();
@@ -133,11 +153,13 @@ namespace SMOSK_2._0
             }
             else
             {
-                Globals.TBCDB = new XDocument(
+                System.IO.File.Move(@".\Data\ClassicDB.xml", @".\Data\TBCDB.xml");
+
+                Globals.ClassicDB = new XDocument(
                     new XElement("config")
                     );
 
-                Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+                Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
 
                 Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
                 Globals.Settings.Descendants("config").First().Add(
@@ -151,7 +173,7 @@ namespace SMOSK_2._0
             Globals.RetailDB = XDocument.Load(@".\Data\RetailDB.xml");
 
             Globals.Settings = XDocument.Load(@".\Data\Settings.xml");
-
+            
 
             var splitpathEnabled = Globals.Settings.Descendants("splitEnabled")
                 .Count();
@@ -192,7 +214,8 @@ namespace SMOSK_2._0
             toolTipSplitPath.SetToolTip(buttonSplitPath, "Toggle wow installation type:" + Environment.NewLine + "1: Same installation path for all versions." + Environment.NewLine + "3: Select installation path for Classic, TBC and Retail separetly");
 
             // End ToolTips
-
+            TransparetBackground(label_GamePathHeader);
+            
             
             Label_GamePath.Text = (string)Globals.Settings.Descendants("wowpath")
                 .First();
@@ -202,22 +225,23 @@ namespace SMOSK_2._0
             try
             {
                 var webRequest = WebRequest.Create(@"https://smosk.net/downloads/smosk2/smosk2version.txt");
-                string latesVersion;
+                string latestVersion;
 
                 using (var response = webRequest.GetResponse())
                 using (var content = response.GetResponseStream())
                 using (var reader = new StreamReader(content))
                 {
-                    latesVersion = reader.ReadToEnd();
+                    latestVersion = reader.ReadToEnd();
                 }
 
 
                 string currentVersion = (string)Globals.Settings.Descendants("version")
                     .First();
 
-                if (currentVersion != latesVersion)
+                if (currentVersion != latestVersion)
                 {
                     LabelVersion.Visible = true;
+                    TransparetBackground(LabelVersion);
                 }
             } 
             catch
@@ -733,7 +757,7 @@ namespace SMOSK_2._0
                 if (tabControl1.SelectedTab.Text == "Classic")
                 {
                     FolderBrowserDialog folderDlg = new FolderBrowserDialog();
-                    folderDlg.Description = "Select WoW classic folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\" + Environment.NewLine + "(Do NOT select specific version folder like '_classic_')";
+                    folderDlg.Description = "Select WoW classic folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\" + Environment.NewLine + "(Do NOT select specific version folder like '_classic_era_')";
                     folderDlg.ShowNewFolderButton = true;
                     // Show the FolderBrowserDialog.  
                     DialogResult result = folderDlg.ShowDialog();
@@ -752,7 +776,7 @@ namespace SMOSK_2._0
                 if (tabControl1.SelectedTab.Text == "TBC")
                 {
                     FolderBrowserDialog folderDlg = new FolderBrowserDialog();
-                    folderDlg.Description = "Select WoW TBC folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\" + Environment.NewLine + "(Do NOT select specific version folder like '_tbc_')";
+                    folderDlg.Description = "Select WoW TBC folder." + Environment.NewLine + @"For example: T:\Games\World of Warcraft\" + Environment.NewLine + "(Do NOT select specific version folder like '_classic_')";
                     folderDlg.ShowNewFolderButton = true;
                     // Show the FolderBrowserDialog.  
                     DialogResult result = folderDlg.ShowDialog();
@@ -800,6 +824,11 @@ namespace SMOSK_2._0
         private void Label_GamePath_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, Label_GamePath.DisplayRectangle, Color.White, ButtonBorderStyle.Solid);
+        }
+
+        private void labelGamePathHeader_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, label_GamePathHeader.DisplayRectangle, Color.White, ButtonBorderStyle.Solid);
         }
 
         private void Button_OpenSearch_Click(object sender, EventArgs e)
@@ -924,11 +953,11 @@ namespace SMOSK_2._0
                 {
                     if (tabControl1.SelectedTab.Text == "Classic")
                     {
-                        ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\" + Module;
+                        ModulePath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era_\Interface\Addons\" + Module;
                     }
                     else if (tabControl1.SelectedTab.Text == "TBC")
                     {
-                        ModulePath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_tbc_\Interface\Addons\" + Module;
+                        ModulePath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\" + Module;
                     }
                     else
                     {
@@ -955,18 +984,25 @@ namespace SMOSK_2._0
             String ExtractPath;
             if (tabControl1.SelectedTab.Text == "Classic")
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era\Interface\Addons\";
             }
             else if (tabControl1.SelectedTab.Text == "TBC")
             {
-                ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_tbc_\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\";
             }
             else
             {
                 ExtractPath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\";
             }
-
-            System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
+            try
+            {
+                System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", ExtractPath);
+            } 
+            catch (Exception e)
+            {
+                Console.Out.WriteLine(e);
+            } 
+            
 
             File.Delete(@".\Downloads\dl.zip");
             System.Threading.Thread.Sleep(250);
@@ -1366,7 +1402,5 @@ namespace SMOSK_2._0
             senderButton.ForeColor = Color.White;
             senderButton.BackColor = Color.Black;
         }
-
-        
     }
 }

@@ -48,12 +48,12 @@ namespace SMOSK_2._0
             if (this.Name == "Classic")
             {
                 Globals.gameFlavor = "wow_classic";
-                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\' for existing addons";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_era_\Interface\addons\' for existing addons";
             }
             else if (this.Name == "TBC")
             {
                 Globals.gameFlavor = "wow_burning_crusade";
-                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_tbc_\Interface\addons\' for existing addons";
+                labelTitle.Text = "Scan '" + (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\' for existing addons";
             }
             else
             {
@@ -77,7 +77,7 @@ namespace SMOSK_2._0
 
             if (this.Name == "Classic")
             {
-                string ClassicPath = (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_\Interface\addons\";
+                string ClassicPath = (string)Globals.Settings.Descendants("wowpath").First() + @"\_classic_era_\Interface\addons\";
                 var directories = Directory.GetDirectories(ClassicPath);
 
                 int ii = 0;
@@ -98,7 +98,7 @@ namespace SMOSK_2._0
             }
             else if (this.Name == "TBC")
             {
-                string TBCPath = (string)Globals.Settings.Descendants("TBCPath").First() + @"\_tbc_\Interface\addons\";
+                string TBCPath = (string)Globals.Settings.Descendants("TBCPath").First() + @"\_classic_\Interface\addons\";
                 var directories = Directory.GetDirectories(TBCPath);
 
                 int ii = 0;
