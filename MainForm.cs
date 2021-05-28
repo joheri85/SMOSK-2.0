@@ -9,6 +9,8 @@ using System.Net;
 using System.IO;
 using System.Xml.Linq;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SMOSK_2._0
 {
@@ -32,6 +34,8 @@ namespace SMOSK_2._0
             
 
         }
+
+        private static readonly HttpClient client = new HttpClient();
 
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -582,8 +586,9 @@ namespace SMOSK_2._0
                 gameFlavor = "wow_retail";
             }
 
-         
-            
+            checkElvUI();
+
+
 
             List<string> IDs = new List<string>();
 
@@ -984,7 +989,7 @@ namespace SMOSK_2._0
             String ExtractPath;
             if (tabControl1.SelectedTab.Text == "Classic")
             {
-                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era\Interface\Addons\";
+                ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era_\Interface\Addons\";
             }
             else if (tabControl1.SelectedTab.Text == "TBC")
             {
@@ -1402,5 +1407,368 @@ namespace SMOSK_2._0
             senderButton.ForeColor = Color.White;
             senderButton.BackColor = Color.Black;
         }
+
+        private void button_ElvUI_Click(object sender, EventArgs e)
+        {
+            button_ElvUI.Enabled = false;
+            if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                
+                if (Globals.TBCDB.Descendants("ElvUI").Count() == 0)
+                {
+                    Globals.TBCDB.Descendants("config").First().Add(new XElement("ElvUI"));
+                    Globals.TBCDB.Descendants("ElvUI").First().Add(new XElement("Version", ""));
+
+                    Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+                }
+
+                
+                var LatestVersion = ElvUiLatestVersion("https://www.tukui.org/api.php?classic-tbc-addons");
+                
+
+                //string downloadLink = @"https://github.com/ElvUI-TBC/ElvUI/archive/refs/tags/" + jsonResponse.tag_name + ".zip";
+
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(new System.Uri(@"https://git.tukui.org/elvui/elvui-tbc/-/archive/main/elvui-tbc-main.zip"), @".\Downloads\dl.zip");
+                }
+                string ExtractPath = Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\";
+                Console.WriteLine(ExtractPath + "ElvUI");
+                try
+                {
+                    System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", @".\Downloads\");
+                    if (Directory.Exists(ExtractPath + @"ElvUI\"))
+                    {
+                        Directory.Delete(ExtractPath + @"ElvUI\", true);
+                        
+                    }
+                    Directory.CreateDirectory(ExtractPath + "ElvUI");
+                    if (Directory.Exists(ExtractPath + @"ElvUI_OptionsUI\"))
+                    {
+                        Directory.Delete(ExtractPath + @"ElvUI_OptionsUI\", true);
+                        
+                    }
+                    Directory.CreateDirectory(ExtractPath + "ElvUI_OptionsUI");
+
+
+
+                    CopyFilesRecursively(@".\Downloads\elvui-tbc-main\ElvUI\", ExtractPath + @"ElvUI\");
+                    CopyFilesRecursively(@".\Downloads\elvui-tbc-main\ElvUI_OptionsUI\", ExtractPath + @"ElvUI_OptionsUI\");
+
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+
+                    Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = LatestVersion;
+                    Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+                }
+                catch (Exception ex)
+                {
+                    Console.Out.WriteLine(ex);
+                }
+
+
+
+
+            }
+            else if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                if (Globals.ClassicDB.Descendants("ElvUI").Count() == 0)
+                {
+                    Globals.ClassicDB.Descendants("config").First().Add(new XElement("ElvUI"));
+                    Globals.ClassicDB.Descendants("ElvUI").First().Add(new XElement("Version", ""));
+
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+                }
+
+
+                var LatestVersion = ElvUiLatestVersion("https://www.tukui.org/api.php?classic-addons");
+
+
+                //string downloadLink = @"https://github.com/ElvUI-TBC/ElvUI/archive/refs/tags/" + jsonResponse.tag_name + ".zip";
+
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(new System.Uri(@"https://git.tukui.org/elvui/elvui-classic/-/archive/main/elvui-classic-main.zip"), @".\Downloads\dl.zip");
+                }
+                string ExtractPath = Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era_\Interface\Addons\";
+                Console.WriteLine(ExtractPath + "ElvUI");
+                try
+                {
+                    System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", @".\Downloads\");
+                    if (Directory.Exists(ExtractPath + @"ElvUI\"))
+                    {
+                        Directory.Delete(ExtractPath + @"ElvUI\", true);
+
+                    }
+                    Directory.CreateDirectory(ExtractPath + "ElvUI");
+                    if (Directory.Exists(ExtractPath + @"ElvUI_OptionsUI\"))
+                    {
+                        Directory.Delete(ExtractPath + @"ElvUI_OptionsUI\", true);
+
+                    }
+                    Directory.CreateDirectory(ExtractPath + "ElvUI_OptionsUI");
+
+
+
+                    CopyFilesRecursively(@".\Downloads\elvui-classic-main\ElvUI\", ExtractPath + @"ElvUI\");
+                    CopyFilesRecursively(@".\Downloads\elvui-classic-main\ElvUI_OptionsUI\", ExtractPath + @"ElvUI_OptionsUI\");
+
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+
+                    Globals.ClassicDB.Descendants("ElvUI").First().Descendants("Version").First().Value = LatestVersion;
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+                }
+                catch (Exception ex)
+                {
+                    Console.Out.WriteLine(ex);
+                }
+            } 
+            else if (tabControl1.SelectedTab.Text == "Retail")
+            {
+
+                if (Globals.RetailDB.Descendants("ElvUI").Count() == 0)
+                {
+                    Globals.RetailDB.Descendants("config").First().Add(new XElement("ElvUI"));
+                    Globals.RetailDB.Descendants("ElvUI").First().Add(new XElement("Version", ""));
+
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+                }
+
+
+                var LatestVersion = ElvUiLatestVersion("https://www.tukui.org/api.php?ui=elvui");
+
+
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(new System.Uri(@"https://git.tukui.org/elvui/elvui/-/archive/main/elvui-main.zip"), @".\Downloads\dl.zip");
+                }
+                string ExtractPath = Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\";
+                Console.WriteLine(ExtractPath + "ElvUI");
+                try
+                {
+                    System.IO.Compression.ZipFile.ExtractToDirectory(@".\Downloads\dl.zip", @".\Downloads\");
+                    if (Directory.Exists(ExtractPath + @"ElvUI\"))
+                    {
+                        Directory.Delete(ExtractPath + @"ElvUI\", true);
+
+                    }
+                    Directory.CreateDirectory(ExtractPath + "ElvUI");
+                    if (Directory.Exists(ExtractPath + @"ElvUI_OptionsUI\"))
+                    {
+                        Directory.Delete(ExtractPath + @"ElvUI_OptionsUI\", true);
+
+                    }
+                    Directory.CreateDirectory(ExtractPath + "ElvUI_OptionsUI");
+
+
+
+                    CopyFilesRecursively(@".\Downloads\elvui-main\ElvUI\", ExtractPath + @"ElvUI\");
+                    CopyFilesRecursively(@".\Downloads\elvui-main\ElvUI_OptionsUI\", ExtractPath + @"ElvUI_OptionsUI\");
+
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+
+                    Globals.RetailDB.Descendants("ElvUI").First().Descendants("Version").First().Value = LatestVersion;
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+                }
+                catch (Exception ex)
+                {
+                    Console.Out.WriteLine(ex);
+                }
+            }
+
+
+            System.IO.DirectoryInfo di = new DirectoryInfo(@".\Downloads\");
+
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+
+            checkElvUI();
+            button_ElvUI.Enabled = true;
+        }
+
+        
+      
+
+        private string ElvUiLatestVersion(string url)
+        {
+            HttpWebRequest httprequest = (HttpWebRequest)HttpWebRequest.Create(url);
+
+            httprequest.UseDefaultCredentials = true;
+            httprequest.UserAgent = "My request";
+            httprequest.KeepAlive = true;
+            httprequest.ContentType = "application/json; charset=utf-8";
+            HttpWebResponse response = (HttpWebResponse)httprequest.GetResponse();
+
+            string responseText;
+
+            using (var streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                responseText = streamReader.ReadToEnd();
+            }
+
+            httprequest.Abort();
+
+            
+            dynamic jsonResponse = JsonConvert.DeserializeObject(responseText);
+            String LatestVersion = "";
+            if (tabControl1.SelectedTab.Text == "Retail")
+            {
+                LatestVersion = jsonResponse.version;
+            }
+            else
+            {
+                foreach (dynamic item in jsonResponse)
+                {
+                    if (item.name == "ElvUI")
+                    {
+                        LatestVersion = item.version;
+                        break;
+                    }
+                }
+            }
+                
+            
+
+            return LatestVersion;
+
+        }
+
+        private void checkElvUI()
+        {
+            if (tabControl1.SelectedTab.Text == "Classic")
+            {
+                if (Globals.ClassicDB.Descendants("ElvUI").Count() == 0)
+                {
+                    Globals.ClassicDB.Descendants("config").First().Add(new XElement("ElvUI"));
+                    Globals.ClassicDB.Descendants("ElvUI").First().Add(new XElement("Version", ""));
+
+                    Globals.ClassicDB.Save(@".\Data\ClassicDB.xml");
+                }
+
+                if (Directory.Exists(Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_era_\Interface\Addons\ElvUI\"))
+                {
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                } 
+                else
+                {
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                    Globals.ClassicDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                }
+                if (Globals.ClassicDB.Descendants("ElvUI").Count() > 0)
+                {
+                    var response = ElvUiLatestVersion("https://www.tukui.org/api.php?classic-addons");
+
+                    if ((string)Globals.ClassicDB.Descendants("ElvUI").First().Descendants("Version").First().Value != response)
+                    {
+                        Label_ElvUI_UpdateAvailable.Visible = true;
+                    }
+                    else
+                    {
+                        Label_ElvUI_UpdateAvailable.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    Label_ElvUI_UpdateAvailable.Visible = false;
+                }
+            }
+            else if (tabControl1.SelectedTab.Text == "TBC")
+            {
+                if (Globals.TBCDB.Descendants("ElvUI").Count() == 0)
+                {
+                    Globals.TBCDB.Descendants("config").First().Add(new XElement("ElvUI"));
+                    Globals.TBCDB.Descendants("ElvUI").First().Add(new XElement("Version", ""));
+
+                    Globals.TBCDB.Save(@".\Data\TBCDB.xml");
+                }
+                if (Directory.Exists(Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\ElvUI\"))
+                {
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                }
+                else
+                {
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                    Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                }
+                if (Globals.TBCDB.Descendants("ElvUI").Count() > 0)
+                {
+                    var response = ElvUiLatestVersion("https://www.tukui.org/api.php?classic-tbc-addons");
+                    
+                    if ((string)Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value != response)
+                    {
+                        Label_ElvUI_UpdateAvailable.Visible = true;
+                    }
+                    else
+                    {
+                        Label_ElvUI_UpdateAvailable.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    Label_ElvUI_UpdateAvailable.Visible = false;
+                }
+            }
+            else
+            {
+                if (Globals.RetailDB.Descendants("ElvUI").Count() == 0)
+                {
+                    Globals.RetailDB.Descendants("config").First().Add(new XElement("ElvUI"));
+                    Globals.RetailDB.Descendants("ElvUI").First().Add(new XElement("Version", ""));
+
+                    Globals.RetailDB.Save(@".\Data\RetailDB.xml");
+                }
+
+                if (Directory.Exists(Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\ElvUI\"))
+                {
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                }
+                else
+                {
+                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                    Globals.RetailDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                }
+                if (Globals.RetailDB.Descendants("ElvUI").Count() > 0)
+                {
+                    var response = ElvUiLatestVersion("https://www.tukui.org/api.php?ui=elvui");
+
+                    if ((string)Globals.RetailDB.Descendants("ElvUI").First().Descendants("Version").First().Value != response)
+                    {
+                        Label_ElvUI_UpdateAvailable.Visible = true;
+                    }
+                    else
+                    {
+                        Label_ElvUI_UpdateAvailable.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    Label_ElvUI_UpdateAvailable.Visible = false;
+                }
+            }
+        }
+
+        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        {
+            //Now Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+            }
+
+            //Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+            }
+        }
+
     }
 }

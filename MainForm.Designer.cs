@@ -32,15 +32,14 @@ namespace SMOSK_2._0
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabClassic = new System.Windows.Forms.TabPage();
-            this.ClassicListView = new System.Windows.Forms.ListView();
             this.tabTBC = new System.Windows.Forms.TabPage();
             this.TBCListView = new System.Windows.Forms.ListView();
+            this.tabClassic = new System.Windows.Forms.TabPage();
+            this.ClassicListView = new System.Windows.Forms.ListView();
             this.tabRetail = new System.Windows.Forms.TabPage();
             this.RetailListView = new System.Windows.Forms.ListView();
             this.Label_GamePath = new System.Windows.Forms.Label();
             this.Button_BrowsPath = new System.Windows.Forms.Button();
-            this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
             this.LabelVersion = new System.Windows.Forms.Label();
             this.toolTipDelete = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipImport = new System.Windows.Forms.ToolTip(this.components);
@@ -60,10 +59,14 @@ namespace SMOSK_2._0
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.panelBackground = new System.Windows.Forms.Panel();
+            this.button_ElvUI = new System.Windows.Forms.Button();
+            this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
+            this.Label_ElvUI_UpdateAvailable = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
-            this.tabClassic.SuspendLayout();
             this.tabTBC.SuspendLayout();
+            this.tabClassic.SuspendLayout();
             this.tabRetail.SuspendLayout();
+            this.panelBackground.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -86,6 +89,37 @@ namespace SMOSK_2._0
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            // 
+            // tabTBC
+            // 
+            this.tabTBC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabTBC.Controls.Add(this.TBCListView);
+            this.tabTBC.Location = new System.Drawing.Point(4, 22);
+            this.tabTBC.Name = "tabTBC";
+            this.tabTBC.Size = new System.Drawing.Size(768, 450);
+            this.tabTBC.TabIndex = 2;
+            this.tabTBC.Text = "TBC";
+            this.tabTBC.UseVisualStyleBackColor = true;
+            // 
+            // TBCListView
+            // 
+            this.TBCListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TBCListView.BackColor = System.Drawing.Color.Black;
+            this.TBCListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TBCListView.ForeColor = System.Drawing.Color.White;
+            this.TBCListView.FullRowSelect = true;
+            this.TBCListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.TBCListView.HideSelection = false;
+            this.TBCListView.Location = new System.Drawing.Point(-1, 1);
+            this.TBCListView.Name = "TBCListView";
+            this.TBCListView.Size = new System.Drawing.Size(774, 450);
+            this.TBCListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.TBCListView.TabIndex = 1;
+            this.TBCListView.UseCompatibleStateImageBehavior = false;
+            this.TBCListView.View = System.Windows.Forms.View.Details;
+            this.TBCListView.DoubleClick += new System.EventHandler(this.TBCListView_DoubleClick);
             // 
             // tabClassic
             // 
@@ -120,37 +154,6 @@ namespace SMOSK_2._0
             this.ClassicListView.UseCompatibleStateImageBehavior = false;
             this.ClassicListView.View = System.Windows.Forms.View.Details;
             this.ClassicListView.DoubleClick += new System.EventHandler(this.ClassicListView_DoubleClick);
-            // 
-            // tabTBC
-            // 
-            this.tabTBC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabTBC.Controls.Add(this.TBCListView);
-            this.tabTBC.Location = new System.Drawing.Point(4, 22);
-            this.tabTBC.Name = "tabTBC";
-            this.tabTBC.Size = new System.Drawing.Size(768, 450);
-            this.tabTBC.TabIndex = 2;
-            this.tabTBC.Text = "TBC";
-            this.tabTBC.UseVisualStyleBackColor = true;
-            // 
-            // TBCListView
-            // 
-            this.TBCListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBCListView.BackColor = System.Drawing.Color.Black;
-            this.TBCListView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TBCListView.ForeColor = System.Drawing.Color.White;
-            this.TBCListView.FullRowSelect = true;
-            this.TBCListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.TBCListView.HideSelection = false;
-            this.TBCListView.Location = new System.Drawing.Point(-1, 1);
-            this.TBCListView.Name = "TBCListView";
-            this.TBCListView.Size = new System.Drawing.Size(774, 450);
-            this.TBCListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.TBCListView.TabIndex = 1;
-            this.TBCListView.UseCompatibleStateImageBehavior = false;
-            this.TBCListView.View = System.Windows.Forms.View.Details;
-            this.TBCListView.DoubleClick += new System.EventHandler(this.TBCListView_DoubleClick);
             // 
             // tabRetail
             // 
@@ -220,18 +223,6 @@ namespace SMOSK_2._0
             this.Button_BrowsPath.Click += new System.EventHandler(this.Button_BrowsPath_Click);
             this.Button_BrowsPath.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
             this.Button_BrowsPath.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
-            // 
-            // progressBarUpdate
-            // 
-            this.progressBarUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBarUpdate.BackColor = System.Drawing.Color.Black;
-            this.progressBarUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBarUpdate.Location = new System.Drawing.Point(345, 519);
-            this.progressBarUpdate.Name = "progressBarUpdate";
-            this.progressBarUpdate.Size = new System.Drawing.Size(182, 25);
-            this.progressBarUpdate.Step = 1;
-            this.progressBarUpdate.TabIndex = 1;
-            this.progressBarUpdate.Visible = false;
             // 
             // LabelVersion
             // 
@@ -407,10 +398,58 @@ namespace SMOSK_2._0
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBackground.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
+            this.panelBackground.Controls.Add(this.Label_ElvUI_UpdateAvailable);
+            this.panelBackground.Controls.Add(this.button_ElvUI);
+            this.panelBackground.Controls.Add(this.progressBarUpdate);
             this.panelBackground.Location = new System.Drawing.Point(-6, 34);
             this.panelBackground.Name = "panelBackground";
             this.panelBackground.Size = new System.Drawing.Size(808, 522);
             this.panelBackground.TabIndex = 1;
+            // 
+            // button_ElvUI
+            // 
+            this.button_ElvUI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ElvUI.BackColor = System.Drawing.Color.Black;
+            this.button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+            this.button_ElvUI.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_ElvUI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_ElvUI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_ElvUI.ForeColor = System.Drawing.Color.White;
+            this.button_ElvUI.Location = new System.Drawing.Point(400, 470);
+            this.button_ElvUI.Name = "button_ElvUI";
+            this.button_ElvUI.Size = new System.Drawing.Size(100, 40);
+            this.button_ElvUI.TabIndex = 16;
+            this.button_ElvUI.UseVisualStyleBackColor = false;
+            this.button_ElvUI.Click += new System.EventHandler(this.button_ElvUI_Click);
+            this.button_ElvUI.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.button_ElvUI.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
+            // 
+            // progressBarUpdate
+            // 
+            this.progressBarUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.progressBarUpdate.BackColor = System.Drawing.Color.Black;
+            this.progressBarUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.progressBarUpdate.Location = new System.Drawing.Point(661, 513);
+            this.progressBarUpdate.Name = "progressBarUpdate";
+            this.progressBarUpdate.Size = new System.Drawing.Size(135, 7);
+            this.progressBarUpdate.Step = 1;
+            this.progressBarUpdate.TabIndex = 1;
+            this.progressBarUpdate.Visible = false;
+            // 
+            // Label_ElvUI_UpdateAvailable
+            // 
+            this.Label_ElvUI_UpdateAvailable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Label_ElvUI_UpdateAvailable.BackColor = System.Drawing.Color.Transparent;
+            this.Label_ElvUI_UpdateAvailable.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_ElvUI_UpdateAvailable.ForeColor = System.Drawing.Color.Black;
+            this.Label_ElvUI_UpdateAvailable.Image = global::SMOSK_2._0.Properties.Resources.NrUpdates;
+            this.Label_ElvUI_UpdateAvailable.Location = new System.Drawing.Point(380, 456);
+            this.Label_ElvUI_UpdateAvailable.Name = "Label_ElvUI_UpdateAvailable";
+            this.Label_ElvUI_UpdateAvailable.Size = new System.Drawing.Size(20, 20);
+            this.Label_ElvUI_UpdateAvailable.TabIndex = 16;
+            this.Label_ElvUI_UpdateAvailable.Text = "1";
+            this.Label_ElvUI_UpdateAvailable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label_ElvUI_UpdateAvailable.Visible = false;
             // 
             // MainForm
             // 
@@ -426,7 +465,6 @@ namespace SMOSK_2._0
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.LabelNrUpdates);
-            this.Controls.Add(this.progressBarUpdate);
             this.Controls.Add(this.ButtonUpdate);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.Button_OpenSearch);
@@ -444,9 +482,10 @@ namespace SMOSK_2._0
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged_1);
             this.tabControl1.ResumeLayout(false);
-            this.tabClassic.ResumeLayout(false);
             this.tabTBC.ResumeLayout(false);
+            this.tabClassic.ResumeLayout(false);
             this.tabRetail.ResumeLayout(false);
+            this.panelBackground.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -482,6 +521,8 @@ namespace SMOSK_2._0
         private System.Windows.Forms.TabPage tabTBC;
         private System.Windows.Forms.ListView TBCListView;
         private System.Windows.Forms.Panel panelBackground;
+        private System.Windows.Forms.Button button_ElvUI;
+        private System.Windows.Forms.Label Label_ElvUI_UpdateAvailable;
     }
 }
 
