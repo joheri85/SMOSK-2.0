@@ -57,6 +57,7 @@ namespace SMOSK_2._0
             this.SearchFormListView.TabIndex = 0;
             this.SearchFormListView.UseCompatibleStateImageBehavior = false;
             this.SearchFormListView.View = System.Windows.Forms.View.Details;
+            this.SearchFormListView.DoubleClick += new System.EventHandler(this.SearchFormListView_DoubleClick);
             // 
             // Search_Input
             // 
@@ -139,9 +140,9 @@ namespace SMOSK_2._0
             this.LabelInstalling.BackColor = System.Drawing.Color.Black;
             this.LabelInstalling.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelInstalling.ForeColor = System.Drawing.Color.White;
-            this.LabelInstalling.Location = new System.Drawing.Point(12, 61);
+            this.LabelInstalling.Location = new System.Drawing.Point(12, 82);
             this.LabelInstalling.Name = "LabelInstalling";
-            this.LabelInstalling.Size = new System.Drawing.Size(776, 353);
+            this.LabelInstalling.Size = new System.Drawing.Size(776, 332);
             this.LabelInstalling.TabIndex = 11;
             this.LabelInstalling.Text = "Placeholdertext";
             this.LabelInstalling.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

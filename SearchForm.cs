@@ -515,5 +515,20 @@ namespace SMOSK_2._0
 
             File.Delete(@".\Downloads\dl.zip");
         }
+
+        private void SearchFormListView_DoubleClick(object sender, EventArgs e)
+        {
+            String url;
+            foreach (dynamic addon in Globals.SearchRespons)
+            {
+                if (SearchFormListView.SelectedItems[0].SubItems[3].Text == (string)addon.id)
+                {
+                    System.Diagnostics.Process.Start((string)addon.websiteUrl);
+                    break;
+                }
+            }
+
+                
+        }
     }
 }

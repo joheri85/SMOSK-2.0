@@ -1677,6 +1677,7 @@ namespace SMOSK_2._0
                 {
                     Label_ElvUI_UpdateAvailable.Visible = false;
                 }
+                label_ElvUIVersion.Text = Globals.ClassicDB.Descendants("ElvUI").First().Descendants("Version").First().Value;
             }
             else if (tabControl1.SelectedTab.Text == "TBC")
             {
@@ -1687,15 +1688,31 @@ namespace SMOSK_2._0
 
                     Globals.TBCDB.Save(@".\Data\TBCDB.xml");
                 }
-                if (Directory.Exists(Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\ElvUI\"))
+                if (Globals.Settings.Descendants("TBCPath").Count() > 0)
                 {
-                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                    if (Directory.Exists(Globals.Settings.Descendants("TBCPath").First().Value + @"\_classic_\Interface\Addons\ElvUI\"))
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                    }
+                    else
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                        Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                    }
                 }
                 else
                 {
-                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
-                    Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                    if (Directory.Exists(Globals.Settings.Descendants("wowpath").First().Value + @"\_classic_\Interface\Addons\ElvUI\"))
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                    }
+                    else
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                        Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                    }
                 }
+                
                 if (Globals.TBCDB.Descendants("ElvUI").Count() > 0)
                 {
                     var response = ElvUiLatestVersion("https://www.tukui.org/api.php?classic-tbc-addons");
@@ -1714,6 +1731,7 @@ namespace SMOSK_2._0
                 {
                     Label_ElvUI_UpdateAvailable.Visible = false;
                 }
+                label_ElvUIVersion.Text = Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value;
             }
             else
             {
@@ -1725,14 +1743,29 @@ namespace SMOSK_2._0
                     Globals.RetailDB.Save(@".\Data\RetailDB.xml");
                 }
 
-                if (Directory.Exists(Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\ElvUI\"))
+                if (Globals.Settings.Descendants("retailPath").Count() > 0)
                 {
-                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                    if (Directory.Exists(Globals.Settings.Descendants("retailPath").First().Value + @"\_retail_\Interface\Addons\ElvUI\"))
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                    }
+                    else
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                        Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                    }
                 }
                 else
                 {
-                    button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
-                    Globals.RetailDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                    if (Directory.Exists(Globals.Settings.Descendants("wowpath").First().Value + @"\_retail_\Interface\Addons\ElvUI\"))
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_Installed;
+                    }
+                    else
+                    {
+                        button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+                        Globals.TBCDB.Descendants("ElvUI").First().Descendants("Version").First().Value = "";
+                    }
                 }
                 if (Globals.RetailDB.Descendants("ElvUI").Count() > 0)
                 {
@@ -1752,7 +1785,9 @@ namespace SMOSK_2._0
                 {
                     Label_ElvUI_UpdateAvailable.Visible = false;
                 }
+                label_ElvUIVersion.Text = Globals.RetailDB.Descendants("ElvUI").First().Descendants("Version").First().Value;
             }
+            
         }
 
         private static void CopyFilesRecursively(string sourcePath, string targetPath)

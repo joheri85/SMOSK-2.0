@@ -59,9 +59,10 @@ namespace SMOSK_2._0
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.Button_OpenSearch = new System.Windows.Forms.Button();
             this.panelBackground = new System.Windows.Forms.Panel();
+            this.label_ElvUIVersion = new System.Windows.Forms.Label();
+            this.Label_ElvUI_UpdateAvailable = new System.Windows.Forms.Label();
             this.button_ElvUI = new System.Windows.Forms.Button();
             this.progressBarUpdate = new System.Windows.Forms.ProgressBar();
-            this.Label_ElvUI_UpdateAvailable = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabTBC.SuspendLayout();
             this.tabClassic.SuspendLayout();
@@ -398,6 +399,7 @@ namespace SMOSK_2._0
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBackground.BackgroundImage = global::SMOSK_2._0.Properties.Resources.wallpaper_seamless;
+            this.panelBackground.Controls.Add(this.label_ElvUIVersion);
             this.panelBackground.Controls.Add(this.Label_ElvUI_UpdateAvailable);
             this.panelBackground.Controls.Add(this.button_ElvUI);
             this.panelBackground.Controls.Add(this.progressBarUpdate);
@@ -406,35 +408,17 @@ namespace SMOSK_2._0
             this.panelBackground.Size = new System.Drawing.Size(808, 522);
             this.panelBackground.TabIndex = 1;
             // 
-            // button_ElvUI
+            // label_ElvUIVersion
             // 
-            this.button_ElvUI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ElvUI.BackColor = System.Drawing.Color.Black;
-            this.button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
-            this.button_ElvUI.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button_ElvUI.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_ElvUI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_ElvUI.ForeColor = System.Drawing.Color.White;
-            this.button_ElvUI.Location = new System.Drawing.Point(400, 470);
-            this.button_ElvUI.Name = "button_ElvUI";
-            this.button_ElvUI.Size = new System.Drawing.Size(100, 40);
-            this.button_ElvUI.TabIndex = 16;
-            this.button_ElvUI.UseVisualStyleBackColor = false;
-            this.button_ElvUI.Click += new System.EventHandler(this.button_ElvUI_Click);
-            this.button_ElvUI.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
-            this.button_ElvUI.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
-            // 
-            // progressBarUpdate
-            // 
-            this.progressBarUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBarUpdate.BackColor = System.Drawing.Color.Black;
-            this.progressBarUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBarUpdate.Location = new System.Drawing.Point(661, 513);
-            this.progressBarUpdate.Name = "progressBarUpdate";
-            this.progressBarUpdate.Size = new System.Drawing.Size(135, 7);
-            this.progressBarUpdate.Step = 1;
-            this.progressBarUpdate.TabIndex = 1;
-            this.progressBarUpdate.Visible = false;
+            this.label_ElvUIVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_ElvUIVersion.BackColor = System.Drawing.Color.Transparent;
+            this.label_ElvUIVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_ElvUIVersion.ForeColor = System.Drawing.Color.White;
+            this.label_ElvUIVersion.Location = new System.Drawing.Point(428, 455);
+            this.label_ElvUIVersion.Name = "label_ElvUIVersion";
+            this.label_ElvUIVersion.Size = new System.Drawing.Size(72, 12);
+            this.label_ElvUIVersion.TabIndex = 17;
+            this.label_ElvUIVersion.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Label_ElvUI_UpdateAvailable
             // 
@@ -450,6 +434,39 @@ namespace SMOSK_2._0
             this.Label_ElvUI_UpdateAvailable.Text = "1";
             this.Label_ElvUI_UpdateAvailable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Label_ElvUI_UpdateAvailable.Visible = false;
+            // 
+            // button_ElvUI
+            // 
+            this.button_ElvUI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ElvUI.BackColor = System.Drawing.Color.Black;
+            this.button_ElvUI.BackgroundImage = global::SMOSK_2._0.Properties.Resources.ElvUI_notInstalled;
+            this.button_ElvUI.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_ElvUI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_ElvUI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_ElvUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_ElvUI.ForeColor = System.Drawing.Color.Silver;
+            this.button_ElvUI.Location = new System.Drawing.Point(400, 470);
+            this.button_ElvUI.Name = "button_ElvUI";
+            this.button_ElvUI.Padding = new System.Windows.Forms.Padding(1);
+            this.button_ElvUI.Size = new System.Drawing.Size(100, 40);
+            this.button_ElvUI.TabIndex = 16;
+            this.button_ElvUI.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.button_ElvUI.UseVisualStyleBackColor = false;
+            this.button_ElvUI.Click += new System.EventHandler(this.button_ElvUI_Click);
+            this.button_ElvUI.MouseEnter += new System.EventHandler(this.Buttons_MouseEnter);
+            this.button_ElvUI.MouseLeave += new System.EventHandler(this.Buttons_MouseLeave);
+            // 
+            // progressBarUpdate
+            // 
+            this.progressBarUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarUpdate.BackColor = System.Drawing.Color.Black;
+            this.progressBarUpdate.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.progressBarUpdate.Location = new System.Drawing.Point(661, 513);
+            this.progressBarUpdate.Name = "progressBarUpdate";
+            this.progressBarUpdate.Size = new System.Drawing.Size(135, 7);
+            this.progressBarUpdate.Step = 1;
+            this.progressBarUpdate.TabIndex = 1;
+            this.progressBarUpdate.Visible = false;
             // 
             // MainForm
             // 
@@ -523,6 +540,7 @@ namespace SMOSK_2._0
         private System.Windows.Forms.Panel panelBackground;
         private System.Windows.Forms.Button button_ElvUI;
         private System.Windows.Forms.Label Label_ElvUI_UpdateAvailable;
+        private System.Windows.Forms.Label label_ElvUIVersion;
     }
 }
 
