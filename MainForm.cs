@@ -56,12 +56,15 @@ namespace SMOSK_2._0
                     setActions(true);
                     label_GamePathHeader.Text = "World of Warcraft Classic game folder";
                     label_GamePathHeader.ForeColor = System.Drawing.Color.White;
+                    label_GamePathHeader.Font = new Font(label_GamePathHeader.Font.Name, 11, FontStyle.Bold);
+
                 }
                 else
                 {
                     setActions(false);
                     label_GamePathHeader.Text = @"/_classic_era_/Interface/Addons not found in selected path!";
                     label_GamePathHeader.ForeColor = System.Drawing.Color.Orange;
+                    label_GamePathHeader.Font = new Font(label_GamePathHeader.Font.Name, 8, FontStyle.Bold);
                 }
             }
             else if (tabControl1.SelectedTab.Text == "TBC")
@@ -75,12 +78,14 @@ namespace SMOSK_2._0
                     setActions(true);
                     label_GamePathHeader.Text = "World of Warcraft TBC game folder";
                     label_GamePathHeader.ForeColor = System.Drawing.Color.White;
+                    label_GamePathHeader.Font = new Font(label_GamePathHeader.Font.Name, 11, FontStyle.Bold);
                 }
                 else
                 {
                     setActions(false);
                     label_GamePathHeader.Text = @"/_classic_/Interface/Addons not found in selected path!";
                     label_GamePathHeader.ForeColor = System.Drawing.Color.Orange;
+                    label_GamePathHeader.Font = new Font(label_GamePathHeader.Font.Name, 8, FontStyle.Bold);
                 }
 
             }
@@ -95,12 +100,14 @@ namespace SMOSK_2._0
                     setActions(true);
                     label_GamePathHeader.Text = "World of Warcraft Retail game folder";
                     label_GamePathHeader.ForeColor = System.Drawing.Color.White;
+                    label_GamePathHeader.Font = new Font(label_GamePathHeader.Font.Name, 11, FontStyle.Bold);
                 }
                 else
                 {
                     setActions(false);
                     label_GamePathHeader.Text = @"/_retail_/Interface/Addons not found in selected path!";
                     label_GamePathHeader.ForeColor = System.Drawing.Color.Orange;
+                    label_GamePathHeader.Font = new Font(label_GamePathHeader.Font.Name, 8, FontStyle.Bold);
                 }
                
             }
